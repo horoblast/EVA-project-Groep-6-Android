@@ -5,39 +5,72 @@
 
 		<!-- css -->
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="main.css">
 
 		<!-- script -->
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
 		<script src="app.js"></script>
+
 	</head>
 	<body>
-		<nav class="navbar navbar-default navbar-static-top" role="navigation">
-			<a class="navbar-brand" href="index.html">Eva</a>
-			<ul class="nav navbar-nav">
-				<li class="active">
-					<a href="#">Nieuws</a>
-				</li>
-				<li>
-					<a href="#">Partner</a>
-				</li>
-				<li>
-					<a href="#">Activiteiten</a>
-				</li>
-				<li>
-					<a href="#">Contact</a>
-				</li>
-				<li>
-					<a href="html/overOns.html">Over ons</a>
-				</li>
-			</ul>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="nav-header page-scroll">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
 
-			<form class="navbar-form navbar-right" role="search">
-		        <div class="form-group">
-		          <input type="text" class="form-control" placeholder="Search">
+					<a class="navbar-brand" href="#page-top">Eva</a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-left">
+						<li class="hidden">
+							<a href="#page-top"></a>
+						</li>
+						<li class="page-scroll">
+							<a href="#nieuws">Nieuws</a>
+						</li>
+						<li class="page-scroll">
+							<a href="#partner">Partner</a>
+						</li>
+						<li class="page-scroll">
+							<a href="#activiteiten">Activiteiten</a>
+						</li>
+						<li class="page-scroll">
+							<a href="#contact">Contact</a>
+						</li>
+						<li class="page-scroll">
+							<a href="#overOns">Over ons</a>	
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			
+
+			<!--<div class="row">
+		        <div class="col-md-4 col-md-offset-3">
+		            <form action="" class="search-form navbar-form navbar-right">
+		                <div class="form-group has-feedback">
+		            		<label for="search" class="sr-only">Search</label>
+		            		<input type="text" class="form-control" name="search" id="search" placeholder="">
+		              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+		            	</div>
+		            </form>
 		        </div>
-		        <button type="submit" class="btn btn-default">Submit</button>
-		    </form>
-		    <p class="navbar-right"></p>
+		    </div>
+
+			<form action="" class="navbar-form navbar-right" role="search">
+				<div class="form-group has-feedback">
+		            <label for="search" class="sr-only">Search</label>
+		            <input type="text" class="form-control" name="search" id="search" placeholder="">
+		            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+		        </div>
+		        
+		    </form>-->
 		</nav>
 
 	</body>
