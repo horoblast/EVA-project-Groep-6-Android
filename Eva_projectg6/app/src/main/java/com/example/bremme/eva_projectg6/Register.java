@@ -36,6 +36,7 @@ public class Register extends AppCompatActivity {
     private EditText day;
     private EditText firstname;
     private EditText lastname;
+    private EditText username;
     private EditText email;
     private EditText month;
     private EditText year;
@@ -44,14 +45,14 @@ public class Register extends AppCompatActivity {
     private Button registerButton;
     private RadioGroup group1;
     private RadioGroup group2;
-    private final int ELEMENTS=8;
+    private final int ELEMENTS=9;//#elementen die we willen checken
     private boolean valArray[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initEditTexts();
-        valArray = new boolean[ELEMENTS];//8 elementen die we willen checken
+        valArray = new boolean[ELEMENTS];// elementen die we willen checken
         for(int i =0;i<valArray.length;i++)//elementen initieel op false
         {
             valArray[i] = false;
@@ -63,12 +64,12 @@ public class Register extends AppCompatActivity {
     public void register(View view)//onclick actie registratiebutton haalt data op van velden een maak nieuwe user aan
     {
         showProgressBar();
-        Gender g = new Gender;
+        Gender g =  Gender.Male;
         if(getIdFromRadioGroup(group1)==0)
             g = Gender.Male;
         else
             g = Gender.Female;
-        Status s = new Status;
+        Status s = Status.Married;
         switch (getIdFromRadioGroup(group2)){
             case 0: s = Status.Married;
 
@@ -78,12 +79,10 @@ public class Register extends AppCompatActivity {
 
             case 2: s = Status.Single;
         }
-        User newUser = new User(getText(firstname),getText(lastname),getText(email),getText(day)+"/"getText(month)+"/"+getText(year),g,s,getText(password));
-        //user in database steken
-
+        User newUser = new User(getText(firstname),getText(lastname),getText(email),getText(day)+"/"+getText(month)+"/"+getText(year),g,s,getText(password),getText(username));
+       Log.i("BAAS",newUser.toString());
+        //TODO user in database steken
     }
-
-
     private void enableClickableRegisterButton()//zorgt dat je op de registratiebutton kunt klikken waneer alle registratievelden goed zijn ingevuld
     {
         int check =0;
@@ -94,7 +93,8 @@ public class Register extends AppCompatActivity {
                break;
             check++;
         }
-        registerButton.setClickable(check != ELEMENTS);
+        Log.i("ENABLEE",check+" "+ELEMENTS);
+        registerButton.setClickable(check == ELEMENTS);
     }
     private void showProgressBar()//verwijdert de registratieknop en toont een progressbar
     {
@@ -119,6 +119,7 @@ public class Register extends AppCompatActivity {
         group2 = (RadioGroup) findViewById(R.id.radio2);
         firstname = (EditText) findViewById(R.id.rFirstname);
         lastname = (EditText) findViewById(R.id.rLastname);
+        username = (EditText) findViewById(R.id.rUsername);
         email = (EditText) findViewById(R.id.rEmail);
         day = (EditText) findViewById(R.id.rDay);
         month = (EditText) findViewById(R.id.rMonth);
@@ -141,6 +142,7 @@ public class Register extends AppCompatActivity {
                 if( firstname.getText().toString().length()==0 ){
                     firstname.setError(getResources().getString(R.string.rFirstnameVal));
                     valArray[0] =false;
+                    registerButton.setClickable(false);
                 }{
                     valArray[0] = true;
                     enableClickableRegisterButton();
@@ -166,7 +168,8 @@ public class Register extends AppCompatActivity {
                 {
                     lastname.setError(getResources().getString(R.string.rLastnameVal));
                     valArray[1] = false;
-                }{
+                    registerButton.setClickable(false);
+                }else {
                     valArray[1] = true;
                     enableClickableRegisterButton();
                 }
@@ -175,6 +178,32 @@ public class Register extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+        username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if( username.getText().toString().length()==0 ){
+                    username.setError(getResources().getString(R.string.rUsernameVal));
+                    valArray[8] =false;
+                    Log.i("BUTTON FALSE","REGISTER BUTTON FALSE");
+                    registerButton.setClickable(false);
+                }else{
+                    Log.i("BUTTON TRUE","REGISTER BUTTON TRUE "+username.getText().toString().length());
+                    valArray[8] = true;
+                    enableClickableRegisterButton();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                //TODO kijk of de username al bestaat
             }
         });
         email.addTextChangedListener(new TextWatcher() {
@@ -190,7 +219,8 @@ public class Register extends AppCompatActivity {
                 {
                     email.setError(getResources().getString(R.string.rEmailVal));
                     valArray[2] = false;
-                }{
+                    registerButton.setClickable(false);
+                }else{
                     valArray[2] = true;
                     enableClickableRegisterButton();
                 }
@@ -215,6 +245,7 @@ public class Register extends AppCompatActivity {
                     if(dag<0||dag>=32||day.getText().toString().length()==0){
                         day.setError(getResources().getString(R.string.rDayVal));
                         valArray[3] = false;
+                        registerButton.setClickable(false);
                     }else{
                         valArray[3] = true;
                         enableClickableRegisterButton();
@@ -224,6 +255,7 @@ public class Register extends AppCompatActivity {
                 {
                     day.setError(getResources().getString(R.string.parseException));
                     valArray[3] = false;
+                    registerButton.setClickable(false);
                 }
             }
 
@@ -246,8 +278,9 @@ public class Register extends AppCompatActivity {
                     if(maand<0||maand>12||month.getText().toString().length()==0){
                         month.setError(getResources().getString(R.string.rMonthVal));
                         valArray[4] = false;
+                        registerButton.setClickable(false);
 
-                    }{
+                    }else{
                         valArray[4] = true;
                         enableClickableRegisterButton();
                     }
@@ -256,6 +289,7 @@ public class Register extends AppCompatActivity {
                 {
                     month.setError(getResources().getString(R.string.parseException));
                     valArray[4] = false;
+                    registerButton.setClickable(false);
                 }
             }
 
@@ -282,6 +316,7 @@ public class Register extends AppCompatActivity {
                     }else{
                         year.setError(getResources().getString(R.string.rYearVal));
                         valArray[5] = false;
+                        registerButton.setClickable(false);
                     }
 
 
@@ -289,6 +324,7 @@ public class Register extends AppCompatActivity {
                 {
                     year.setError(getResources().getString(R.string.parseException));
                     valArray[5] = false;
+                    registerButton.setClickable(false);
                 }
             }
 
@@ -308,6 +344,7 @@ public class Register extends AppCompatActivity {
             if(!password.getText().toString().matches("(?=.*[0-9])(?=\\S+$).{8,}$")){
                 password.setError(getResources().getString(R.string.rPassVal));
                 valArray[6] = false;
+                registerButton.setClickable(false);
             }else{
                 valArray[6] = true;
                 enableClickableRegisterButton();
@@ -332,6 +369,7 @@ public class Register extends AppCompatActivity {
                     if (password.getText().toString().compareTo(passwordRepeat.getText().toString()) != 0) {
                         passwordRepeat.setError(getResources().getString(R.string.rMissmatchVal));
                         valArray[7] = false;
+                        registerButton.setClickable(false);
                     } else {
                         valArray[7] = true;
                         enableClickableRegisterButton();

@@ -51,6 +51,13 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="@string/username"
+            android:ems="10"
+            android:id="@+id/rUsername" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:hint="@string/emailVoorbeeld"
             android:ems="10"

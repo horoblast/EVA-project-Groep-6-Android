@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.Locale;
 
 public class LogIn extends AppCompatActivity {
 
@@ -19,7 +22,7 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
         //verbinden editText en button met layout
-
+        Locale.setDefault(new Locale("nl"));
         eUsername = (EditText) findViewById(R.id.eUsername);
         ePassword = (EditText) findViewById(R.id.ePassword);
         inlogButton = (Button) findViewById(R.id.loginButton);
@@ -27,7 +30,7 @@ public class LogIn extends AppCompatActivity {
     }
     public void login(View view)
     {
-        //login logica
+        //TODO login logica
     }
     public void register(View view)
     {

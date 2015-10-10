@@ -11,9 +11,10 @@ public class User {
     private Gender gender;
     private Status status;
     private String password;
+    private String username;
 
 
-    public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Status status, String password ) {
+    public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Status status, String password,String username ) {
         this.firstname = firstname;
         this.email = email;
         this.gender = gender;
@@ -21,5 +22,9 @@ public class User {
         this.lastname = lastname;
         this.password = password;
         this.status = status;
+        this.username = username;
+    }
+    public String toString(){
+        return firstname+" "+lastname+" "+email+" "+gebDatum+" "+gender+" "+status+" " + password+" "+username;
     }
 }
