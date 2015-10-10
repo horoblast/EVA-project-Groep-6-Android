@@ -23,7 +23,8 @@ keystone.init({
 	'auto update': true,
 	'session': true,
 	'auth': true,
-	'user model': 'User'
+	'user model': 'User',
+	'cloudinary config': 'cloudinary://718355265531496:jiNek667-orIvyYSRsj1knonmfM@diyuj5c1j'
 
 });
 
