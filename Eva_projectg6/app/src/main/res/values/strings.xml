@@ -32,4 +32,6 @@
     <string name="rPassVal">8 characters lang  en moet cijfers en letters bevatten </string>
     <string name="rMissmatchVal">Passwoord komt niet overeen</string>
     <string name="parseException">Alleen cijfers in dit vak</string>
+    <string name="title_activity_facebook_login">FacebookLogin</string>
+    <string name="app_id">1661660217448471</string>
 </resources>
