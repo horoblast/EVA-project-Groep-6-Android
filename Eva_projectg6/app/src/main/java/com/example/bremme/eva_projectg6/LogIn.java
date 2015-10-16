@@ -10,13 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import java.util.Locale;
 
 public class LogIn extends AppCompatActivity {
 
     private EditText eUsername,ePassword;
     private Button inlogButton;
+    private UserLocalStore userLocalStore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +26,13 @@ public class LogIn extends AppCompatActivity {
         eUsername = (EditText) findViewById(R.id.eUsername);
         ePassword = (EditText) findViewById(R.id.ePassword);
         inlogButton = (Button) findViewById(R.id.loginButton);
+        userLocalStore = new UserLocalStore(this);
 
     }
     public void login(View view)
     {
+
+        userLocalStore.setUserLoggedIn(true);
         //TODO login logica
     }
     public void register(View view)

@@ -47,6 +47,7 @@ public class Register extends AppCompatActivity {
     private RadioGroup group2;
     private final int ELEMENTS=9;//#elementen die we willen checken
     private boolean valArray[];
+    private UserLocalStore userLocalStore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class Register extends AppCompatActivity {
         }
         addValidation();
         registerButton.setClickable(false);
-
+        userLocalStore = new UserLocalStore(this);
     }
     public void register(View view)//onclick actie registratiebutton haalt data op van velden een maak nieuwe user aan
     {
@@ -80,7 +81,8 @@ public class Register extends AppCompatActivity {
             case 2: s = Status.Single;
         }
         User newUser = new User(getText(firstname),getText(lastname),getText(email),getText(day)+"/"+getText(month)+"/"+getText(year),g,s,getText(password),getText(username));
-       Log.i("BAAS",newUser.toString());
+        userLocalStore.setUserLoggedIn(true);
+
         //TODO user in database steken
     }
     private void enableClickableRegisterButton()//zorgt dat je op de registratiebutton kunt klikken waneer alle registratievelden goed zijn ingevuld
