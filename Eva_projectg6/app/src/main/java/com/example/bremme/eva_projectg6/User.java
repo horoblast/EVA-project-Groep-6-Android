@@ -24,7 +24,7 @@ public class User {
         setStatus(status);
         setUsername(username);
     }
-
+    public User(){}
     public String getEmail() {
         return email;
     }

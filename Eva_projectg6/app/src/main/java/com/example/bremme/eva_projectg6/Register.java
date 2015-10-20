@@ -25,13 +25,27 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.json.JSONObject;
+import org.apache.commons.httpclient.NameValuePair;
 
+import com.google.gson.JsonObject;
+import com.koushikdutta.ion.*;
+import com.koushikdutta.async.future.FutureCallback;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Register extends AppCompatActivity {
-
 
     private EditText day;
     private EditText firstname;
@@ -82,7 +96,7 @@ public class Register extends AppCompatActivity {
         }
         User newUser = new User(getText(firstname),getText(lastname),getText(email),getText(day)+"/"+getText(month)+"/"+getText(year),g,s,getText(password),getText(username));
         userLocalStore.setUserLoggedIn(true);
-
+        //putUserInDb(newUser);
         //TODO user in database steken
     }
     private void enableClickableRegisterButton()//zorgt dat je op de registratiebutton kunt klikken waneer alle registratievelden goed zijn ingevuld
@@ -392,7 +406,7 @@ public class Register extends AppCompatActivity {
     private String getText(EditText editField)
     {
         return editField.getText().toString();
-    }//voor lazy
+    }
 
     private int getIdFromRadioGroup(RadioGroup group)//geef het id van de radiobutton terug
     {
@@ -400,5 +414,8 @@ public class Register extends AppCompatActivity {
         View radioButton = group.findViewById(id);
         return group.indexOfChild(radioButton);
         
+    }
+    private void putUserInDb(User u) throws IOException {
+
     }
 }
