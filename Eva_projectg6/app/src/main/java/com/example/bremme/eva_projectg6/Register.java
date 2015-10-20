@@ -1,50 +1,31 @@
 package com.example.bremme.eva_projectg6;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.graphics.drawable.Icon;
-import android.os.SystemClock;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Layout;
+
 import android.text.TextWatcher;
-import android.util.AttributeSet;
+
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
+
 import android.widget.Button;
-import android.widget.DatePicker;
+
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
+
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.json.JSONObject;
-import org.apache.commons.httpclient.NameValuePair;
 
-import com.google.gson.JsonObject;
+import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
 import com.koushikdutta.ion.*;
 import com.koushikdutta.async.future.FutureCallback;
-
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Calendar;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.ResourceBundle;
-
+import com.google.gson.JsonArray;
 public class Register extends AppCompatActivity {
 
     private EditText day;
@@ -67,14 +48,12 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initEditTexts();
-        valArray = new boolean[ELEMENTS];// elementen die we willen checken
-        for(int i =0;i<valArray.length;i++)//elementen initieel op false
-        {
-            valArray[i] = false;
-        }
-        addValidation();
-        registerButton.setClickable(false);
+        initValidation();
         userLocalStore = new UserLocalStore(this);
+
+
+            putUserInDb();
+
     }
     public void register(View view)//onclick actie registratiebutton haalt data op van velden een maak nieuwe user aan
     {
@@ -109,7 +88,7 @@ public class Register extends AppCompatActivity {
                break;
             check++;
         }
-        Log.i("ENABLEE",check+" "+ELEMENTS);
+        Log.i("ENABLEE", check + " " + ELEMENTS);
         registerButton.setClickable(check == ELEMENTS);
     }
     private void showProgressBar()//verwijdert de registratieknop en toont een progressbar
@@ -144,6 +123,16 @@ public class Register extends AppCompatActivity {
         passwordRepeat = (EditText) findViewById(R.id.rPasswordRepeat);
         registerButton = (Button) findViewById(R.id.rRegister);
         firstname.setError(getResources().getString(R.string.rFirstnameVal));
+    }
+    private void initValidation()
+    {
+        valArray = new boolean[ELEMENTS];// elementen die we willen checken
+        for(int i =0;i<valArray.length;i++)//elementen initieel op false
+        {
+            valArray[i] = false;
+        }
+        addValidation();
+        registerButton.setClickable(false);
     }
     private void addValidation()//validatie toevoegen op de views
     {
@@ -415,7 +404,9 @@ public class Register extends AppCompatActivity {
         return group.indexOfChild(radioButton);
         
     }
-    private void putUserInDb(User u) throws IOException {
+    private void putUserInDb() {
 
+        RestApiRepository repo = new RestApiRepository();
+        repo.getAllChallenges(this);
     }
 }
