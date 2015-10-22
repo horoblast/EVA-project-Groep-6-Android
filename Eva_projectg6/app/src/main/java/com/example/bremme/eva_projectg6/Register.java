@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
+import com.google.gson.JsonObject;
 import com.koushikdutta.ion.*;
 import com.koushikdutta.async.future.FutureCallback;
 import java.io.IOException;
@@ -43,16 +44,15 @@ public class Register extends AppCompatActivity {
     private final int ELEMENTS=9;//#elementen die we willen checken
     private boolean valArray[];
     private UserLocalStore userLocalStore;
+    private RestApiRepository repo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initEditTexts();
         initValidation();
+        repo = new RestApiRepository();
         userLocalStore = new UserLocalStore(this);
-
-
-            putUserInDb();
 
     }
     public void register(View view)//onclick actie registratiebutton haalt data op van velden een maak nieuwe user aan
@@ -73,10 +73,18 @@ public class Register extends AppCompatActivity {
 
             case 2: s = Status.Single;
         }
-        User newUser = new User(getText(firstname),getText(lastname),getText(email),getText(day)+"/"+getText(month)+"/"+getText(year),g,s,getText(password),getText(username));
+        int j=0;
+        int curYear = Integer.parseInt(getText(this.year));//omdat we bv 94 als jaar kunnen ingeven
+        if(curYear<100)
+        {
+            j = curYear+1900;
+        }else
+        {
+            j = curYear;
+        }
+        User newUser = new User(getText(firstname),getText(lastname),getText(email),getText(day)+"/"+getText(month)+"/"+j,g,s,getText(password),getText(username),false);
         userLocalStore.setUserLoggedIn(true);
-        //putUserInDb(newUser);
-        //TODO user in database steken
+        putUserInDb(newUser);
     }
     private void enableClickableRegisterButton()//zorgt dat je op de registratiebutton kunt klikken waneer alle registratievelden goed zijn ingevuld
     {
@@ -88,7 +96,6 @@ public class Register extends AppCompatActivity {
                break;
             check++;
         }
-        Log.i("ENABLEE", check + " " + ELEMENTS);
         registerButton.setClickable(check == ELEMENTS);
     }
     private void showProgressBar()//verwijdert de registratieknop en toont een progressbar
@@ -100,10 +107,10 @@ public class Register extends AppCompatActivity {
             layout.addView(new ProgressBar(this));
         }catch (NullPointerException er)
         {
-            Log.i("nullpointerProgress","fout met button verwijderen");
+
         }catch(Exception e)
         {
-            Log.i("nullpointerProgress","fout met button verwijderen");
+
         }
 
 
@@ -370,7 +377,6 @@ public class Register extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
-                    Log.i("LET HIET OP", password.getText().toString() + "   -  " + passwordRepeat.getText().toString());
                     if (password.getText().toString().compareTo(passwordRepeat.getText().toString()) != 0) {
                         passwordRepeat.setError(getResources().getString(R.string.rMissmatchVal));
                         valArray[7] = false;
@@ -404,9 +410,22 @@ public class Register extends AppCompatActivity {
         return group.indexOfChild(radioButton);
         
     }
-    private void putUserInDb() {
-
-        RestApiRepository repo = new RestApiRepository();
-        repo.getAllChallenges(this);
+    private void putUserInDb(User user) {
+        Ion.with(this)
+                .load(repo.getRegister())
+                .setBodyParameter("username", user.getUsername())
+                .setBodyParameter("password",user.getPassword())
+                .setBodyParameter("firstname", user.getFirstname())
+                .setBodyParameter("lastname",user.getLastname())
+                .setBodyParameter("state",user.getStatus().toString())
+                .setBodyParameter("email",user.getEmail())
+                .setBodyParameter("birthdate",user.getGebDatum()).setBodyParameter("isDoingChallenges",user.isDoingChallenges()+"")
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        //todo start een nieuwe activity
+                    }
+                });
     }
 }

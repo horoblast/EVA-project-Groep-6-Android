@@ -12,9 +12,9 @@ public class User {
     private Status status;
     private String password;
     private String username;
+    private boolean isDoingChallenges;
 
-
-    public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Status status, String password,String username ) {
+    public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Status status, String password,String username,boolean isDoingChallenges ) {
         setFirstname(firstname);
         setEmail(email);
         setGender(gender);
@@ -23,8 +23,18 @@ public class User {
         setPassword(password);
         setStatus(status);
         setUsername(username);
+        setIsDoingChallenges(isDoingChallenges);
     }
     public User(){}
+
+    public boolean isDoingChallenges() {
+        return isDoingChallenges;
+    }
+
+    public void setIsDoingChallenges(boolean isDoingChallenges) {
+        this.isDoingChallenges = isDoingChallenges;
+    }
+
     public String getEmail() {
         return email;
     }

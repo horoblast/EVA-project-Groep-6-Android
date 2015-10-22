@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
  */
 public class UserLocalStore {
     public static final String SP_NAME="user_details";
+    private String token;
     SharedPreferences userLocalDatabase;
 
     public UserLocalStore(Context context)
@@ -34,7 +35,7 @@ public class UserLocalStore {
                 userLocalDatabase.getString("Email",""),userLocalDatabase.getString("GebDatum",""),
                 Gender.valueOf(userLocalDatabase.getString("Gender",""))
                 ,Status.valueOf(userLocalDatabase.getString("Status","")),userLocalDatabase.getString("Password","")
-                ,userLocalDatabase.getString("Username",""));
+                ,userLocalDatabase.getString("Username",""),userLocalDatabase.getBoolean("isDoingChallenges",false));
         return user;
     }
     public void setUserLoggedIn(boolean loggedIn)
@@ -50,4 +51,14 @@ public class UserLocalStore {
         spEditor.commit();
     }
 
+    public void setToken(String token)
+    {
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("Token",token);
+        spEditor.commit();
+    }
+    public String getToken()
+    {
+        return userLocalDatabase.getString("Token","NOT FOUND");
+    }
 }

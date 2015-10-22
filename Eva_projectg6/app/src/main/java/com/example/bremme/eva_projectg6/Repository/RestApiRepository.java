@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
@@ -20,39 +21,36 @@ import java.util.concurrent.ExecutionException;
  */
 public class RestApiRepository {
     private final String CHALLENGES = "https://groep6api.herokuapp.com/challenges";
+    private final String REGISTER = "http://groep6api.herokuapp.com/register";
+    private final String LOGIN = "https://groep6api.herokuapp.com/login";
     private Challenge[] challengeList;
     public RestApiRepository() {
     }
 
-    public Challenge[] getAllChallenges(Context c)
+    public String getChallenges() {
+        return CHALLENGES;
+    }
+
+    public String getRegister()
     {
-        
-        Ion.with(c)
-                .load(CHALLENGES)
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonArray result) {
-                        // do stuff with the result or error
+        return REGISTER;
+    }
+    public Challenge[] getAllChallenges(JsonArray result)
+    {
 
-
-                        challengeList = new Challenge[result.size()];
-                        for (int i = 0; i < result.size(); i++) {
-
-                            if (result.get(i).isJsonObject()) {
-                                JsonObject json = result.get(i).getAsJsonObject();
-                                String[] urls = new String[json.get("image").getAsJsonArray().size()];
-                                for (int j = 0; j < json.get("image").getAsJsonArray().size(); j++) {
-                                    urls = new String[json.get("image").getAsJsonArray().size()];
-                                    urls[j] = json.get("image").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
-                                }
-                                Challenge c = new Challenge(json.get("_id").getAsString(), json.get("name").getAsString(), json.get("category").getAsString(), urls);
-                                challengeList[i] = c;
-                            }
-                        }
-
-                    }
-                });
+        challengeList = new Challenge[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            if (result.get(i).isJsonObject()) {
+                JsonObject json = result.get(i).getAsJsonObject();
+                String[] urls = new String[json.get("image").getAsJsonArray().size()];
+                for (int j = 0; j < json.get("image").getAsJsonArray().size(); j++) {
+                    urls = new String[json.get("image").getAsJsonArray().size()];
+                    urls[j] = json.get("image").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
+                }
+                Challenge c = new Challenge(json.get("_id").getAsString(), json.get("name").getAsString(), json.get("category").getAsString(), urls);
+                challengeList[i] = c;
+            }
+        }
         return challengeList;
     }
 
