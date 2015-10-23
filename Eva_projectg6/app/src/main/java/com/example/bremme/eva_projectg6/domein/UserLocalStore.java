@@ -1,4 +1,4 @@
-package com.example.bremme.eva_projectg6;
+package com.example.bremme.eva_projectg6.domein;
 
 import android.content.Context;
 import android.content.SharedPreferences;

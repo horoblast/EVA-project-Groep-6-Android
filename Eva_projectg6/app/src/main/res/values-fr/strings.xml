@@ -14,7 +14,7 @@
     <string name="dateOfBirth">Geboortedatum</string>
     <string name="male">man</string>
     <string name="female">vrouw</string>
-    <string name="married">getrouwd</string>
+    <string name="student">getrouwd</string>
     <string name="single"><single>single</single></string>
     <string name="inRelationship">in relatie</string>
     <string name="password">Password</string>

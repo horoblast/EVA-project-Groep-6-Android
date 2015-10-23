@@ -1,20 +1,11 @@
 package com.example.bremme.eva_projectg6;
 
-import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.hardware.camera2.params.Face;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,18 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
+import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.facebook.FacebookSdk;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 public class LogIn extends AppCompatActivity {
@@ -63,7 +48,7 @@ public class LogIn extends AppCompatActivity {
 
     public void login(View view)
     {
-        //showProgressBar();
+        final ProgressDialog dialog = ProgressDialog.show(LogIn.this,getResources().getString(R.string.waitScreen),this.getResources().getString(R.string.userInloggen),true);
         Ion.with(this)
                 .load(repo.getRegister())
                 .setBodyParameter("username", eUsername.toString())
@@ -72,37 +57,23 @@ public class LogIn extends AppCompatActivity {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        userLocalStore.setUserLoggedIn(true);
-                        if(result.isJsonObject())
+                        try{
+
+                            if (result.isJsonObject()) {
+                                String token = result.getAsJsonObject().get("token").getAsString();
+                                userLocalStore.setUserLoggedIn(true);
+                                userLocalStore.setToken(token);
+                                //todo nieuwe activiteit challenges bekijken.
+                            }
+                        }catch(Exception er)
                         {
-                           String token = result.getAsJsonObject().get("token").getAsString();
+                            Log.i("Error message","null");
+                            dialog.dismiss();
+                           ePassword.setError(getResources().getString(R.string.wrongPassword));
                         }
+
                     }
                 });
-
-    }
-    private void showProgressBar()//verwijdert de inlogknop en toont een progressbar
-    {
-        ViewGroup layout = (ViewGroup) loginButton.getParent();
-        RelativeLayout.LayoutParams params= new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.BELOW,R.id.ePassword);
-        params.addRule(RelativeLayout.ALIGN_LEFT,R.id.ePassword);
-        params.addRule(RelativeLayout.ALIGN_START,R.id.ePassword);
-        params.addRule(RelativeLayout.ALIGN_RIGHT,R.id.ePassword);
-        params.addRule(RelativeLayout.ALIGN_END,R.id.ePassword);
-        if(layout!=null)
-            layout.addView(new ProgressBar(this), params);
-            layout.removeView(loginButton);
-        try{
-
-        }catch (NullPointerException er)
-        {
-
-        }catch(Exception e)
-        {
-
-        }
-
 
     }
 

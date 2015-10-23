@@ -21,12 +21,15 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
-import com.google.gson.JsonObject;
+import com.example.bremme.eva_projectg6.domein.Gender;
+import com.example.bremme.eva_projectg6.domein.Status;
+import com.example.bremme.eva_projectg6.domein.User;
+import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.koushikdutta.ion.*;
 import com.koushikdutta.async.future.FutureCallback;
-import java.io.IOException;
+
 import java.util.Calendar;
-import com.google.gson.JsonArray;
+
 public class Register extends AppCompatActivity {
 
     private EditText day;
@@ -63,9 +66,9 @@ public class Register extends AppCompatActivity {
             g = Gender.Male;
         else
             g = Gender.Female;
-        Status s = Status.Married;
+        Status s = Status.Student;
         switch (getIdFromRadioGroup(group2)){
-            case 0: s = Status.Married;
+            case 0: s = Status.Student;
 
 
             case 1: s= Status.InRelationShip;
@@ -160,7 +163,6 @@ public class Register extends AppCompatActivity {
                     enableClickableRegisterButton();
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -414,7 +416,7 @@ public class Register extends AppCompatActivity {
         Ion.with(this)
                 .load(repo.getRegister())
                 .setBodyParameter("username", user.getUsername())
-                .setBodyParameter("password",user.getPassword())
+                .setBodyParameter("password", user.getPassword())
                 .setBodyParameter("firstname", user.getFirstname())
                 .setBodyParameter("lastname",user.getLastname())
                 .setBodyParameter("state",user.getStatus().toString())

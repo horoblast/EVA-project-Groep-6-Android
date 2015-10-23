@@ -1,7 +1,4 @@
-package com.example.bremme.eva_projectg6;
-
-import android.media.Image;
-import android.widget.ImageView;
+package com.example.bremme.eva_projectg6.domein;
 
 import java.net.MalformedURLException;
 import java.net.URL;

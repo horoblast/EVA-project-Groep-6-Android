@@ -14,7 +14,7 @@
     <string name="dateOfBirth">Geboortedatum</string>
     <string name="male">man</string>
     <string name="female">vrouw</string>
-    <string name="married">getrouwd</string>
+    <string name="student">student</string>
     <string name="single"><single>single</single></string>
     <string name="inRelationship">in relatie</string>
     <string name="password">Password</string>
@@ -33,4 +33,12 @@
     <string name="rMissmatchVal">Passwoord komt niet overeen</string>
     <string name="parseException">Alleen cijfers in dit vak</string>
     <string name="app_id">1661660217448471</string>
+    <string name="title_activity_register_main">RegisterMain</string>
+    <string name="waitScreen">Eventjes wachten a.u.b.</string>
+    <string name="userInloggen">user wordt ingelogd</string>
+    <string name="inlogCancelled">Inloggen mislukt</string>
+    <string name="wrongPassword">verkeerd passwoord</string>
+    <string name="firstTab">eerste stap</string>
+    <string name="secondTab">tweede stap</string>
+    <string name="thirdTab">derde stap</string>
 </resources>

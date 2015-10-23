@@ -1,20 +1,8 @@
 package com.example.bremme.eva_projectg6.Repository;
 
-import android.content.Context;
-import android.util.Log;
-
-import com.example.bremme.eva_projectg6.Challenge;
+import com.example.bremme.eva_projectg6.domein.Challenge;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by BREMME on 20/10/15.
