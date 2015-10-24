@@ -1,4 +1,6 @@
 package com.example.bremme.eva_projectg6;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -43,8 +45,8 @@ public class RegisterTab3 extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.i("onCreate", "Create tab3");
         View v = inflater.inflate(R.layout.register_tab3,container,false);
-        RestApiRepository repo = new RestApiRepository();
-        userLocalStore 
+        repo = new RestApiRepository();
+        userLocalStore = new UserLocalStore(this.getContext());
         init(v);
         addValidation();
         register();
@@ -61,10 +63,9 @@ public class RegisterTab3 extends Fragment{
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches())
-                {
+                if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
                     email.setError(getResources().getString(R.string.rEmailVal));
-                }else{
+                } else {
                 }
             }
 
@@ -83,7 +84,7 @@ public class RegisterTab3 extends Fragment{
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!password.getText().toString().matches("(?=.*[0-9])(?=\\S+$).{8,}$")) {
                     password.setError(getResources().getString(R.string.rPassVal));
-                    registerButton.setClickable(false);
+
                 } else {
                 }
             }
@@ -104,7 +105,7 @@ public class RegisterTab3 extends Fragment{
                 try {
                     if (password.getText().toString().compareTo(passwordRepeat.getText().toString()) != 0) {
                         passwordRepeat.setError(getResources().getString(R.string.rMissmatchVal));
-                        registerButton.setClickable(false);
+
                     } else {
                     }
                 } catch (Exception e) {
@@ -136,32 +137,33 @@ public class RegisterTab3 extends Fragment{
             @Override
             public void onClick(View v) {
                 if (tab1.isCompleted() && tab2.isCompleted() && isCompleted()) {
-                    Gender g =  Gender.Male;
-                    if(tab2.getGroup1Index()==0)
+                    Gender g = Gender.Male;
+                    if (tab2.getGroup1Index() == 0)
                         g = Gender.Male;
                     else
                         g = Gender.Female;
                     Status s = Status.Student;
-                    switch (tab2.getGroup2Index()){
-                        case 0: s = Status.Student;
+                    switch (tab2.getGroup2Index()) {
+                        case 0:
+                            s = Status.Student;
 
 
-                        case 1: s= Status.InRelationShip;
+                        case 1:
+                            s = Status.InRelationShip;
 
 
-                        case 2: s = Status.Single;
+                        case 2:
+                            s = Status.Single;
                     }
-                    int j=0;
+                    int j = 0;
                     //omdat we bv 94 als jaar kunnen ingeven
-                    if(tab2.getYear()<100)
-                    {
-                        j = tab2.getYear()+1900;
-                    }else
-                    {
+                    if (tab2.getYear() < 100) {
+                        j = tab2.getYear() + 1900;
+                    } else {
                         j = tab2.getYear();
                     }
-                    User newUser = new User(tab1.getFirstname(),tab1.getLastname(),email.getText().toString(),tab2.getDay()+"/"+tab2.getMonth()+"/"+j,g,s,password.getText().toString(),tab1.getUsername(),false);
-                    userLocalStore.setUserLoggedIn(true);
+                    User newUser = new User(tab1.getFirstname(), tab1.getLastname(), email.getText().toString(), tab2.getDay() + "/" + tab2.getMonth() + "/" + j, g, s, password.getText().toString(), tab1.getUsername(), false);
+                    Log.i("HIEERZOO", newUser.toString());
                     putUserInDb(newUser);
                 }
             }
@@ -173,6 +175,7 @@ public class RegisterTab3 extends Fragment{
     }
 
     private void putUserInDb(User user) {
+        final ProgressDialog dialog = ProgressDialog.show(RegisterTab3.this.getContext(),getResources().getString(R.string.waitScreen),this.getResources().getString(R.string.userInloggen),true);
         Ion.with(this)
                 .load(repo.getRegister())
                 .setBodyParameter("username", user.getUsername())
@@ -187,7 +190,11 @@ public class RegisterTab3 extends Fragment{
                     @Override
                     public void onCompleted(Exception e, String result) {
                         //todo start een nieuwe activity
+                        Intent i = new Intent(getContext(), LogIn.class);
+                        startActivity(i);
+                        dialog.dismiss();
                     }
                 });
+
     }
 }

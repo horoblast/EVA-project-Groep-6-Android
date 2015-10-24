@@ -11,8 +11,17 @@ public class RestApiRepository {
     private final String CHALLENGES = "https://groep6api.herokuapp.com/challenges";
     private final String REGISTER = "http://groep6api.herokuapp.com/register";
     private final String LOGIN = "https://groep6api.herokuapp.com/login";
+    private final String USER = "http://groep6api.herokuapp.com/user";
     private Challenge[] challengeList;
     public RestApiRepository() {
+    }
+
+    public String getUser() {
+        return USER;
+    }
+
+    public String getLOGIN() {
+        return LOGIN;
     }
 
     public String getChallenges() {
@@ -23,6 +32,8 @@ public class RestApiRepository {
     {
         return REGISTER;
     }
+
+
     public Challenge[] getAllChallenges(JsonArray result)
     {
 

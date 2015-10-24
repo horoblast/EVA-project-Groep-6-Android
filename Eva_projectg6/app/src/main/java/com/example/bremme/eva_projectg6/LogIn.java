@@ -16,9 +16,12 @@ import android.widget.RelativeLayout;
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.facebook.FacebookSdk;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import org.json.JSONArray;
 
 import java.util.Locale;
 
@@ -46,40 +49,69 @@ public class LogIn extends AppCompatActivity {
     }
 
 
-    public void login(View view)
+    public void getToken(View view)
     {
+        Log.i("USERNAMEEEE",eUsername.toString());
         final ProgressDialog dialog = ProgressDialog.show(LogIn.this,getResources().getString(R.string.waitScreen),this.getResources().getString(R.string.userInloggen),true);
         Ion.with(this)
-                .load(repo.getRegister())
-                .setBodyParameter("username", eUsername.toString())
-                .setBodyParameter("password", ePassword.toString())
+                .load(repo.getLOGIN())
+                .setBodyParameter("username", eUsername.getText().toString())
+                .setBodyParameter("password", ePassword.getText().toString())
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        try{
+                        try {
 
                             if (result.isJsonObject()) {
                                 String token = result.getAsJsonObject().get("token").getAsString();
                                 userLocalStore.setUserLoggedIn(true);
                                 userLocalStore.setToken(token);
+                                Log.i("messagetoken", token);
+                                findUserAndStore();
                                 //todo nieuwe activiteit challenges bekijken.
                             }
-                        }catch(Exception er)
-                        {
-                            Log.i("Error message","null");
+                        } catch (Exception er) {
+                            Log.i("Error message", "null");
                             dialog.dismiss();
-                           ePassword.setError(getResources().getString(R.string.wrongPassword));
+                            ePassword.setError(getResources().getString(R.string.wrongPassword));
                         }
 
                     }
                 });
 
     }
+    private void findUserAndStore()
+    {
 
+        Log.i("username",eUsername.toString());
+            Ion.with(this)
+                    .load(repo.getUser()).setHeader("Authorization","Bearer "+ userLocalStore.getToken())
+                    .setBodyParameter("username", eUsername.getText().toString())
+                    .asJsonArray()
+                    .setCallback(new FutureCallback<JsonArray>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonArray result) {
+                            try {
+
+                                if (result.get(0).isJsonObject()) {
+
+                                    JsonObject j = result.get(0).getAsJsonObject();
+                                    j.get("_id");
+                                    //todo object user aanmaken en in localstore steken
+                                    //todo nieuwe activiteit challenges bekijken.
+                                }
+                            } catch (Exception er) {
+                                Log.i("Error message", "null");
+                                ePassword.setError(getResources().getString(R.string.wrongPassword));
+                            }
+
+                        }
+                    });
+    }
     public void register(View view)
     {
-        Intent i = new Intent(this,Register.class);
+        Intent i = new Intent(this,RegisterMain.class);
         startActivity(i);
         //registreer hyperlink
     }

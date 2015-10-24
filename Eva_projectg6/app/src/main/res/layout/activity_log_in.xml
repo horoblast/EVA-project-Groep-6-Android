@@ -47,7 +47,7 @@
         android:layout_alignStart="@+id/ePassword"
         android:layout_alignRight="@+id/ePassword"
         android:layout_alignEnd="@+id/ePassword"
-        android:onClick="login"/>
+        android:onClick="getToken"/>
 
     <TextView
         android:layout_width="wrap_content"
