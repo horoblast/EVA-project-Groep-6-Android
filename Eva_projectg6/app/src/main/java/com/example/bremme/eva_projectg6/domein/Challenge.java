@@ -1,5 +1,7 @@
 package com.example.bremme.eva_projectg6.domein;
 
+import android.util.EventLogTags;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -8,8 +10,9 @@ import java.net.URL;
  */
 public class Challenge {
     private String id;
-    //private Status category;
     private String name;
+    private String description;
+    private Difficulty difficulty;
     private URL[] imageUrls;
     public Challenge(String id, String name, URL[] url) {
        setId(id);
@@ -17,11 +20,18 @@ public class Challenge {
        // setCategory(category);
         setImageUrl(url);
     }
-    public Challenge(String id, String name, String category,String[] url) {
+    public Challenge(String id, String name, String description ,String[] url) {
         setId(id);
         setName(name);
-        //setStatusByString(category);
         setImageUrlByString(url);
+    }
+
+    public Challenge(String id, String name, String description ,Difficulty difficulty ,URL[] url){
+        setId(id);
+        setName(name);
+        setDescription(description);
+        setImageUrl(url);
+        setDifficulty(difficulty);
     }
 
     public URL[] getImageUrl() {
@@ -53,9 +63,14 @@ public class Challenge {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) {this.name = name;}
+
+    public String getDescription(){return description;}
+
+    public void setDescription(String description){this.description = description;}
+
+    public Difficulty getDifficulty(){return difficulty;}
+    public void setDifficulty(Difficulty difficulty){this.difficulty = difficulty;}
 
 
 
