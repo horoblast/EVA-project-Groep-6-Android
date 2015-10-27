@@ -151,12 +151,12 @@ public class ChooseChallenge extends AppCompatActivity {
         new AlertDialog.Builder(ChooseChallenge.this)
                 .setTitle(randomChallengeList.get(index).getName())
                 .setMessage(randomChallengeList.get(index).getDescription())
-                .setPositiveButton("oke", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Kies challenge", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
                     }
                 })
-                .setNegativeButton("anuleer", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Annuleer", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
                     }
