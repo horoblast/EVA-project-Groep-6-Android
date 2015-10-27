@@ -31,6 +31,10 @@
             android:name=".RegisterMain"
             android:label="@string/title_activity_register_main" >
         </activity>
+        <activity
+            android:name=".ChooseChallenge"
+            android:label="@string/title_activity_choose_challenge" >
+        </activity>
     </application>
 
 </manifest>

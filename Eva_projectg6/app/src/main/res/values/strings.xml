@@ -46,4 +46,9 @@
     <string name="rEasy">0-1 dag</string>
     <string name="rMedium">2-5 dagen</string>
     <string name="rHard">5 of meer</string>
+    <string name="title_activity_choose_challenge">ChooseChallenge</string>
+    <string name="title_activity_kies_challenges">kiesChallenges</string>
+    <string name="titelKiesChallenges">Maak een keuze uit volgende challenges ! </string>
+    <string name="titelChallengeDag">Challenge Dag 1</string>
+
 </resources>
