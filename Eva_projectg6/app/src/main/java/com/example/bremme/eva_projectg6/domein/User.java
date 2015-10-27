@@ -9,21 +9,25 @@ public class User {
     private String email;
     private String gebDatum;
     private Gender gender;
-    private Status status;
+    private Difficulty dif;
     private String password;
     private String username;
+    private boolean isStudent;
+    private boolean hasChilderen;
     private boolean isDoingChallenges;
 
-    public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Status status, String password,String username,boolean isDoingChallenges ) {
+    public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Difficulty difficulty, String password,String username,boolean isDoingChallenges,boolean student,boolean hasChilderen ) {
         setFirstname(firstname);
         setEmail(email);
         setGender(gender);
         setGebDatum(gebDatum);
         setLastname(lastname);
         setPassword(password);
-        setStatus(status);
+        setDif(difficulty);
         setUsername(username);
         setIsDoingChallenges(isDoingChallenges);
+        setIsStudent(student);
+        setHasChilderen(hasChilderen);
     }
     public User(){}
 
@@ -83,14 +87,6 @@ public class User {
         this.password = password;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -100,6 +96,30 @@ public class User {
     }
 
     public String toString(){
-        return firstname+" "+lastname+" "+email+" "+gebDatum+" "+gender+" "+status+" " + password+" "+username;
+        return firstname+" "+lastname+" "+email+" "+gebDatum+" "+gender+" "+dif+" " + password+" "+username +" student: " + isStudent+" challenges: "+ isDoingChallenges+" hasChildren: "+hasChilderen;
+    }
+
+    public Difficulty getDif() {
+        return dif;
+    }
+
+    public void setDif(Difficulty dif) {
+        this.dif = dif;
+    }
+
+    public boolean HasChilderen() {
+        return hasChilderen;
+    }
+
+    public void setHasChilderen(boolean hasChilderen) {
+        this.hasChilderen = hasChilderen;
+    }
+
+    public boolean isStudent() {
+        return isStudent;
+    }
+
+    public void setIsStudent(boolean isStudent) {
+        this.isStudent = isStudent;
     }
 }

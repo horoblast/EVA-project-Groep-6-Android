@@ -25,7 +25,10 @@ public class UserLocalStore {
         spEditor.putString("Email",user.getEmail());
         spEditor.putString("GebDatum",user.getGebDatum());
         spEditor.putString("Gender",user.getGender().toString());
-        spEditor.putString("Status",user.getStatus().toString());
+        spEditor.putString("Difficulty",user.getDif().toString());
+        spEditor.putBoolean("HasChildren", user.HasChilderen());
+        spEditor.putBoolean("IsStudent",user.isStudent());
+        spEditor.putBoolean("IsDoingChallenges",user.isDoingChallenges());
         spEditor.commit();
     }
     public User getLoggedInUser()
@@ -34,8 +37,8 @@ public class UserLocalStore {
                 userLocalDatabase.getString("Lastname",""),
                 userLocalDatabase.getString("Email",""),userLocalDatabase.getString("GebDatum",""),
                 Gender.valueOf(userLocalDatabase.getString("Gender",""))
-                ,Status.valueOf(userLocalDatabase.getString("Status","")),userLocalDatabase.getString("Password","")
-                ,userLocalDatabase.getString("Username",""),userLocalDatabase.getBoolean("isDoingChallenges",false));
+                ,Difficulty.valueOf(userLocalDatabase.getString("Difficulty", "")),userLocalDatabase.getString("Password","")
+                ,userLocalDatabase.getString("Username",""),userLocalDatabase.getBoolean("IsDoingChallenges",false),userLocalDatabase.getBoolean("IsStudent",false),userLocalDatabase.getBoolean("HasChildren",false));
         return user;
     }
     public void setUserLoggedIn(boolean loggedIn)

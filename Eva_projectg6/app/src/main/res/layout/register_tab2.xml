@@ -52,28 +52,48 @@
             android:text="@string/female"
             android:id="@+id/rFemale"/>
     </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/difficultLabel"/>
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/radio2">
+        android:id="@+id/radio2"
+        android:labelFor="@string/difficultLabel">
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/student"
+            android:text="@string/rEasy"
             android:checked="true"
-            android:id="@+id/rMarried" />
+            android:id="@+id/rEasy" />
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/inRelationship"
-            android:id="@+id/rRelationship" />
+            android:text="@string/rMedium"
+            android:id="@+id/rMedium" />
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/single"
-            android:id="@+id/rSingle"/>
+            android:text="@string/rHard"
+            android:id="@+id/rHard"/>
     </RadioGroup>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="student"
+            android:id="@+id/cStudent"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/heeftKinderen"
+            android:id="@+id/cChildren"/>
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"><ImageView

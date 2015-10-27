@@ -13,11 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
+import com.example.bremme.eva_projectg6.domein.Difficulty;
 import com.example.bremme.eva_projectg6.domein.Gender;
-import com.example.bremme.eva_projectg6.domein.Status;
 import com.example.bremme.eva_projectg6.domein.User;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.koushikdutta.async.future.FutureCallback;
@@ -142,19 +141,17 @@ public class RegisterTab3 extends Fragment{
                         g = Gender.Male;
                     else
                         g = Gender.Female;
-                    Status s = Status.Student;
+
+                    Difficulty dif = Difficulty.Easy;
                     switch (tab2.getGroup2Index()) {
                         case 0:
-                            s = Status.Student;
-
-
+                            dif = Difficulty.Easy;
                         case 1:
-                            s = Status.InRelationShip;
-
-
+                            dif = Difficulty.Medium;
                         case 2:
-                            s = Status.Single;
+                            dif = Difficulty.Hard;
                     }
+                    Log.i("dificulty",dif.toString()+"");
                     int j = 0;
                     //omdat we bv 94 als jaar kunnen ingeven
                     if (tab2.getYear() < 100) {
@@ -162,7 +159,8 @@ public class RegisterTab3 extends Fragment{
                     } else {
                         j = tab2.getYear();
                     }
-                    User newUser = new User(tab1.getFirstname(), tab1.getLastname(), email.getText().toString(), tab2.getDay() + "/" + tab2.getMonth() + "/" + j, g, s, password.getText().toString(), tab1.getUsername(), false);
+                    User newUser = new User(tab1.getFirstname(), tab1.getLastname(), email.getText().toString(), j+"-"+tab2.getMonth()+"-"+tab2.getDay(), g,dif, password.getText().toString(), tab1.getUsername(), false,tab2.isStudent(),tab2.hasChildren());
+                    Log.i("INDEX RADIOG 2",tab2.getGroup2Index()+"");
                     Log.i("HIEERZOO", newUser.toString());
                     putUserInDb(newUser);
                 }
@@ -181,10 +179,12 @@ public class RegisterTab3 extends Fragment{
                 .setBodyParameter("username", user.getUsername())
                 .setBodyParameter("password", user.getPassword())
                 .setBodyParameter("firstname", user.getFirstname())
-                .setBodyParameter("lastname",user.getLastname())
-                .setBodyParameter("state",user.getStatus().toString())
-                .setBodyParameter("email",user.getEmail())
-                .setBodyParameter("birthdate",user.getGebDatum()).setBodyParameter("isDoingChallenges",user.isDoingChallenges()+"")
+                .setBodyParameter("lastname", user.getLastname())
+                .setBodyParameter("difficulty", user.getDif().toString().toLowerCase())
+                .setBodyParameter("isstudent", user.isStudent()+"")
+                .setBodyParameter("haschildren", user.HasChilderen()+"").setBodyParameter("gender",user.getGender().toString().toLowerCase())
+                .setBodyParameter("email", user.getEmail())
+                .setBodyParameter("birthdate",user.getGebDatum())
                 .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override

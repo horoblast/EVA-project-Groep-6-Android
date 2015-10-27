@@ -8,19 +8,19 @@ import java.net.URL;
  */
 public class Challenge {
     private String id;
-    private Status category;
+    //private Status category;
     private String name;
     private URL[] imageUrls;
-    public Challenge(String id, String name, Status category,URL[] url) {
+    public Challenge(String id, String name, URL[] url) {
        setId(id);
        setName(name);
-        setCategory(category);
+       // setCategory(category);
         setImageUrl(url);
     }
     public Challenge(String id, String name, String category,String[] url) {
         setId(id);
         setName(name);
-        setStatusByString(category);
+        //setStatusByString(category);
         setImageUrlByString(url);
     }
 
@@ -57,22 +57,6 @@ public class Challenge {
         this.name = name;
     }
 
-    public Status getCategory() {
-        return category;
-    }
 
-    public void setCategory(Status category) {
-        this.category = category;
-    }
-    public void setStatusByString(String status)
-    {
-        //todo default instellen
-        try{
-            setCategory(Status.valueOf(status));
-        }catch(Exception e)
-        {
-            setCategory(Status.Single);
-        }
 
-    }
 }

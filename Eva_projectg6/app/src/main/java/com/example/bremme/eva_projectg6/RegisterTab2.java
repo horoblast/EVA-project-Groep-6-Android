@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
@@ -22,7 +23,8 @@ public class RegisterTab2 extends Fragment {
     private EditText year;
     private RadioGroup group1;
     private RadioGroup group2;
-
+    private CheckBox cStudent;
+    private CheckBox cChildren;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.register_tab2, container, false);
@@ -37,9 +39,12 @@ public class RegisterTab2 extends Fragment {
         day = (EditText) v.findViewById(R.id.rDay);
         month = (EditText) v.findViewById(R.id.rMonth);
         year = (EditText) v.findViewById(R.id.rYear);
+        cStudent = (CheckBox) v.findViewById(R.id.cStudent);
+        cChildren = (CheckBox) v.findViewById(R.id.cChildren);
         day.setError(getResources().getString(R.string.rDayVal));
         month.setError(getResources().getString(R.string.rMonthVal));
         year.setError(getResources().getString(R.string.rYearVal));
+
     }
     private void addValidation() {
         day.addTextChangedListener(new TextWatcher() {
@@ -127,6 +132,14 @@ public class RegisterTab2 extends Fragment {
 
             }
         });
+    }
+    public boolean isStudent()
+    {
+        return cStudent.isChecked();
+    }
+    public boolean hasChildren()
+    {
+        return cChildren.isChecked();
     }
     public boolean isCompleted()
     {

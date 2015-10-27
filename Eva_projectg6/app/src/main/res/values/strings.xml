@@ -41,4 +41,9 @@
     <string name="firstTab">eerste stap</string>
     <string name="secondTab">tweede stap</string>
     <string name="thirdTab">derde stap</string>
+    <string name="heeftKinderen">Heeft u kinderen?</string>
+    <string name="difficultLabel">Hoeveel keer eet u al vegetarisch?</string>
+    <string name="rEasy">0-1 dag</string>
+    <string name="rMedium">2-5 dagen</string>
+    <string name="rHard">5 of meer</string>
 </resources>
