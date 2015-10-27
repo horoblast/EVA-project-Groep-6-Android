@@ -143,15 +143,17 @@ public class RegisterTab3 extends Fragment{
                         g = Gender.Female;
 
                     Difficulty dif = Difficulty.Easy;
-                    switch (tab2.getGroup2Index()) {
-                        case 0:
-                            dif = Difficulty.Easy;
-                        case 1:
-                            dif = Difficulty.Medium;
-                        case 2:
-                            dif = Difficulty.Hard;
+                    if(tab2.getGroup2Index()==0){
+                        dif = Difficulty.Easy;
                     }
-                    Log.i("dificulty",dif.toString()+"");
+                    if(tab2.getGroup2Index()==1)
+                    {
+                        dif = Difficulty.Medium;
+                    }
+                    if(tab2.getGroup2Index()==2)
+                    {
+                        dif = Difficulty.Hard;
+                    }
                     int j = 0;
                     //omdat we bv 94 als jaar kunnen ingeven
                     if (tab2.getYear() < 100) {
@@ -182,9 +184,9 @@ public class RegisterTab3 extends Fragment{
                 .setBodyParameter("lastname", user.getLastname())
                 .setBodyParameter("difficulty", user.getDif().toString().toLowerCase())
                 .setBodyParameter("isstudent", user.isStudent()+"")
-                .setBodyParameter("haschildren", user.HasChilderen()+"").setBodyParameter("gender",user.getGender().toString().toLowerCase())
+                .setBodyParameter("haschildren", user.HasChilderen()+"").setBodyParameter("gender", user.getGender().toString().toLowerCase())
                 .setBodyParameter("email", user.getEmail())
-                .setBodyParameter("birthdate",user.getGebDatum())
+                .setBodyParameter("birthdate", user.getGebDatum())
                 .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override
