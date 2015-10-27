@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
+import com.example.bremme.eva_projectg6.domein.Challenge;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.facebook.FacebookSdk;
 import com.google.gson.JsonArray;
@@ -51,7 +52,6 @@ public class LogIn extends AppCompatActivity {
 
     public void getToken(View view)
     {
-        Log.i("USERNAMEEEE",eUsername.toString());
         final ProgressDialog dialog = ProgressDialog.show(LogIn.this,getResources().getString(R.string.waitScreen),this.getResources().getString(R.string.userInloggen),true);
         Ion.with(this)
                 .load(repo.getLOGIN())
@@ -84,9 +84,8 @@ public class LogIn extends AppCompatActivity {
     private void findUserAndStore()
     {
 
-        Log.i("username",eUsername.toString());
             Ion.with(this)
-                    .load(repo.getUser()).setHeader("Authorization","Bearer "+ userLocalStore.getToken())
+                    .load(repo.getUser()).setHeader("Authorization", "Bearer " + userLocalStore.getToken())
                     .setBodyParameter("username", eUsername.getText().toString())
                     .asJsonArray()
                     .setCallback(new FutureCallback<JsonArray>() {
@@ -108,6 +107,8 @@ public class LogIn extends AppCompatActivity {
 
                         }
                     });
+
+
     }
     public void register(View view)
     {
@@ -115,6 +116,6 @@ public class LogIn extends AppCompatActivity {
         startActivity(i);
         //registreer hyperlink
     }
+    }
 
 
-}
