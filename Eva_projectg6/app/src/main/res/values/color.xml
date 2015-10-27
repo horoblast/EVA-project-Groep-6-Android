@@ -3,6 +3,6 @@
     <color name="ColorPrimary">#6BB615</color>
     <color name="ColorPrimaryDark">#000000</color>
     <color name="tabsScrollColor">#000000</color>
-    <color name="toolbar">#145C7F</color>
+    <color name="toolbar">#6BB615</color>
 
 </resources>

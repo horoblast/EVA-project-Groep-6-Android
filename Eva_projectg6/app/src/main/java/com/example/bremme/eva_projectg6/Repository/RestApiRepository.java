@@ -12,8 +12,13 @@ public class RestApiRepository {
     private final String REGISTER = "http://groep6api.herokuapp.com/register";
     private final String LOGIN = "https://groep6api.herokuapp.com/login";
     private final String USER = "http://groep6api.herokuapp.com/user";
+    private final String USERNAMECHECK = "http://groep6api.herokuapp.com/checkusername";
     private Challenge[] challengeList;
     public RestApiRepository() {
+    }
+
+    public String getUsernamecheck() {
+        return USERNAMECHECK;
     }
 
     public String getUser() {

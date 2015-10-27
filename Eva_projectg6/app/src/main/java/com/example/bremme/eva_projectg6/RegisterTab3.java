@@ -35,6 +35,7 @@ public class RegisterTab3 extends Fragment{
     private RegisterTab2 tab2;
     private RestApiRepository repo;
     private UserLocalStore userLocalStore;
+    private static int count2 = 0;
     public RegisterTab3(RegisterTab1 tab1, RegisterTab2 tab2) {
         this.tab1 = tab1;
         this.tab2 = tab2;
@@ -42,7 +43,6 @@ public class RegisterTab3 extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.i("onCreate", "Create tab3");
         View v = inflater.inflate(R.layout.register_tab3,container,false);
         repo = new RestApiRepository();
         userLocalStore = new UserLocalStore(this.getContext());
@@ -127,15 +127,20 @@ public class RegisterTab3 extends Fragment{
         password = (EditText) v.findViewById(R.id.rPassword);
         passwordRepeat = (EditText) v.findViewById(R.id.rPasswordRepeat);
         registerButton = (Button) v.findViewById(R.id.rRegister);
-        email.setError(getResources().getString(R.string.rEmailVal));
-        password.setError(getResources().getString(R.string.rPassVal));
+        if(count2==0){
+            email.setError(getResources().getString(R.string.rEmailVal));
+            password.setError(getResources().getString(R.string.rPassVal));
+        }
+        count2++;
     }
     private void register()
     {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("Onclick" ," onclick begint");
                 if (tab1.isCompleted() && tab2.isCompleted() && isCompleted()) {
+
                     Gender g = Gender.Male;
                     if (tab2.getGroup1Index() == 0)
                         g = Gender.Male;
@@ -162,7 +167,6 @@ public class RegisterTab3 extends Fragment{
                         j = tab2.getYear();
                     }
                     User newUser = new User(tab1.getFirstname(), tab1.getLastname(), email.getText().toString(), j+"-"+tab2.getMonth()+"-"+tab2.getDay(), g,dif, password.getText().toString(), tab1.getUsername(), false,tab2.isStudent(),tab2.hasChildren());
-                    Log.i("INDEX RADIOG 2",tab2.getGroup2Index()+"");
                     Log.i("HIEERZOO", newUser.toString());
                     putUserInDb(newUser);
                 }
@@ -171,6 +175,8 @@ public class RegisterTab3 extends Fragment{
     }
     public boolean isCompleted()
     {
+        boolean b =email.getError()==null&&password.getError()==null&&passwordRepeat.getError()==null;
+        Log.i("IS THIS TRUEE?",b+"");
         return email.getError()==null&&password.getError()==null&&passwordRepeat.getError()==null;
     }
 
@@ -184,17 +190,25 @@ public class RegisterTab3 extends Fragment{
                 .setBodyParameter("lastname", user.getLastname())
                 .setBodyParameter("difficulty", user.getDif().toString().toLowerCase())
                 .setBodyParameter("isstudent", user.isStudent()+"")
-                .setBodyParameter("haschildren", user.HasChilderen()+"").setBodyParameter("gender", user.getGender().toString().toLowerCase())
+                .setBodyParameter("haschildren", user.HasChilderen()+"")
+                .setBodyParameter("gender", user.getGender().toString().toLowerCase())
                 .setBodyParameter("email", user.getEmail())
                 .setBodyParameter("birthdate", user.getGebDatum())
                 .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override
                     public void onCompleted(Exception e, String result) {
+
+                        if(result.contains("duplicate key error"))
+                        {
+                            dialog.dismiss();
+                        }else {
+                            dialog.dismiss();
+                            Intent i = new Intent(getContext(), LogIn.class);
+                            startActivity(i);
+                        }
                         //todo start een nieuwe activity
-                        Intent i = new Intent(getContext(), LogIn.class);
-                        startActivity(i);
-                        dialog.dismiss();
+
                     }
                 });
 

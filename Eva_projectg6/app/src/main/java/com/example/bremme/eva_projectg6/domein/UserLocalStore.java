@@ -35,10 +35,15 @@ public class UserLocalStore {
     {
         User user = new User(userLocalDatabase.getString("Firstname",""),
                 userLocalDatabase.getString("Lastname",""),
-                userLocalDatabase.getString("Email",""),userLocalDatabase.getString("GebDatum",""),
+                userLocalDatabase.getString("Email",""),
+                userLocalDatabase.getString("GebDatum",""),
                 Gender.valueOf(userLocalDatabase.getString("Gender",""))
-                ,Difficulty.valueOf(userLocalDatabase.getString("Difficulty", "")),userLocalDatabase.getString("Password","")
-                ,userLocalDatabase.getString("Username",""),userLocalDatabase.getBoolean("IsDoingChallenges",false),userLocalDatabase.getBoolean("IsStudent",false),userLocalDatabase.getBoolean("HasChildren",false));
+                ,Difficulty.valueOf(userLocalDatabase.getString("Difficulty", "")),
+                userLocalDatabase.getString("Password","")
+                ,userLocalDatabase.getString("Username",""),
+                userLocalDatabase.getBoolean("IsDoingChallenges",false),
+                userLocalDatabase.getBoolean("IsStudent",false),
+                userLocalDatabase.getBoolean("HasChildren",false));
         return user;
     }
     public void setUserLoggedIn(boolean loggedIn)

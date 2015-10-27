@@ -14,6 +14,9 @@ import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 /**
  * Created by BREMME on 22/10/15.
  */
@@ -22,10 +25,12 @@ public class RegisterTab1 extends Fragment {
     private EditText firstname;
     private EditText lastname;
     private EditText username;
-
+    private RestApiRepository repo;
+    private static int count = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.register_tab1,container,false);
+        Log.i("messageCkunt : ",count+"");
         init(v);
         addValidation();
         return v;
@@ -35,9 +40,15 @@ public class RegisterTab1 extends Fragment {
         firstname = (EditText) v.findViewById(R.id.rFirstname);
         lastname = (EditText) v.findViewById(R.id.rLastname);
         username = (EditText) v.findViewById(R.id.rUsername);
-        firstname.setError(getResources().getString(R.string.rFirstnameVal));
-        lastname.setError(getResources().getString(R.string.rLastnameVal));
-        username.setError(getResources().getString(R.string.rUsernameVal));
+        if(count==0){
+            firstname.setError(getResources().getString(R.string.rFirstnameVal));
+            lastname.setError(getResources().getString(R.string.rLastnameVal));
+            username.setError(getResources().getString(R.string.rUsernameVal));
+        }
+
+        repo = new RestApiRepository();
+        Log.i("text in firstname : is",firstname.getText().toString());
+        count++;
     }
     private void addValidation()
     {
@@ -49,14 +60,15 @@ public class RegisterTab1 extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if( firstname.getText().toString().length()==0 ){
+                if (firstname.getText().toString().length() == 0) {
                     firstname.setError(getResources().getString(R.string.rFirstnameVal));
-                }{
+                }
+                {
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
-
 
             }
         });
@@ -69,10 +81,9 @@ public class RegisterTab1 extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(lastname.getText().toString().length()==0)
-                {
+                if (lastname.getText().toString().length() == 0) {
                     lastname.setError(getResources().getString(R.string.rLastnameVal));
-                }else {
+                } else {
                 }
             }
 
@@ -92,17 +103,21 @@ public class RegisterTab1 extends Fragment {
                 if (username.getText().toString().length() == 0) {
                     username.setError(getResources().getString(R.string.rUsernameVal));
                 }else{
+                    checkDuplicateUsername(username.getText().toString());
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                //todo username checken
 
             }
         });
 }
     public boolean isCompleted()
     {
+        boolean b =firstname.getError()==null&&lastname.getError()==null&&username.getError()==null;
+        Log.i("IS THIS TRUEE?",b+"");
         return firstname.getError()==null&&lastname.getError()==null&&username.getError()==null;
     }
 
@@ -116,5 +131,18 @@ public class RegisterTab1 extends Fragment {
 
     public String getUsername() {
         return username.getText().toString();
+    }
+    private void checkDuplicateUsername(String uName)
+    {
+        Ion.with(this)
+                .load(repo.getUsernamecheck()).setBodyParameter("username",uName).asString().setCallback(new FutureCallback<String>() {
+            @Override
+            public void onCompleted(Exception e, String result) {
+                if(result.equals("true")){
+                    username.setError(getResources().getString(R.string.duplicateUsername));
+                }
+
+            }
+        });
     }
 }
