@@ -30,10 +30,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position)
         {
+
             case 0: return tab1;
             case 1: return tab2;
             case 2: return tab3;
-            default: return tab1;
+            default: return null;
         }
     }
 

@@ -6,6 +6,7 @@ import java.util.List;
  * Created by BREMME on 9/10/15.
  */
 public class User {
+    private String userId;
     private String firstname;
     private String lastname;
     private String email;
@@ -38,6 +39,32 @@ public class User {
         setChallenges(challenges);
     }
     public User(){}
+
+    public User(String username, String lastname,Gender gender, boolean hasChilderen, boolean isDoingChallenges, boolean isStudent, Difficulty dif, String email, String firstname, String gebDatum) {
+        setFirstname(firstname);
+        setEmail(email);
+        setGender(gender);
+        setGebDatum(gebDatum);
+        setLastname(lastname);
+        setPassword(password);
+        setDif(dif);
+        setUsername(username);
+        setIsDoingChallenges(isDoingChallenges);
+        setIsStudent(isStudent);
+        setHasChilderen(hasChilderen);
+    }
+
+    public boolean isHasChilderen() {
+        return hasChilderen;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public boolean isDoingChallenges() {
         return isDoingChallenges;
