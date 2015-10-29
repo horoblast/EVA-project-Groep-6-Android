@@ -2,6 +2,8 @@ package com.example.bremme.eva_projectg6;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,7 @@ import com.google.gson.JsonArray;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -34,6 +37,8 @@ public class ChooseChallenge extends AppCompatActivity {
     private Button challenge3;
     private UserLocalStore userLocalStore;
 
+    public static  String  CHALLENGE_ID = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +46,15 @@ public class ChooseChallenge extends AppCompatActivity {
         userLocalStore = new UserLocalStore(this);
         repo = new RestApiRepository();
 
-        //getChallenges();
-        challenges = getDummyData();
-        randomChallengeList = getRandomChallengesOnDifficulty(Difficulty.Easy);
+        getChallenges();
+        //challenges = getDummyData();
 
-        init();
 
-        setTextChallenges();
 
-        challengeBtnClicked();
+
+        //setTextChallenges();
+
+
 
     }
 
@@ -105,7 +110,12 @@ public class ChooseChallenge extends AppCompatActivity {
 
                         challenges = repo.getAllChallenges(result);
                         Log.i("message",challenges[0].getName());
+
+                        init();
+                        randomChallengeList = getRandomChallengesOnDifficulty(Difficulty.easy);
                         setTextChallenges();
+
+                        challengeBtnClicked();
                     }
                 });
     }
@@ -147,13 +157,16 @@ public class ChooseChallenge extends AppCompatActivity {
         });
     }
 
-    private void showChallengeDialog(int index){
+    private void showChallengeDialog(final int index){
         new AlertDialog.Builder(ChooseChallenge.this)
                 .setTitle(randomChallengeList.get(index).getName())
                 .setMessage(randomChallengeList.get(index).getDescription())
                 .setPositiveButton("Kies challenge", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
+                        Intent intent = new Intent(ChooseChallenge.this, ViewChallenges.class);
+                        Challenge challenge = randomChallengeList.get(index);
+                        //intent.putExtra("CHALLENGE", challenge);
+                        startActivity(intent);
                     }
                 })
                 .setNegativeButton("Annuleer", new DialogInterface.OnClickListener() {
@@ -166,15 +179,15 @@ public class ChooseChallenge extends AppCompatActivity {
 
     private Challenge[] getDummyData(){
         return new Challenge[]{
-                new Challenge("1","Challenge 1" , "bsjbvbqbvjbjvbbvb" , Difficulty.Easy, null),
-                new Challenge("2","Challenge 2" , "bsjbvbqbvjbjvbbvb" , Difficulty.Hard, null),
-                new Challenge("3","Challenge 3" , "bsjbvbqbvjbjvbbvb" , Difficulty.Hard, null),
-                new Challenge("4","Challenge 4" , "bsjbvbqbvjbjvbbvb" , Difficulty.Easy, null),
-                new Challenge("5","Challenge 5" , "bsjbvbqbvjbjvbbvb" , Difficulty.Medium, null),
-                new Challenge("6","Challenge 6" , "bsjbvbqbvjbjvbbvb" , Difficulty.Hard, null),
-                new Challenge("7","Challenge 7" , "bsjbvbqbvjbjvbbvb" , Difficulty.Easy, null),
-                new Challenge("8","Challenge 8" , "bsjbvbqbvjbjvbbvb" , Difficulty.Medium, null),
-                new Challenge("9","Challenge 9" , "bsjbvbqbvjbjvbbvb" , Difficulty.Medium, null)
+                new Challenge("1","Challenge 1" , "bsjbvbqbvjbjvbbvb" , Difficulty.easy, null),
+                new Challenge("2","Challenge 2" , "bsjbvbqbvjbjvbbvb" , Difficulty.hard, null),
+                new Challenge("3","Challenge 3" , "bsjbvbqbvjbjvbbvb" , Difficulty.hard, null),
+                new Challenge("4","Challenge 4" , "bsjbvbqbvjbjvbbvb" , Difficulty.easy, null),
+                new Challenge("5","Challenge 5" , "bsjbvbqbvjbjvbbvb" , Difficulty.medium, null),
+                new Challenge("6","Challenge 6" , "bsjbvbqbvjbjvbbvb" , Difficulty.hard, null),
+                new Challenge("7","Challenge 7" , "bsjbvbqbvjbjvbbvb" , Difficulty.easy, null),
+                new Challenge("8","Challenge 8" , "bsjbvbqbvjbjvbbvb" , Difficulty.medium, null),
+                new Challenge("9","Challenge 9" , "bsjbvbqbvjbjvbbvb" , Difficulty.medium, null)
         };
     }
 

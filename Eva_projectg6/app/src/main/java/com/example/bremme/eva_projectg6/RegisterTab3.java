@@ -142,17 +142,17 @@ public class RegisterTab3 extends Fragment{
                     else
                         g = Gender.Female;
 
-                    Difficulty dif = Difficulty.Easy;
+                    Difficulty dif = Difficulty.easy;
                     if(tab2.getGroup2Index()==0){
-                        dif = Difficulty.Easy;
+                        dif = Difficulty.easy;
                     }
                     if(tab2.getGroup2Index()==1)
                     {
-                        dif = Difficulty.Medium;
+                        dif = Difficulty.medium;
                     }
                     if(tab2.getGroup2Index()==2)
                     {
-                        dif = Difficulty.Hard;
+                        dif = Difficulty.hard;
                     }
                     int j = 0;
                     //omdat we bv 94 als jaar kunnen ingeven

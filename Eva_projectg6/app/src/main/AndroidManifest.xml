@@ -35,6 +35,10 @@
             android:name=".ChooseChallenge"
             android:label="@string/title_activity_choose_challenge" >
         </activity>
+        <activity
+            android:name=".ViewChallenges"
+            android:label="@string/title_activity_view_challenges" >
+        </activity>
     </application>
 
 </manifest>

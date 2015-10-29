@@ -1,5 +1,7 @@
 package com.example.bremme.eva_projectg6.domein;
 
+import java.util.List;
+
 /**
  * Created by BREMME on 9/10/15.
  */
@@ -15,6 +17,7 @@ public class User {
     private boolean isStudent;
     private boolean hasChilderen;
     private boolean isDoingChallenges;
+    private List<Challenge> challenges;
 
     public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Difficulty difficulty, String password,String username,boolean isDoingChallenges,boolean student,boolean hasChilderen ) {
         setFirstname(firstname);
@@ -28,6 +31,11 @@ public class User {
         setIsDoingChallenges(isDoingChallenges);
         setIsStudent(student);
         setHasChilderen(hasChilderen);
+    }
+
+    public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Difficulty difficulty, String password,String username,boolean isDoingChallenges,boolean student,boolean hasChilderen , List<Challenge> challenges) {
+       this(firstname, lastname, email, gebDatum, gender, difficulty, password, username, isDoingChallenges, student, hasChilderen);
+        setChallenges(challenges);
     }
     public User(){}
 
@@ -121,5 +129,13 @@ public class User {
 
     public void setIsStudent(boolean isStudent) {
         this.isStudent = isStudent;
+    }
+
+    public List<Challenge> getChallenges(){
+        return challenges;
+    }
+
+    public void setChallenges(List<Challenge> challenges){
+        this.challenges = challenges;
     }
 }

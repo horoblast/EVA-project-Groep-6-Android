@@ -1,7 +1,5 @@
 package com.example.bremme.eva_projectg6.domein;
 
-import android.util.EventLogTags;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -13,40 +11,38 @@ public class Challenge {
     private String name;
     private String description;
     private Difficulty difficulty;
-    private URL[] imageUrls;
-    public Challenge(String id, String name, URL[] url) {
+    private URL imageUrl;
+    public Challenge(String id, String name, URL url) {
        setId(id);
        setName(name);
        // setCategory(category);
         setImageUrl(url);
     }
-    public Challenge(String id, String name, String description ,String[] url) {
+    public Challenge(String id, String name, String description ,String url) {
         setId(id);
         setName(name);
         setImageUrlByString(url);
     }
 
-    public Challenge(String id, String name, String description ,Difficulty difficulty ,URL[] url){
+    public Challenge(String id, String name, String description ,Difficulty difficulty ,String url){
         setId(id);
         setName(name);
         setDescription(description);
-        setImageUrl(url);
+        setImageUrlByString(url);
         setDifficulty(difficulty);
     }
 
-    public URL[] getImageUrl() {
-        return imageUrls;
+    public URL getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageUrl(URL[] imageUrl) {
-        this.imageUrls = imageUrl;
+    public void setImageUrl(URL imageUrl) {
+        this.imageUrl = imageUrl;
     }
-    public void setImageUrlByString(String[] url)
+    public void setImageUrlByString(String url)
     {
         try {
-            imageUrls = new URL[url.length];
-            for(int i = 0;i<url.length;i++)
-                imageUrls[i] = new URL(url[i]);
+            imageUrl = new URL(url);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
