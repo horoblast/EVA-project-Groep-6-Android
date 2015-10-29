@@ -106,7 +106,7 @@ public class LogIn extends AppCompatActivity {
                                     boolean isStudent = j.get("isstudent").getAsBoolean();
                                     boolean hasChilderen = j.get("haschildren").getAsBoolean();
                                     Gender g = Gender.valueOf(capitalizeFirstLetter(j.get("gender").getAsString()));
-                                    Difficulty dif = Difficulty.valueOf(capitalizeFirstLetter(j.get("difficulty").getAsString()));
+                                    Difficulty dif = Difficulty.valueOf(j.get("difficulty").getAsString());
                                     boolean isdoingChallenges = j.get("isdoingchallenges").getAsBoolean();
                                     User newUser = new User(username, lname, g, hasChilderen, isdoingChallenges, isStudent, dif, email, fname, birthDate);
                                     userLocalStore.setUserLoggedIn(true);
@@ -119,6 +119,7 @@ public class LogIn extends AppCompatActivity {
                                 }
                             } catch (Exception er) {
                                 Log.i("Error message", "null");
+
                                 ePassword.setError(getResources().getString(R.string.wrongPassword));
                             }
 
