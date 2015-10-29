@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LogIn"
+    android:background="@drawable/back1">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:background="@drawable/logo_eva_typo_nl"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/eUsername"
+        android:ems="10"
+        android:id="@+id/eUsername"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/ePassword"
+        android:layout_alignTop="@+id/eUsername"
+        android:layout_alignLeft="@+id/eUsername"
+        android:layout_alignStart="@+id/eUsername"
+        android:layout_marginTop="52dp"
+        android:hint="Password"
+        android:password="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loginButtonText"
+        android:id="@+id/loginButton"
+        android:layout_below="@+id/ePassword"
+        android:layout_alignLeft="@+id/ePassword"
+        android:layout_alignStart="@+id/ePassword"
+        android:layout_alignRight="@+id/ePassword"
+        android:layout_alignEnd="@+id/ePassword"
+        android:onClick="getToken"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/registreerLink"
+        android:id="@+id/registreerLink"
+        android:layout_below="@+id/loginButton"
+        android:layout_alignLeft="@+id/loginButton"
+        android:layout_alignStart="@+id/loginButton"
+        android:clickable="true"
+        android:onClick="register"/>
+
+</RelativeLayout>
+<!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android/Eva_projectg6/app/src/main/res/layout/activity_log_in.xml -->
