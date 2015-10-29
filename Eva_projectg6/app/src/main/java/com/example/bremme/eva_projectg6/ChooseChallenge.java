@@ -165,7 +165,7 @@ public class ChooseChallenge extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(ChooseChallenge.this, ViewChallenges.class);
                         Challenge challenge = randomChallengeList.get(index);
-                        //intent.putExtra("CHALLENGE", challenge);
+                        intent.putExtra("CHALLENGE_ID", challenge.getId());
                         startActivity(intent);
                     }
                 })

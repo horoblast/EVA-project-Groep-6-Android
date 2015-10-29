@@ -78,8 +78,9 @@ public class ViewChallenges extends AppCompatActivity {
                     public void onCompleted(Exception e, JsonArray result) {
                         challenges = repo.getAllChallenges(result);
                         Log.i("message", challenges[0].getName());
-                        getChoosenChallenge();
                         init();
+                        getChoosenChallenge();
+
                         setText();
                     }
                 });
@@ -91,9 +92,14 @@ public class ViewChallenges extends AppCompatActivity {
 
     private void getChoosenChallenge(){
         intent = getIntent();
-        //Challenge challenge = (Challenge) intent.getSerializableExtra("CHALLENGE");
+        String challengeID =  intent.getStringExtra("CHALLENGE_ID");
         int lenght = challenges.length;
 
+        for(int i = 0; i < lenght ; i++){
+            if(challengeID.equals(challenges[i].getId())){
+                challengesDone.add(challenges[i]);
+            }
+        }
 
 
     }

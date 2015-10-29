@@ -47,6 +47,10 @@ public class Challenge {
             e.printStackTrace();
         }
     }
+
+    public URL getUrl(){
+        return imageUrl;
+    }
     public String getId() {
         return id;
     }
