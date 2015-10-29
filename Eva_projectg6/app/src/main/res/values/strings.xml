@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Eva_projectg6</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="loginButtonText">Login</string>
+    <string name="eUsername">Username</string>
+    <string name="registreerLink">nog geen account Registreer!</string>
+    <string name="title_activity_register">Register</string>
+    <string name="firstname">Voornaam</string>
+    <string name="lastname">Familienaam</string>
+    <string name="username">Username</string>
+    <string name="emailVoorbeeld">Vb@voorbeeld.be</string>
+    <string name="dateOfBirth">Geboortedatum</string>
+    <string name="male">man</string>
+    <string name="female">vrouw</string>
+    <string name="student">student</string>
+    <string name="single"><single>single</single></string>
+    <string name="inRelationship">in relatie</string>
+    <string name="password">Password</string>
+    <string name="register">Registreer</string>
+    <string name="day">Dag</string>
+    <string name="month">Maand</string>
+    <string name="year">Jaar</string>
+    <string name="rFirstnameVal">Vul uw voornaam in</string>
+    <string name="rLastnameVal">Vul uw achternaam in</string>
+    <string name="rUsernameVal">Vul uw username in</string>
+    <string name="rEmailVal">Vul een geldig email in</string>
+    <string name="rDayVal">Vul een geldige dag in</string>
+    <string name="rMonthVal">Vul een maand in</string>
+    <string name="rYearVal">Vul een geldig jaar in</string>
+    <string name="rPassVal">8 characters lang  en moet cijfers en letters bevatten </string>
+    <string name="rMissmatchVal">Passwoord komt niet overeen</string>
+    <string name="parseException">Alleen cijfers in dit vak</string>
+    <string name="app_id">1661660217448471</string>
+    <string name="title_activity_register_main">RegisterMain</string>
+    <string name="waitScreen">Eventjes wachten a.u.b.</string>
+    <string name="userInloggen">user wordt ingelogd</string>
+    <string name="inlogCancelled">Inloggen mislukt</string>
+    <string name="wrongPassword">verkeerd passwoord</string>
+    <string name="firstTab">eerste stap</string>
+    <string name="secondTab">tweede stap</string>
+    <string name="thirdTab">derde stap</string>
+    <string name="heeftKinderen">Heeft u kinderen?</string>
+    <string name="difficultLabel">Hoeveel keer eet u al vegetarisch?</string>
+    <string name="rEasy">0-1 dag</string>
+    <string name="rMedium">2-5 dagen</string>
+    <string name="rHard">5 of meer</string>
+    <string name="title_activity_choose_challenge">ChooseChallenge</string>
+    <string name="title_activity_kies_challenges">kiesChallenges</string>
+    <string name="titelKiesChallenges">Maak een keuze uit volgende challenges ! </string>
+    <string name="titelChallengeDag">Challenge Dag 1</string>
+    <string name="title_activity_view_challenges">ViewChallenges</string>
+    <string name="duplicateUsername">username is al in gebruik</string>
+
+</resources>
