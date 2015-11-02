@@ -1,15 +1,12 @@
 package com.example.bremme.eva_projectg6;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,11 +14,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
 import com.example.bremme.eva_projectg6.domein.Challenge;
 import com.example.bremme.eva_projectg6.domein.Difficulty;
@@ -30,15 +27,13 @@ import com.google.gson.JsonArray;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-import java.io.IOException;
+import org.w3c.dom.Text;
+
 import java.io.InputStream;
-import java.io.Serializable;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.zip.Inflater;
 
 
 public class ChooseChallenge extends AppCompatActivity {
@@ -52,20 +47,26 @@ public class ChooseChallenge extends AppCompatActivity {
     private UserLocalStore userLocalStore;
     private Drawable dImages[];
     public static  String  CHALLENGE_ID = null;
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_challenge);
+        toolbar = (Toolbar) findViewById(R.id.tool_bar_Challenge);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView text = (TextView) findViewById(R.id.userNameTool);
+        if(userLocalStore.isUserLoggedIn())
+        {
+            text.setText(userLocalStore.getLoggedInUser().getFirstname());
+        }else{
+            text.setText("user onbekend");
+        }
         userLocalStore = new UserLocalStore(this);
         repo = new RestApiRepository();
         dImages = new Drawable[3];
         getChallenges();
         //challenges = getDummyData();
-
-
-
-
         //setTextChallenges();
 
 
@@ -249,12 +250,9 @@ public class ChooseChallenge extends AppCompatActivity {
         if ((image == null) || !(image instanceof BitmapDrawable)) {
             return image;
         }
-
         Bitmap b = ((BitmapDrawable)image).getBitmap();
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 600, 350, false);
-
         image = new BitmapDrawable(getResources(), bitmapResized);
-
         return image;
     }
 
