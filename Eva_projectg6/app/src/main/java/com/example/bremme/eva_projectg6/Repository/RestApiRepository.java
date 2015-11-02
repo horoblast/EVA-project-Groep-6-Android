@@ -52,7 +52,7 @@ public class RestApiRepository {
                     urls = new String[json.get("image").getAsJsonArray().size()];
                     urls[j] = json.get("image").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
                 }
-                Challenge c = new Challenge(json.get("_id").getAsString(), json.get("name").getAsString(), json.get("description").getAsString(), Difficulty.valueOf(json.get("difficulty").getAsString()), "http://res.cloudinary.com/diyuj5c1j/image/upload/v1446068027/uikwm7g8kwongkjrbzbb.jpg");
+                Challenge c = new Challenge(json.get("_id").getAsString(), json.get("name").getAsString(), json.get("description").getAsString(), Difficulty.valueOf(json.get("difficulty").getAsString()),urls[0]);
                 challengeList[i] = c;
             }
         }
