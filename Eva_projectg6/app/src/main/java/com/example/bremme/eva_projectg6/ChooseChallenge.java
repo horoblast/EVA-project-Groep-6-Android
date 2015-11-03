@@ -110,28 +110,38 @@ public class ChooseChallenge extends AppCompatActivity {
                 //suggestie gevonden op niveau en in db steken
                 int index = random.nextInt(challengeList.size());
                 randomList.add(challengeList.get(index));
-                Ion.with(this)
-                        .load(repo.getPUTSUGGESTEDCHALLENGE())
-                        .setBodyParameter("username", userLocalStore.getLoggedInUser().getUsername())
-                        .setBodyParameter("challengessuggestions", challengeList.get(index).getId())
-                        .asString().setCallback(new FutureCallback<String>() {
-                    @Override
-                    public void onCompleted(Exception e, String result) {
-                        //todo testen of "gelukt"
-                    }
-                });
+                putSuggestieInDb(challengeList.get(index).getId());
+                Log.i("id toegevoegd: ",challengeList.get(index).getId());
                 challengeList.remove(index);
             }
             //todo suggestions in user steken
         return randomList;
         }
 
+    private void putSuggestieInDb(String id)
+    {
+        Ion.with(this)
+                .load(repo.getPUTSUGGESTEDCHALLENGE()).setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                .setBodyParameter("username", userLocalStore.getLoggedInUser().getUsername())
+                .setBodyParameter("challengessuggestions", id)
+                .asString().setCallback(new FutureCallback<String>() {
+            @Override
+            public void onCompleted(Exception e, String result) {
+                //todo testen of "gelukt"
+                Log.i("dsdsd", result + "");
+
+            }
+        });
+
+
+    }
 
     //haalt alle challenges op
     private void getChallenges()
     {
         //kijken of user al suggesties heeft
 
+                Log.i("SUGGESTIES ZIJN ER AL ?",userLocalStore.getLoggedInUser().getSuggestionIds().size()+"");
         if(userLocalStore.getLoggedInUser().getSuggestionIds().size()!=0)
         {
             for(String id : userLocalStore.getLoggedInUser().getSuggestionIds())
@@ -161,7 +171,6 @@ public class ChooseChallenge extends AppCompatActivity {
                     .setCallback(new FutureCallback<JsonArray>() {
                         @Override
                         public void onCompleted(Exception e, JsonArray result) {
-
                             challenges = repo.getAllChallenges(result);
                             randomChallengeList = getRandomChallengesOnDifficulty(userLocalStore.getLoggedInUser().getDif());
                             initDisplay();
