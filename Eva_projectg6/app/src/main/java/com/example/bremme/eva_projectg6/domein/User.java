@@ -1,6 +1,7 @@
 package com.example.bremme.eva_projectg6.domein;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by BREMME on 9/10/15.
@@ -20,7 +21,7 @@ public class User {
     private boolean isDoingChallenges;
     private Challenge[] challengeSuggestions;
     private List<Challenge> challenges;
-
+    private Set<String> suggestionIds;
     public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Difficulty difficulty, String password,String username,boolean isDoingChallenges,boolean student,boolean hasChilderen ) {
         setFirstname(firstname);
         setEmail(email);
@@ -62,6 +63,14 @@ public class User {
         setIsDoingChallenges(isDoingChallenges);
         setIsStudent(isStudent);
         setHasChilderen(hasChilderen);
+    }
+
+    public Set<String> getSuggestionIds() {
+        return suggestionIds;
+    }
+
+    public void setSuggestionIds(Set<String> suggestionIds) {
+        this.suggestionIds = suggestionIds;
     }
 
     public boolean isHasChilderen() {

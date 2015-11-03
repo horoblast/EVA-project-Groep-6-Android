@@ -5,7 +5,11 @@ import com.example.bremme.eva_projectg6.domein.Difficulty;
 import com.example.bremme.eva_projectg6.domein.Gender;
 import com.example.bremme.eva_projectg6.domein.User;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by BREMME on 20/10/15.
@@ -17,6 +21,7 @@ public class RestApiRepository {
     private final String USER = "http://groep6api.herokuapp.com/user";
     private final String USERNAMECHECK = "http://groep6api.herokuapp.com/checkusername";
     private final String PUTSUGGESTEDCHALLENGE ="http://groep6api.herokuapp.com/setsuggestions";
+    private final String FINDCHALLENGEBYID="http://groep6api.herokuapp.com/findchallengebyid";
     private Challenge[] challengeList;
     public RestApiRepository() {
     }
@@ -46,6 +51,10 @@ public class RestApiRepository {
         return REGISTER;
     }
 
+    public String getFINDCHALLENGEBYID() {
+        return FINDCHALLENGEBYID;
+    }
+
     public User getUser(JsonObject j)
     {
 
@@ -60,16 +69,19 @@ public class RestApiRepository {
         Difficulty dif = Difficulty.valueOf(j.get("difficulty").getAsString());
         boolean isdoingChallenges = j.get("isdoingchallenges").getAsBoolean();
         User newUser = new User(username, lname, g, hasChilderen, isdoingChallenges, isStudent, dif, email, fname, birthDate);
+        Set<String> stringSet = new HashSet<>();
         if(isdoingChallenges)
         {
             JsonArray challengeSuggestions = j.get("challengessuggestions").getAsJsonArray();
             if(challengeSuggestions.size()!=0)
             {
-               Challenge[] suggestionChallenges = getAllChallenges(challengeSuggestions);
-                newUser.setChallengeSuggestions(suggestionChallenges);//todo testen
+                for(JsonElement cId : challengeSuggestions) {
+                    stringSet.add(cId.getAsString());
+                }
+               //todo testen
             }
         }
-
+        newUser.setSuggestionIds(stringSet);
 //todo chalenges insteken
         return newUser;
     }
@@ -89,17 +101,10 @@ public class RestApiRepository {
     }
     public Challenge getChallenge(JsonObject json)
     {
-
-        if (json.isJsonObject()) {
-            String[] urls = new String[json.get("image").getAsJsonArray().size()];
-            for (int j = 0; j < json.get("image").getAsJsonArray().size(); j++) {
-                urls = new String[json.get("image").getAsJsonArray().size()];
-                urls[j] = json.get("image").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
-            }
-            Challenge c = new Challenge(json.get("_id").getAsString(), json.get("name").getAsString(), json.get("description").getAsString(), Difficulty.valueOf(json.get("difficulty").getAsString()),urls[0]);
+            String url="";
+            url = json.get("image").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
+            Challenge c = new Challenge(json.get("_id").getAsString(), json.get("name").getAsString(), json.get("description").getAsString(), Difficulty.valueOf(json.get("difficulty").getAsString()),url);
             return c;
-        }
-        return null;
     }
     public String[] getSuggestedChallenges(JsonArray jsonArray)
     {

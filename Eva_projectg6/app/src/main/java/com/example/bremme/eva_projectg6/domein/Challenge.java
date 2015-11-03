@@ -31,11 +31,6 @@ public class Challenge {
         setImageUrlByString(url);
         setDifficulty(difficulty);
     }
-
-    public URL getImageUrl() {
-        return imageUrl;
-    }
-
     public void setImageUrl(URL imageUrl) {
         this.imageUrl = imageUrl;
     }

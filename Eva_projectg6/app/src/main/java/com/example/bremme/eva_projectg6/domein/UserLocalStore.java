@@ -3,6 +3,9 @@ package com.example.bremme.eva_projectg6.domein;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by BREMME on 16/10/15.
  */
@@ -24,11 +27,23 @@ public class UserLocalStore {
         spEditor.putString("Password",user.getPassword());
         spEditor.putString("Email",user.getEmail());
         spEditor.putString("GebDatum",user.getGebDatum());
-        spEditor.putString("Gender",user.getGender().toString());
-        spEditor.putString("Difficulty",user.getDif().toString());
+        spEditor.putString("Gender", user.getGender().toString());
+        spEditor.putString("Difficulty", user.getDif().toString());
         spEditor.putBoolean("HasChildren", user.HasChilderen());
         spEditor.putBoolean("IsStudent",user.isStudent());
-        spEditor.putBoolean("IsDoingChallenges",user.isDoingChallenges());
+        spEditor.putBoolean("IsDoingChallenges", user.isDoingChallenges());
+        /*if(user.getChallengeSuggestions().length!=0){
+            for(int i=0;i<user.getChallengeSuggestions().length;i++)
+            {
+                spEditor.putString("ChallengeId"+i,user.getChallengeSuggestions()[i].getId());
+                spEditor.putString("ChallengeDesc"+i,user.getChallengeSuggestions()[i].getDescription());
+                spEditor.putString("ChallengeName"+i,user.getChallengeSuggestions()[i].getName());
+                spEditor.putString("ChallengeDiff"+i,user.getChallengeSuggestions()[i].getDifficulty().toString());
+                spEditor.putString("ChallengeUrl"+i,user.getChallengeSuggestions()[i].getUrl().toString());
+            }
+        }
+        */
+        spEditor.putStringSet("SuggestionIds",user.getSuggestionIds());
         spEditor.commit();
     }
     public User getLoggedInUser()
@@ -44,6 +59,8 @@ public class UserLocalStore {
                 userLocalDatabase.getBoolean("IsDoingChallenges",false),
                 userLocalDatabase.getBoolean("IsStudent",false),
                 userLocalDatabase.getBoolean("HasChildren",false));
+        Set<String> stringSet = new HashSet<>();
+        user.setSuggestionIds(userLocalDatabase.getStringSet("SuggestionIds",stringSet));
         return user;
     }
     public void setUserLoggedIn(boolean loggedIn)

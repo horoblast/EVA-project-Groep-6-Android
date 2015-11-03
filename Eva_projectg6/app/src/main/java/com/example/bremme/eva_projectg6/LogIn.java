@@ -70,7 +70,7 @@ public class LogIn extends AppCompatActivity {
                                 String token = result.getAsJsonObject().get("token").getAsString();
                                 userLocalStore.setToken(token);
                                 Log.i("messagetoken", token);
-                                findUserAndStore();
+                                findUserAndStore(dialog);
                             }
                         } catch (Exception er) {
                             Log.i("Error message", "null");
@@ -82,7 +82,7 @@ public class LogIn extends AppCompatActivity {
                 });
 
     }
-    private void findUserAndStore()
+    private void findUserAndStore(final ProgressDialog dialog)
     {
 
             Ion.with(this)
@@ -95,17 +95,17 @@ public class LogIn extends AppCompatActivity {
                             try {
 
                                 if (result.get(0).isJsonObject()) {
-
                                     JsonObject j = result.get(0).getAsJsonObject();
                                     User newUser = repo.getUser(j);
                                     userLocalStore.setUserLoggedIn(true);
                                     userLocalStore.storeUserData(newUser);
                                     User u = userLocalStore.getLoggedInUser();
+                                    dialog.dismiss();
                                     challengesBekijken();
                                 }
                             } catch (Exception er) {
-                                Log.i("Error message", "null");
-
+                                dialog.dismiss();
+                                Log.i("Error message", "nullerinooo");
                                 ePassword.setError(getResources().getString(R.string.wrongPassword));
                             }
 

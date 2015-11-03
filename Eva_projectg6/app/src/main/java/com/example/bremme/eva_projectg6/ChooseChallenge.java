@@ -24,6 +24,7 @@ import com.example.bremme.eva_projectg6.domein.Challenge;
 import com.example.bremme.eva_projectg6.domein.Difficulty;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -47,6 +48,7 @@ public class ChooseChallenge extends AppCompatActivity {
     private Button challenge3;
     private UserLocalStore userLocalStore;
     private Drawable dImages[];
+    private static int count=0;
     public static  String  CHALLENGE_ID = null;
     private Toolbar toolbar;
     @Override
@@ -56,6 +58,8 @@ public class ChooseChallenge extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar_Challenge);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        userLocalStore = new UserLocalStore(this);
+        randomChallengeList = new ArrayList<>();
         TextView text = (TextView) findViewById(R.id.userNameTool);
         if(userLocalStore.isUserLoggedIn())
         {
@@ -63,7 +67,7 @@ public class ChooseChallenge extends AppCompatActivity {
         }else{
             text.setText("user onbekend");
         }
-        userLocalStore = new UserLocalStore(this);
+
         repo = new RestApiRepository();
         dImages = new Drawable[3];
         getChallenges();
@@ -95,14 +99,6 @@ public class ChooseChallenge extends AppCompatActivity {
     private List<Challenge> getRandomChallengesOnDifficulty(Difficulty difficulty){
         List<Challenge> challengeList = new ArrayList<>();
         List<Challenge> randomList = new ArrayList<>();
-        //todo kijken of user al suggestedchallenges heeft?
-        //kijken of user al suggesties heeft
-        if(userLocalStore.getLoggedInUser().getChallengeSuggestions().length!=0)
-        {
-            randomList = Arrays.asList(userLocalStore.getLoggedInUser().getChallengeSuggestions());
-            //todo testen of niet null
-        }else {
-            //user heeft geen suggesties -> nieuwe suggesties ophalen
             int length = challenges.length;
             Random random = new Random();
             for (int i = 0; i < length; i++) {
@@ -126,45 +122,75 @@ public class ChooseChallenge extends AppCompatActivity {
                 });
                 challengeList.remove(index);
             }
-        }
-        //todo suggestions in user steken
+            //todo suggestions in user steken
         return randomList;
-    }
+        }
+
+
     //haalt alle challenges op
     private void getChallenges()
     {
-        Ion.with(this)
-                .load(repo.getChallenges())
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonArray result) {
+        //kijken of user al suggesties heeft
 
-                        challenges = repo.getAllChallenges(result);
-                        Log.i("message", challenges[0].getName());
-                        init();
-                        randomChallengeList = getRandomChallengesOnDifficulty(userLocalStore.getLoggedInUser().getDif());
-                        setTextChallenges();
-                        challengeBtnClicked();
-                        Thread thread = new Thread(new Runnable() {
+        if(userLocalStore.getLoggedInUser().getSuggestionIds().size()!=0)
+        {
+            for(String id : userLocalStore.getLoggedInUser().getSuggestionIds())
+            {
+                Ion.with(this)
+                        .load(repo.getFINDCHALLENGEBYID())
+                        .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                        .setBodyParameter("_id", id)
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
                             @Override
-                            public void run() {
-                                try {
-                                    for (int i = 0; i < 3; i++) {
-                                        dImages[i] = loadImageFromWebOperations(randomChallengeList.get(i).getUrl().toString());
-                                    }
-                                    //Your code goes here
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                            public void onCompleted(Exception e, JsonObject result) {
+                                count++;
+                                Challenge c = repo.getChallenge(result);
+                                randomChallengeList.add(c);
+                                if(count==3){
+                                    initDisplay();
+                                    count =0;
                                 }
-                            }
-                        });
-                        thread.start();
                     }
                 });
+            }//user heeft geen suggesties -> nieuwe suggesties ophalen
+        }else {
+            Ion.with(this)
+                    .load(repo.getChallenges())
+                    .asJsonArray()
+                    .setCallback(new FutureCallback<JsonArray>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonArray result) {
+
+                            challenges = repo.getAllChallenges(result);
+                            randomChallengeList = getRandomChallengesOnDifficulty(userLocalStore.getLoggedInUser().getDif());
+                            initDisplay();
+                        }
+                    });
+        }
     }
 
 
+    private void initDisplay()
+    {
+        init();
+        setTextChallenges();
+        challengeBtnClicked();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i < 3; i++) {
+                        dImages[i] = loadImageFromWebOperations(randomChallengeList.get(i).getUrl().toString());
+                    }
+                    //Your code goes here
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
     private void init(){
         challenge1 = (Button) findViewById(R.id.btnChallenge1);
         challenge2 = (Button) findViewById(R.id.btnChallenge2);
