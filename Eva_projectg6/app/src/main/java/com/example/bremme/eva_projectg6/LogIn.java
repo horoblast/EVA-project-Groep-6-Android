@@ -71,7 +71,6 @@ public class LogIn extends AppCompatActivity {
                                 userLocalStore.setToken(token);
                                 Log.i("messagetoken", token);
                                 findUserAndStore();
-                                //todo nieuwe activiteit challenges bekijken.
                             }
                         } catch (Exception er) {
                             Log.i("Error message", "null");
@@ -98,24 +97,11 @@ public class LogIn extends AppCompatActivity {
                                 if (result.get(0).isJsonObject()) {
 
                                     JsonObject j = result.get(0).getAsJsonObject();
-                                    String fname = j.get("firstname").getAsString();
-                                    String lname = j.get("lastname").getAsString();
-                                    String email = j.get("email").getAsString();
-                                    String username = j.get("username").getAsString();
-                                    String birthDate = j.get("birthdate").getAsString();
-                                    boolean isStudent = j.get("isstudent").getAsBoolean();
-                                    boolean hasChilderen = j.get("haschildren").getAsBoolean();
-                                    Gender g = Gender.valueOf(capitalizeFirstLetter(j.get("gender").getAsString()));
-                                    Difficulty dif = Difficulty.valueOf(j.get("difficulty").getAsString());
-                                    boolean isdoingChallenges = j.get("isdoingchallenges").getAsBoolean();
-                                    User newUser = new User(username, lname, g, hasChilderen, isdoingChallenges, isStudent, dif, email, fname, birthDate);
+                                    User newUser = repo.getUser(j);
                                     userLocalStore.setUserLoggedIn(true);
                                     userLocalStore.storeUserData(newUser);
                                     User u = userLocalStore.getLoggedInUser();
                                     challengesBekijken();
-                                    //todo api haschallenges
-
-
                                 }
                             } catch (Exception er) {
                                 Log.i("Error message", "null");

@@ -32,6 +32,7 @@ import org.w3c.dom.Text;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -68,11 +69,7 @@ public class ChooseChallenge extends AppCompatActivity {
         getChallenges();
         //challenges = getDummyData();
         //setTextChallenges();
-
-
-
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -96,24 +93,44 @@ public class ChooseChallenge extends AppCompatActivity {
     }
 
     private List<Challenge> getRandomChallengesOnDifficulty(Difficulty difficulty){
-        int length = challenges.length;
         List<Challenge> challengeList = new ArrayList<>();
         List<Challenge> randomList = new ArrayList<>();
-        Random random = new Random();
-
-        for(int i = 0; i < length;i++) {
-            if (challenges[i].getDifficulty() == difficulty) {
-                challengeList.add(challenges[i]);
+        //todo kijken of user al suggestedchallenges heeft?
+        //kijken of user al suggesties heeft
+        if(userLocalStore.getLoggedInUser().getChallengeSuggestions().length!=0)
+        {
+            randomList = Arrays.asList(userLocalStore.getLoggedInUser().getChallengeSuggestions());
+            //todo testen of niet null
+        }else {
+            //user heeft geen suggesties -> nieuwe suggesties ophalen
+            int length = challenges.length;
+            Random random = new Random();
+            for (int i = 0; i < length; i++) {
+                if (challenges[i].getDifficulty() == difficulty) {
+                    challengeList.add(challenges[i]);
+                }
+            }
+            for (int i = 0; i < 3; i++) {
+                //suggestie gevonden op niveau en in db steken
+                int index = random.nextInt(challengeList.size());
+                randomList.add(challengeList.get(index));
+                Ion.with(this)
+                        .load(repo.getPUTSUGGESTEDCHALLENGE())
+                        .setBodyParameter("username", userLocalStore.getLoggedInUser().getUsername())
+                        .setBodyParameter("challengessuggestions", challengeList.get(index).getId())
+                        .asString().setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        //todo testen of "gelukt"
+                    }
+                });
+                challengeList.remove(index);
             }
         }
-        for(int i = 0; i < 3; i++){
-            int index = random.nextInt(challengeList.size());
-            randomList.add(challengeList.get(index));
-            challengeList.remove(index);
-        }
+        //todo suggestions in user steken
         return randomList;
     }
-
+    //haalt alle challenges op
     private void getChallenges()
     {
         Ion.with(this)
@@ -183,7 +200,7 @@ public class ChooseChallenge extends AppCompatActivity {
             }
         });
     }
-
+    //methode voor het kiezen van een challenge
     private void showChallengeDialog(final int index) {
 
         try {
@@ -196,28 +213,25 @@ public class ChooseChallenge extends AppCompatActivity {
                             Challenge challenge = randomChallengeList.get(index);
                             intent.putExtra("CHALLENGE_ID", challenge.getId());
                             startActivity(intent);
+                            //todo delete suggetedchallenges en put currentchallenge this
                         }
                     })
                     .setNegativeButton("Annuleer", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
+                            // FIRE ZE MISSILES!  lal
                         }
                     });
 
            final AlertDialog dialog = builder.create();
             LayoutInflater inflater = getLayoutInflater();
             View dialogLayout = inflater.inflate(R.layout.challengedialog, null);
-            //ImageView imageV = (ImageView)  dialogLayout.findViewById(R.id.challengeDialogImage);
             LinearLayout linearLayout = (LinearLayout) dialogLayout.findViewById(R.id.challengeLayout);
             ImageView image = new ImageView(this);
-           Log.i("look bremme",dImages[index].getClass()+"");
             image.setImageDrawable(scaleImage(dImages[index]));
             linearLayout.addView(image);
             dialog.setView(dialogLayout);
-            //ImageView imageV2 = (ImageView) dialog.findViewById(R.id.challengeDialogImage) ;
             dialog.show();
         } catch (Exception e) {
-            Log.i("yoloo", "fack");
         }
     }
 

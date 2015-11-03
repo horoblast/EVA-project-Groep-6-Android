@@ -109,8 +109,6 @@ public class RegisterTab1 extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                //todo username checken
-
             }
         });
 }

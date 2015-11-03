@@ -207,8 +207,6 @@ public class RegisterTab3 extends Fragment{
                             Intent i = new Intent(getContext(), LogIn.class);
                             startActivity(i);
                         }
-                        //todo start een nieuwe activity
-
                     }
                 });
 

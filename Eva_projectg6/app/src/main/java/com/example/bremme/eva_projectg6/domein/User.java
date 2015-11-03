@@ -18,6 +18,7 @@ public class User {
     private boolean isStudent;
     private boolean hasChilderen;
     private boolean isDoingChallenges;
+    private Challenge[] challengeSuggestions;
     private List<Challenge> challenges;
 
     public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Difficulty difficulty, String password,String username,boolean isDoingChallenges,boolean student,boolean hasChilderen ) {
@@ -32,6 +33,15 @@ public class User {
         setIsDoingChallenges(isDoingChallenges);
         setIsStudent(student);
         setHasChilderen(hasChilderen);
+        challengeSuggestions = new Challenge[3];
+    }
+
+    public Challenge[] getChallengeSuggestions() {
+        return challengeSuggestions;
+    }
+
+    public void setChallengeSuggestions(Challenge[] challengeSuggestions) {
+        this.challengeSuggestions = challengeSuggestions;
     }
 
     public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Difficulty difficulty, String password,String username,boolean isDoingChallenges,boolean student,boolean hasChilderen , List<Challenge> challenges) {
