@@ -2,13 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LogIn"
-    android:background="@drawable/back1">
+    android:background="#7AB85C">
     <include
         android:id="@+id/tool_bar_Challenge"
         layout="@layout/tool_bar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -56,5 +61,14 @@
         android:layout_alignStart="@+id/loginButton"
         android:clickable="true"
         android:onClick="register"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:background="@drawable/logo_eva_typo_nl"
+        android:layout_above="@+id/eUsername"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="34dp" />
 
 </RelativeLayout>

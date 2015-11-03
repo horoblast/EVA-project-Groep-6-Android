@@ -7,7 +7,7 @@
     android:id="@+id/rLayout"
     android:gravity="center_horizontal"
     android:paddingTop="100dip"
-    >
+    android:background="#7AB85C">
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
