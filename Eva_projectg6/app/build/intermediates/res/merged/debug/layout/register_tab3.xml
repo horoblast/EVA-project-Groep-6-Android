@@ -37,4 +37,4 @@
         android:text="@string/register"
         android:id="@+id/rRegister"
         />
-</LinearLayout><!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/layout/register_tab3.xml -->
+</LinearLayout><!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/src/main/res/layout/register_tab3.xml -->
