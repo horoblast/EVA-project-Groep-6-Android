@@ -52,5 +52,5 @@
     <string name="titelChallengeDag">Challenge Dag 1</string>
     <string name="title_activity_view_challenges">ViewChallenges</string>
     <string name="duplicateUsername">username is al in gebruik</string>
-
+    <string name="birthDate">vul uw geboortedatum in (dd-mm-yyyy)</string>
 </resources>

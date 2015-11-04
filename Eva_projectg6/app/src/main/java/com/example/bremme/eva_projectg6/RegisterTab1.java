@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,6 +18,9 @@ import butterknife.ButterKnife;
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import java.util.Random;
+
 /**
  * Created by BREMME on 22/10/15.
  */
@@ -25,6 +29,7 @@ public class RegisterTab1 extends Fragment {
     private EditText firstname;
     private EditText lastname;
     private EditText username;
+    private Button b;
     private RestApiRepository repo;
     private static int count = 0;
     @Override
@@ -47,7 +52,23 @@ public class RegisterTab1 extends Fragment {
         }
 
         repo = new RestApiRepository();
-        Log.i("text in firstname : is",firstname.getText().toString());
+        Log.i("text in firstname : is", firstname.getText().toString());
+        b= (Button) v.findViewById(R.id.buttonFill);
+        b.setText("");
+
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random r = new Random();
+
+                firstname.setText("Arne");
+                lastname.setText("De Bremme");
+                username.setText("arnedebremme");
+                firstname.setError(null);
+                lastname.setError(null);
+                username.setError(null);
+            }
+        });
         count++;
     }
     private void addValidation()
@@ -102,7 +123,7 @@ public class RegisterTab1 extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (username.getText().toString().length() == 0) {
                     username.setError(getResources().getString(R.string.rUsernameVal));
-                }else{
+                } else {
                     checkDuplicateUsername(username.getText().toString());
                 }
             }
@@ -115,7 +136,7 @@ public class RegisterTab1 extends Fragment {
     public boolean isCompleted()
     {
         boolean b =firstname.getError()==null&&lastname.getError()==null&&username.getError()==null;
-        Log.i("IS THIS TRUEE?",b+"");
+        Log.i("IS THIS TRUEE?", b + "");
         return firstname.getError()==null&&lastname.getError()==null&&username.getError()==null;
     }
 
@@ -136,11 +157,12 @@ public class RegisterTab1 extends Fragment {
                 .load(repo.getUsernamecheck()).setBodyParameter("username",uName).asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
-                if(result.equals("true")){
+                if (result.equals("true")) {
                     username.setError(getResources().getString(R.string.duplicateUsername));
                 }
 
             }
         });
     }
+
 }

@@ -22,6 +22,8 @@ import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.util.Random;
+
 /**
  * Created by BREMME on 22/10/15.
  */
@@ -35,6 +37,7 @@ public class RegisterTab3 extends Fragment{
     private RegisterTab2 tab2;
     private RestApiRepository repo;
     private UserLocalStore userLocalStore;
+    private Button b;
     private static int count2 = 0;
     public RegisterTab3(RegisterTab1 tab1, RegisterTab2 tab2) {
         this.tab1 = tab1;
@@ -132,6 +135,20 @@ public class RegisterTab3 extends Fragment{
             password.setError(getResources().getString(R.string.rPassVal));
         }
         count2++;
+        b= (Button) v.findViewById(R.id.buttonFill3);
+        b.setText("");
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random r = new Random();
+
+                email.setText("testesttest@hotma"+r.nextInt(100)+".com");
+                password.setText("testimpl2");
+                passwordRepeat.setText("testimpl2");
+                email.setError(null);
+                password.setError(null);
+            }
+        });
     }
     private void register()
     {

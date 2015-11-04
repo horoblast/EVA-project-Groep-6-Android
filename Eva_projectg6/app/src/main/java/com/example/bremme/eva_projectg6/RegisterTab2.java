@@ -1,5 +1,8 @@
 package com.example.bremme.eva_projectg6;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,11 +12,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Random;
 
 /**
  * Created by BREMME on 22/10/15.
@@ -26,6 +34,7 @@ public class RegisterTab2 extends Fragment {
     private RadioGroup group2;
     private CheckBox cStudent;
     private CheckBox cChildren;
+    private Button b;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.register_tab2, container, false);
@@ -46,6 +55,23 @@ public class RegisterTab2 extends Fragment {
         month.setError(getResources().getString(R.string.rMonthVal));
         year.setError(getResources().getString(R.string.rYearVal));
 
+        b= (Button) v.findViewById(R.id.buttonFill2);
+        b.setText("");
+
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random r = new Random();
+                day.setText("12");
+                month.setText("07");
+                year.setText("1994");
+                cStudent.setChecked(true);
+                day.setError(null);
+                month.setError(null);
+                year.setError(null);
+
+            }
+        });
     }
     private void addValidation() {
         day.addTextChangedListener(new TextWatcher() {
@@ -175,3 +201,4 @@ public class RegisterTab2 extends Fragment {
 
     }
 }
+

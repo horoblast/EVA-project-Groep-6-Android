@@ -22,8 +22,13 @@ public class RestApiRepository {
     private final String USERNAMECHECK = "http://groep6api.herokuapp.com/checkusername";
     private final String PUTSUGGESTEDCHALLENGE ="http://groep6api.herokuapp.com/setsuggestions";
     private final String FINDCHALLENGEBYID="http://groep6api.herokuapp.com/findchallengebyid";
+    private final String STARTUSERSERIES = "http://groep6api.herokuapp.com/startuserseries";
     private Challenge[] challengeList;
     public RestApiRepository() {
+    }
+
+    public String getSTARTUSERSERIES() {
+        return STARTUSERSERIES;
     }
 
     public String getPUTSUGGESTEDCHALLENGE() {

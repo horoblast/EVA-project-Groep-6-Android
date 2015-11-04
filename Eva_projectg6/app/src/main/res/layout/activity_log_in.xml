@@ -71,4 +71,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="34dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/buttonFill4"
+        android:layout_below="@+id/registreerLink"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent" />
+
 </RelativeLayout>

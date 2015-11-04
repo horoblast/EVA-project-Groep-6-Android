@@ -40,4 +40,15 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/rightarrow" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/buttonFill"
+        android:layout_gravity="center_horizontal"
+        android:visibility="visible"
+        android:clickable="true"
+        android:enabled="true"
+        android:background="@android:color/transparent" />
+
 </LinearLayout>

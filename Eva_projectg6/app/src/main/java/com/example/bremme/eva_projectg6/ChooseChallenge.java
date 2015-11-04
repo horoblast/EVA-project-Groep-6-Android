@@ -140,8 +140,7 @@ public class ChooseChallenge extends AppCompatActivity {
     private void getChallenges()
     {
         //kijken of user al suggesties heeft
-
-                Log.i("SUGGESTIES ZIJN ER AL ?",userLocalStore.getLoggedInUser().getSuggestionIds().size()+"");
+        Log.i("SUGGESTIES ZIJN ER AL ?",userLocalStore.getLoggedInUser().getSuggestionIds().size()+"");
         if(userLocalStore.getLoggedInUser().getSuggestionIds().size()!=0)
         {
             for(String id : userLocalStore.getLoggedInUser().getSuggestionIds())

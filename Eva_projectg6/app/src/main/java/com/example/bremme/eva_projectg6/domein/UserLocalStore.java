@@ -32,17 +32,6 @@ public class UserLocalStore {
         spEditor.putBoolean("HasChildren", user.HasChilderen());
         spEditor.putBoolean("IsStudent",user.isStudent());
         spEditor.putBoolean("IsDoingChallenges", user.isDoingChallenges());
-        /*if(user.getChallengeSuggestions().length!=0){
-            for(int i=0;i<user.getChallengeSuggestions().length;i++)
-            {
-                spEditor.putString("ChallengeId"+i,user.getChallengeSuggestions()[i].getId());
-                spEditor.putString("ChallengeDesc"+i,user.getChallengeSuggestions()[i].getDescription());
-                spEditor.putString("ChallengeName"+i,user.getChallengeSuggestions()[i].getName());
-                spEditor.putString("ChallengeDiff"+i,user.getChallengeSuggestions()[i].getDifficulty().toString());
-                spEditor.putString("ChallengeUrl"+i,user.getChallengeSuggestions()[i].getUrl().toString());
-            }
-        }
-        */
         spEditor.putStringSet("SuggestionIds",user.getSuggestionIds());
         spEditor.commit();
     }

@@ -28,6 +28,7 @@ import com.koushikdutta.ion.Ion;
 import org.json.JSONArray;
 
 import java.util.Locale;
+import java.util.Random;
 
 public class LogIn extends AppCompatActivity {
 
@@ -35,7 +36,7 @@ public class LogIn extends AppCompatActivity {
     private Button loginButton;
     private UserLocalStore userLocalStore;
     private RestApiRepository repo;
-
+    private Button b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,18 @@ public class LogIn extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.loginButton);
         userLocalStore = new UserLocalStore(this);
         repo = new RestApiRepository();
+
+        b= (Button) findViewById(R.id.buttonFill4);
+        b.setText("");
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random r = new Random();
+
+                eUsername.setText("arnedebremme");
+                ePassword.setText("testimpl2");
+            }
+        });
 
     }
 

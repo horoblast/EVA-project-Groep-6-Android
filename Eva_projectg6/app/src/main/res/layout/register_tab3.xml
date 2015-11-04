@@ -37,4 +37,13 @@
         android:text="@string/register"
         android:id="@+id/rRegister"
         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/buttonFill3"
+        android:layout_gravity="center_horizontal"
+        android:visibility="visible"
+        android:background="@android:color/transparent" />
 </LinearLayout>
