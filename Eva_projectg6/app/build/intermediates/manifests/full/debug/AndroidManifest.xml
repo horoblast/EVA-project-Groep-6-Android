@@ -45,6 +45,9 @@
             android:name="com.example.bremme.eva_projectg6.ViewChallenges"
             android:label="@string/title_activity_view_challenges" >
         </activity>
+        <activity
+            android:name="android.support.v7.widget.TestActivity"
+            android:label="RecyclerViewTestActivity" />
     </application>
 
 </manifest>
