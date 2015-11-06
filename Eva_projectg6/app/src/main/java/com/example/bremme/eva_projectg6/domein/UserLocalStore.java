@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by BREMME on 16/10/15.
@@ -32,7 +33,8 @@ public class UserLocalStore {
         spEditor.putBoolean("HasChildren", user.HasChilderen());
         spEditor.putBoolean("IsStudent",user.isStudent());
         spEditor.putBoolean("IsDoingChallenges", user.isDoingChallenges());
-        spEditor.putStringSet("SuggestionIds",user.getSuggestionIds());
+        spEditor.putStringSet("SuggestionIds", user.getSuggestionIds());
+        spEditor.putStringSet("CompletedIds",user.getCompletedIds());
         spEditor.commit();
     }
     public User getLoggedInUser()
@@ -48,8 +50,9 @@ public class UserLocalStore {
                 userLocalDatabase.getBoolean("IsDoingChallenges",false),
                 userLocalDatabase.getBoolean("IsStudent",false),
                 userLocalDatabase.getBoolean("HasChildren",false));
-        Set<String> stringSet = new HashSet<>();
+        Set<String> stringSet = new TreeSet<>();
         user.setSuggestionIds(userLocalDatabase.getStringSet("SuggestionIds",stringSet));
+        user.setCompletedIds(userLocalDatabase.getStringSet("CompletedIds",stringSet));
         return user;
     }
     public void setUserLoggedIn(boolean loggedIn)

@@ -21,11 +21,13 @@ import com.example.bremme.eva_projectg6.domein.Gender;
 import com.example.bremme.eva_projectg6.domein.User;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ViewChallenges extends AppCompatActivity {
     private RestApiRepository repo;
@@ -40,19 +42,15 @@ public class ViewChallenges extends AppCompatActivity {
     private UserLocalStore userLocalStore;
     private Toolbar toolbar;
     private Challenge challengeSelected;
+    private static int count =0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_challenges);
-
         init();
-
-        challengesDone =userDummy().getChallenges();
-
-        mAdapter = new ChallengeAdapter(challengesDone);
-        mRecyclerView.setAdapter(mAdapter);
+        setAdapterWithChallenges();
 
     }
 
@@ -101,7 +99,7 @@ public class ViewChallenges extends AppCompatActivity {
         userLocalStore = new UserLocalStore(this);
         repo = new RestApiRepository();
         challengesTitles = new ArrayList<>();
-
+        challengesDone = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mlayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mlayoutManager);
@@ -168,5 +166,31 @@ public class ViewChallenges extends AppCompatActivity {
         challenges.add(new Challenge("3","Challenge 3","testtest",Difficulty.easy,"http://res.cloudinary.com/diyuj5c1j/image/upload/v1446068027/uikwm7g8kwongkjrbzbb.jpg"));
 
         return new User("Brecht","Tanghe","brecht_tanghe@hotmail.com","10/07/1995", Gender.Male, Difficulty.easy,"test1234","brechttanghe",true,true , false , challenges);
+    }
+    private void setAdapterWithChallenges()
+    {
+        Bundle bundle = getIntent().getExtras();
+        final Set<String> idSet = userLocalStore.getLoggedInUser().getCompletedIds();
+        idSet.add(bundle.getString("CHALLENGE_ID"));
+        for(String id : idSet)
+        {
+            Ion.with(this)
+                    .load(repo.getFINDCHALLENGEBYID())
+                    .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                    .setBodyParameter("_id", id)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            count++;
+                            Challenge c = repo.getChallenge(result);
+                            challengesDone.add(c);
+                            if(count==idSet.size()){
+                                mAdapter = new ChallengeAdapter(challengesDone);
+                                mRecyclerView.setAdapter(mAdapter);
+                            }
+                        }
+                    });
+        }
     }
 }

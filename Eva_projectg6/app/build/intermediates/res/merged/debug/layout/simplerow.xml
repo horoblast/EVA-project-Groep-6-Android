@@ -6,12 +6,6 @@
     android:layout_gravity="center"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-<<<<<<< HEAD
-    android:padding="10dp"
-    android:textSize="16sp" >
-</TextView>
-<!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/layout/simplerow.xml -->
-=======
     card_view:cardCornerRadius="4dp"
     android:layout_margin="10dp"
     card_view:cardBackgroundColor="#7AB85C">
@@ -61,5 +55,4 @@
 
 
 </android.support.v7.widget.CardView>
-<!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/src/main/res/layout/simplerow.xml -->
->>>>>>> 84a8b9cd8eb72971378785e1f36c46e39cd60ec4
+<!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/layout/simplerow.xml -->

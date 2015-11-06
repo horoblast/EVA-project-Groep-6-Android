@@ -86,7 +86,7 @@ public class LogIn extends AppCompatActivity {
                                 findUserAndStore(dialog);
                             }
                         } catch (Exception er) {
-                            Log.i("Error message", "null");
+                            Log.i("Error message", "Login misslukt kan geen token ophalen api down ?");
                             dialog.dismiss();
                             ePassword.setError(getResources().getString(R.string.wrongPassword));
                         }
@@ -112,7 +112,6 @@ public class LogIn extends AppCompatActivity {
                                     User newUser = repo.getUser(j);
                                     userLocalStore.setUserLoggedIn(true);
                                     userLocalStore.storeUserData(newUser);
-                                    User u = userLocalStore.getLoggedInUser();
                                     dialog.dismiss();
                                     challengesBekijken();
                                 }
