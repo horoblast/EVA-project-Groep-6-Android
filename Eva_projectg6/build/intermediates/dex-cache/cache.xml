@@ -2,6 +2,7 @@
 <items version="2" >
 
     <item
+<<<<<<< HEAD
         jar="/Users/BREMME/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/d5d13ea991eab0252e3710e5df3d6a9d4b21d461/butterknife-7.0.1.jar"
         jumboMode="false"
         revision="23.0.1"
@@ -77,6 +78,20 @@
         revision="23.0.1"
         sha1="cd55ef3ba6d8b62838b658ba2507b019dffb3a08">
         <dex dex="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/pre-dexed/debug/ion-2.1.6-5cbd914bc4918c051d55d8927bd84af6565d1d90.jar" />
+=======
+        jar="/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/21.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4b8945fc23a7461c6fdde15753456d64b0a9358b">
+        <dex dex="/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/pre-dexed/debug/classes-e596a0a78b53febc2bd26193ca1c5f1acae7d879.jar" />
+    </item>
+    <item
+        jar="/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="00b0b7233e1ec64acebfac40d4983d32d4712426">
+        <dex dex="/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/pre-dexed/debug/classes-46f9b5c2e6ba2b2d64ef6beeb6343e23e9df11a5.jar" />
+>>>>>>> 84a8b9cd8eb72971378785e1f36c46e39cd60ec4
     </item>
 
 </items>
