@@ -40,7 +40,6 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/rightarrow" />
 
-<<<<<<< HEAD
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,6 +52,3 @@
         android:background="@android:color/transparent" />
 
 </LinearLayout><!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/layout/register_tab1.xml -->
-=======
-</LinearLayout><!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/src/main/res/layout/register_tab1.xml -->
->>>>>>> c9a0ccf253a2c201cc4689518f4f62e42a9af682
