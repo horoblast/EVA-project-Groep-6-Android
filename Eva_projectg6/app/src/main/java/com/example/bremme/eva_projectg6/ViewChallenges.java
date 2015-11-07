@@ -166,7 +166,6 @@ public class ViewChallenges extends AppCompatActivity {
         challenges.add(new Challenge("1","Challenge 1","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum commodo posuere odio, sed accumsan sapien sollicitudin ac. Etiam faucibus ex tortor, vitae suscipit sem blandit ut. Donec sollicitudin rhoncus auctor. Vivamus non eleifend nisl. Donec rutrum magna vel magna imperdiet,",Difficulty.easy,"http://res.cloudinary.com/diyuj5c1j/image/upload/v1446068027/uikwm7g8kwongkjrbzbb.jpg"));
         challenges.add(new Challenge("2","Challenge 2","testtest",Difficulty.easy,"http://res.cloudinary.com/diyuj5c1j/image/upload/v1446068027/uikwm7g8kwongkjrbzbb.jpg"));
         challenges.add(new Challenge("3","Challenge 3","testtest",Difficulty.easy,"http://res.cloudinary.com/diyuj5c1j/image/upload/v1446068027/uikwm7g8kwongkjrbzbb.jpg"));
-
         return new User("Brecht","Tanghe","brecht_tanghe@hotmail.com","10/07/1995", Gender.Male, Difficulty.easy,"test1234","brechttanghe",true,true , false , challenges);
     }
 }
