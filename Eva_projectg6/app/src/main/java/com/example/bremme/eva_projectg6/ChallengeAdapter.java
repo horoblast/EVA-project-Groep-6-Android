@@ -1,25 +1,18 @@
 package com.example.bremme.eva_projectg6;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
-import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.bremme.eva_projectg6.R;
 import com.example.bremme.eva_projectg6.domein.Challenge;
-import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,8 +22,6 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
 
     private List<Challenge> challengeDataSet;
     private Drawable dImages[];
-    private UserLocalStore userLocalStore;
-    private Toolbar toolbar;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
