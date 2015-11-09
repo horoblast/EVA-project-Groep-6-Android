@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
 import com.example.bremme.eva_projectg6.domein.Challenge;
 import com.example.bremme.eva_projectg6.domein.Difficulty;
+import com.example.bremme.eva_projectg6.domein.User;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -140,7 +141,8 @@ public class ChooseChallenge extends AppCompatActivity {
     private void getChallenges()
     {
         //kijken of user al suggesties heeft
-        Log.i("SUGGESTIES ZIJN ER AL ?",userLocalStore.getLoggedInUser().getSuggestionIds().size()+"");
+        User u = userLocalStore.getLoggedInUser();
+        Log.i("SUGGESTIES ZIJN ER AL ?", userLocalStore.getLoggedInUser().getSuggestionIds().size() + "");
         if(userLocalStore.getLoggedInUser().getSuggestionIds().size()!=0)
         {
             for(String id : userLocalStore.getLoggedInUser().getSuggestionIds())
@@ -219,14 +221,12 @@ public class ChooseChallenge extends AppCompatActivity {
                 showChallengeDialog(0);
             }
         });
-
         challenge2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showChallengeDialog(1);
             }
         });
-
         challenge3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,10 +243,7 @@ public class ChooseChallenge extends AppCompatActivity {
                     .setMessage(randomChallengeList.get(index).getDescription())
                     .setPositiveButton("Kies challenge", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = new Intent(ChooseChallenge.this, ViewChallenges.class);
-                            Challenge challenge = randomChallengeList.get(index);
-                            intent.putExtra("CHALLENGE_ID", challenge.getId());
-                            startActivity(intent);
+                            setCurrentChallengeUser(randomChallengeList.get(index));
                             //todo delete suggetedchallenges en put currentchallenge this
                         }
                     })
@@ -304,4 +301,23 @@ public class ChooseChallenge extends AppCompatActivity {
         return image;
     }
 
+    private void setCurrentChallengeUser(final Challenge c) {
+
+        Ion.with(this)
+                .load(repo.getCURRENTCHALLENGE())
+                .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                .setBodyParameter("username",userLocalStore.getLoggedInUser().getUsername())
+                .setBodyParameter("_id",c.getId()).asString().setCallback(new FutureCallback<String>() {
+            @Override
+            public void onCompleted(Exception e, String result) {
+                goToViewChallenge(c);
+            }
+        });
+    }
+    private void goToViewChallenge(Challenge challenge)
+    {
+        Intent intent = new Intent(ChooseChallenge.this, ViewChallenges.class);
+        intent.putExtra("CHALLENGE_ID", challenge.getId());
+        startActivity(intent);
+    }
 }

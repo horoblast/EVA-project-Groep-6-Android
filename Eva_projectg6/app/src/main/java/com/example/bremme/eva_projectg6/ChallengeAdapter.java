@@ -31,7 +31,6 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
     private Drawable dImages[];
     private UserLocalStore userLocalStore;
     private Toolbar toolbar;
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
@@ -40,10 +39,23 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             view = v;
         }
     }
-
-    public ChallengeAdapter(List<Challenge> challengeDataSet){this.challengeDataSet = challengeDataSet;}
-
-
+    public ChallengeAdapter(final List<Challenge> challengeDataSet){
+        this.challengeDataSet = challengeDataSet;
+        dImages = new Drawable[challengeDataSet.size()];
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i < challengeDataSet.size(); i++) {
+                        dImages[i] = ChooseChallenge.loadImageFromWebOperations(challengeDataSet.get(i).getUrl().toString());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -52,25 +64,40 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
-
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        TextView title = (TextView) holder.view.findViewById(R.id.challengeTitle);
-        ImageView image = (ImageView) holder.view.findViewById(R.id.challengeImage);
+        final ImageView image = (ImageView) holder.view.findViewById(R.id.challengeImage);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                        image.setImageDrawable(loadImageFromWebOperations(challengeDataSet.get(position).getUrl().toString()));
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+       // image.setImageResource(R.drawable.test);
         TextView description = (TextView) holder.view.findViewById(R.id.challengeDescription);
-
-        title.setText(challengeDataSet.get(position).getName());
-        image.setImageResource(R.drawable.test);
         description.setText(challengeDataSet.get(position).getDescription());
-
-
+        TextView title = (TextView) holder.view.findViewById(R.id.challengeTitle);
+        title.setText(challengeDataSet.get(position).getName());
     }
-
     @Override
     public int getItemCount() {
         return challengeDataSet.size();
     }
 
-
+    public static Drawable loadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

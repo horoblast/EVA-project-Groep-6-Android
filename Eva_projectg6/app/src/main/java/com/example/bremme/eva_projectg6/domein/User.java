@@ -22,6 +22,7 @@ public class User {
     private Challenge[] challengeSuggestions;
     private List<Challenge> challenges;
     private Set<String> suggestionIds;
+    private Set<String> completedIds;
     public User(String firstname, String lastname,String email,String gebDatum ,Gender gender,Difficulty difficulty, String password,String username,boolean isDoingChallenges,boolean student,boolean hasChilderen ) {
         setFirstname(firstname);
         setEmail(email);
@@ -35,6 +36,14 @@ public class User {
         setIsStudent(student);
         setHasChilderen(hasChilderen);
         challengeSuggestions = new Challenge[3];
+    }
+
+    public Set<String> getCompletedIds() {
+        return completedIds;
+    }
+
+    public void setCompletedIds(Set<String> completedIds) {
+        this.completedIds = completedIds;
     }
 
     public Challenge[] getChallengeSuggestions() {

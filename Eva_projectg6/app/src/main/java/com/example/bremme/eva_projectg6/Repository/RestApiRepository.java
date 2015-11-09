@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by BREMME on 20/10/15.
@@ -23,10 +24,14 @@ public class RestApiRepository {
     private final String PUTSUGGESTEDCHALLENGE ="http://groep6api.herokuapp.com/setsuggestions";
     private final String FINDCHALLENGEBYID="http://groep6api.herokuapp.com/findchallengebyid";
     private final String STARTUSERSERIES = "http://groep6api.herokuapp.com/startuserseries";
+    private final String CURRENTCHALLENGE = "http://groep6api.herokuapp.com/setuserchallenge";
     private Challenge[] challengeList;
     public RestApiRepository() {
     }
 
+    public String getCURRENTCHALLENGE() {
+        return CURRENTCHALLENGE;
+    }
     public String getSTARTUSERSERIES() {
         return STARTUSERSERIES;
     }
@@ -74,7 +79,8 @@ public class RestApiRepository {
         Difficulty dif = Difficulty.valueOf(j.get("difficulty").getAsString());
         boolean isdoingChallenges = j.get("isdoingchallenges").getAsBoolean();
         User newUser = new User(username, lname, g, hasChilderen, isdoingChallenges, isStudent, dif, email, fname, birthDate);
-        Set<String> stringSet = new HashSet<>();
+        Set<String> stringSet = new TreeSet<>();
+        Set<String> completedChallenge = new TreeSet<>();
         if(isdoingChallenges)
         {
             JsonArray challengeSuggestions = j.get("challengessuggestions").getAsJsonArray();
@@ -85,9 +91,16 @@ public class RestApiRepository {
                 }
                //todo testen
             }
+            JsonArray challengeCompleted = j.get("challengescompleted").getAsJsonArray();
+            if(challengeCompleted.size()!=0)
+            {
+                for(JsonElement ccId : challengeCompleted){
+                    completedChallenge.add(ccId.getAsString());
+                }
+            }
         }
         newUser.setSuggestionIds(stringSet);
-//todo chalenges insteken
+        newUser.setCompletedIds(completedChallenge);
         return newUser;
     }
 
