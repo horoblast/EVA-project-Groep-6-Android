@@ -80,5 +80,12 @@
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent" />
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonFill4"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
-<!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/src/main/res/layout/activity_log_in.xml -->
+<!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/layout/activity_log_in.xml -->

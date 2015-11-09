@@ -19,7 +19,16 @@ import com.example.bremme.eva_projectg6.domein.Difficulty;
 import com.example.bremme.eva_projectg6.domein.Gender;
 import com.example.bremme.eva_projectg6.domein.User;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -37,14 +46,65 @@ public class LogIn extends AppCompatActivity {
     private UserLocalStore userLocalStore;
     private RestApiRepository repo;
     private Button b;
+    private CallbackManager mCallbackManager;
+    private FacebookCallback<LoginResult> mCallBack = new FacebookCallback<LoginResult>() {
+        private ProfileTracker mProfileTracker;
+
+        @Override
+        public void onSuccess(LoginResult loginResult) {
+            if(Profile.getCurrentProfile() == null) {
+                mProfileTracker = new ProfileTracker() {
+                    @Override
+                    protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
+                        Log.v("facebook - profile", profile2.getFirstName());
+                        mProfileTracker.stopTracking();
+                    }
+                };
+                mProfileTracker.startTracking();
+            }
+            else {
+                Profile profile = Profile.getCurrentProfile();
+                Log.v("facebook - profile", profile.getFirstName());
+            }
+        }
+
+        @Override
+        public void onCancel() {
+            Log.v("facebook - onCancel", "cancelled");
+        }
+
+        @Override
+        public void onError(FacebookException e) {
+            Log.v("facebook - onError", e.getMessage());
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        setContentView(R.layout.activity_log_in);
+        mCallbackManager = CallbackManager.Factory.create();
+        AccessTokenTracker tracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
 
+            }
+        };
+        tracker.startTracking();
+        ProfileTracker pTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+
+                this.stopTracking();
+                Profile.setCurrentProfile(currentProfile);
+            }
+        };
+        pTracker.startTracking();
         //verbinden editText en button met layout
         Locale.setDefault(new Locale("nl"));
+        LoginButton button = (LoginButton) findViewById(R.id.login_button);
+        button.registerCallback(mCallbackManager, mCallBack);
+        button.setReadPermissions("user_friends");
         eUsername = (EditText) findViewById(R.id.eUsername);
         ePassword = (EditText) findViewById(R.id.ePassword);
         loginButton = (Button) findViewById(R.id.loginButton);
@@ -56,15 +116,24 @@ public class LogIn extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Random r = new Random();
-
                 eUsername.setText("arnedebremme");
                 ePassword.setText("testimpl2");
             }
         });
 
     }
+    //Naam wordt opgehaald van profile en wordt weergegeven
+    private void displayWelcomeMessage(Profile profile){
+        if(profile != null){
+            Log.i("PROFIEL FACEBOOK",profile.getFirstName());
 
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 
     public void getToken(View view)
     {
