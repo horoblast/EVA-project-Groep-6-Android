@@ -341,6 +341,7 @@
     <string name="rUsernameVal">Vul uw username in</string>
     <string name="rYearVal">Vul een geldig jaar in</string>
     <string name="register">Registreer</string>
+    <string name="registerFacebook">Om de werking van de app te garanderen hebben we nog enkele gegevens nodig:</string>
     <string name="registreerLink">nog geen account Registreer!</string>
     <string name="secondTab">tweede stap</string>
     <string name="single"><single>single</single></string>
@@ -354,6 +355,7 @@
     <string name="titelChallengeDag">Challenge Dag 1</string>
     <string name="titelKiesChallenges">Maak een keuze uit volgende challenges ! </string>
     <string name="title_activity_choose_challenge">ChooseChallenge</string>
+    <string name="title_activity_facebook_register">FacebookRegister</string>
     <string name="title_activity_kies_challenges">kiesChallenges</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_register_main">RegisterMain</string>

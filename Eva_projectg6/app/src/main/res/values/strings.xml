@@ -52,4 +52,6 @@
     <string name="title_activity_view_challenges">ViewChallenges</string>
     <string name="duplicateUsername">username is al in gebruik</string>
     <string name="birthDate">vul uw geboortedatum in (dd-mm-yyyy)</string>
+    <string name="title_activity_facebook_register">FacebookRegister</string>
+    <string name="registerFacebook">Om de werking van de app te garanderen hebben we nog enkele gegevens nodig:</string>
 </resources>
