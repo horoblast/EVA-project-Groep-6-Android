@@ -97,11 +97,6 @@
             android:id="@+id/cChildren"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
@@ -113,4 +108,4 @@
         android:onClick="fill"
         android:background="@android:color/transparent" />
 
-</LinearLayout><!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/src/main/res/layout/register_tab2.xml -->
+</LinearLayout><!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/layout/register_tab2.xml -->

@@ -25,8 +25,14 @@ public class RestApiRepository {
     private final String FINDCHALLENGEBYID="http://groep6api.herokuapp.com/findchallengebyid";
     private final String STARTUSERSERIES = "http://groep6api.herokuapp.com/startuserseries";
     private final String CURRENTCHALLENGE = "http://groep6api.herokuapp.com/setuserchallenge";
+    private final String FACEBOOKLOGINCHECK ="http://groep6api.herokuapp.com/userfacebook";
+    private final String FACEBOOKREGISTREER = "http://groep6api.herokuapp.com/registerfacebook";
     private Challenge[] challengeList;
     public RestApiRepository() {
+    }
+
+    public String getFACEBOOKREGISTREER() {
+        return FACEBOOKREGISTREER;
     }
 
     public String getCURRENTCHALLENGE() {
@@ -64,6 +70,11 @@ public class RestApiRepository {
     public String getFINDCHALLENGEBYID() {
         return FINDCHALLENGEBYID;
     }
+
+    public String getFACEBOOKLOGINCHECK() {
+        return FACEBOOKLOGINCHECK;
+    }
+
 
     public User getUser(JsonObject j)
     {

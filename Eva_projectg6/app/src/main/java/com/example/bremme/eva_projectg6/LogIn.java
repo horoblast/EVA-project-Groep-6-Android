@@ -3,6 +3,8 @@ package com.example.bremme.eva_projectg6;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageInstaller;
+import android.media.tv.TvInputService;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,14 +21,27 @@ import com.example.bremme.eva_projectg6.domein.Difficulty;
 import com.example.bremme.eva_projectg6.domein.Gender;
 import com.example.bremme.eva_projectg6.domein.User;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
 
@@ -37,34 +52,64 @@ public class LogIn extends AppCompatActivity {
     private UserLocalStore userLocalStore;
     private RestApiRepository repo;
     private Button b;
+    private CallbackManager mCallbackManager;
+    private FacebookCallback<LoginResult> mCallBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        setContentView(R.layout.activity_log_in);
+        mCallbackManager = CallbackManager.Factory.create();
+        AccessTokenTracker tracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
 
+            }
+        };
+        tracker.startTracking();
+        ProfileTracker pTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+
+                this.stopTracking();
+                Profile.setCurrentProfile(currentProfile);
+            }
+        };
+        pTracker.startTracking();
         //verbinden editText en button met layout
         Locale.setDefault(new Locale("nl"));
+        LoginButton button = (LoginButton) findViewById(R.id.login_button);
+        facebookCallback();
+        button.registerCallback(mCallbackManager, mCallBack);
+        button.setReadPermissions(Arrays.asList("public_profile, email, user_birthday"));
         eUsername = (EditText) findViewById(R.id.eUsername);
         ePassword = (EditText) findViewById(R.id.ePassword);
         loginButton = (Button) findViewById(R.id.loginButton);
         userLocalStore = new UserLocalStore(this);
         repo = new RestApiRepository();
-
         b= (Button) findViewById(R.id.buttonFill4);
         b.setText("");
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Random r = new Random();
-
                 eUsername.setText("arnedebremme");
                 ePassword.setText("testimpl2");
             }
         });
 
     }
+    //Naam wordt opgehaald van profile en wordt weergegeven
+    private void displayWelcomeMessage(Profile profile){
+        if(profile != null){
+            Log.i("PROFIEL FACEBOOK",profile.getFirstName());
 
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 
     public void getToken(View view)
     {
@@ -146,6 +191,106 @@ public class LogIn extends AppCompatActivity {
         } while (i > 0 && i < b.length());
         return b.toString();
 
+    }
+
+    private void facebookCallback()
+    {
+       mCallBack = new FacebookCallback<LoginResult>() {
+            private ProfileTracker mProfileTracker;
+            @Override
+            public void onSuccess(final LoginResult loginResult) {
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
+                                try{
+                                    String id =object.getString("id");
+                                    String name = object.getString("name");
+                                    String gender =  object.getString("gender");
+                                    String birthDay = object.getString("birthday");
+                                    String email = "";
+                                    //todo kijken of fbid al bestaat zoja naar alle challenges
+                                    facebookUserpersisteren(id,gender,birthDay,email);
+                                    //todo zo niet toevoegen + vragen of student + dif lvl
+                                }catch (Exception e)
+                                {
+                                    Log.i("MESAAGEEEE ERROR" ,"FACEBOOK LOGIN MISSLUKT");
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender, birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
+                if(Profile.getCurrentProfile() == null) {
+                    mProfileTracker = new ProfileTracker() {
+                        @Override
+                        protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
+                            Profile.setCurrentProfile(profile2);
+                            Log.v("facebook2 - profile", profile2.getFirstName());
+                            mProfileTracker.stopTracking();
+                        }
+                    };
+                    mProfileTracker.startTracking();
+                }
+            }
+
+            @Override
+            public void onCancel() {
+                Log.v("facebook - onCancel", "cancelled");
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                Log.v("facebook - onError", e.getMessage());
+            }
+        };
+    }
+    private void facebookUserpersisteren(final String id, final String gender, final String birthday, final String email)
+    {
+        String token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NjQyMTQ0Y2IxZmU5ZTFmMDBlMjMyZjgiLCJ1c2VybmFtZSI6ImFybmUgZGUgYnJlbW1lIiwiZXhwIjoxNDUyMzU1MTQ4LCJpYXQiOjE0NDcxNzExNDh9.JR8hlOdoiSxirNjkyCQOduHgoPDHshhs1LNX5TqivtI";
+        userLocalStore.setToken(token);
+        //todo token uithalen met facebookid
+        Ion.with(this).load(repo.getFACEBOOKLOGINCHECK())
+                .setBodyParameter("facebookid", id)
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+
+
+                        if (result.size() == 0) {
+                            facebookUserRegistreren(gender, email, birthday, id);
+                        }else
+                        {
+                            if(result.get(0).isJsonObject())
+                            {
+                                JsonObject j = result.get(0).getAsJsonObject();
+                                User newUser = repo.getUser(j);
+                                userLocalStore.setUserLoggedIn(true);
+                                userLocalStore.storeUserData(newUser);
+                                challengesBekijken();
+                            }
+                        }//facebook user inloggen
+                    }
+                });
+    }
+    private void facebookUserRegistreren(String gender,String email,String birthdate,String id)
+    {
+        Profile p = Profile.getCurrentProfile();
+        Intent i = new Intent(this,FacebookRegister.class);
+        i.putExtra("gender",gender);
+        i.putExtra("email",email);
+        i.putExtra("birthdate",birthdate);
+        i.putExtra("id",id);
+        i.putExtra("name",p.getName());
+        i.putExtra("firstname",p.getFirstName());
+        i.putExtra("lastname",p.getLastName());
+        startActivity(i);
     }
     }
 
