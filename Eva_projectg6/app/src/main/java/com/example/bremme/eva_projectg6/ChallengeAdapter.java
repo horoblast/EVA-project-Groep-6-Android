@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -76,6 +78,8 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         description.setText(challengeDataSet.get(position).getDescription());
         TextView title = (TextView) holder.view.findViewById(R.id.challengeTitle);
         title.setText(challengeDataSet.get(position).getName());
+        Button button = (Button) holder.view.findViewById(R.id.buttonDone);
+        button.setText("Challenge voltooid");
     }
     @Override
     public int getItemCount() {
