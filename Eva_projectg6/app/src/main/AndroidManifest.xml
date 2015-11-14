@@ -3,7 +3,6 @@
     package="com.example.bremme.eva_projectg6" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +11,9 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
+        <provider android:authorities="com.facebook.app.FacebookContentProvider208067942857620"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
 
         <activity
             android:name=".LogIn"

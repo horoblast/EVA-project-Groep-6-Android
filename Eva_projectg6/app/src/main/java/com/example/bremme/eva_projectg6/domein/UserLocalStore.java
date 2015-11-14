@@ -19,6 +19,10 @@ public class UserLocalStore {
     {
     userLocalDatabase = context.getSharedPreferences(SP_NAME,0);
     }
+    public String getUsername()
+    {
+        return userLocalDatabase.getString("Username","");
+    }
     public void storeUserData(User user)
     {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();

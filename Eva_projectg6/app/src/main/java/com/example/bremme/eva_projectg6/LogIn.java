@@ -81,7 +81,7 @@ public class LogIn extends AppCompatActivity {
         LoginButton button = (LoginButton) findViewById(R.id.login_button);
         facebookCallback();
         button.registerCallback(mCallbackManager, mCallBack);
-        button.setReadPermissions(Arrays.asList("public_profile, email, user_birthday"));
+        button.setReadPermissions(Arrays.asList("public_profile, email, user_birthday, publish_actions"));
         eUsername = (EditText) findViewById(R.id.eUsername);
         ePassword = (EditText) findViewById(R.id.ePassword);
         loginButton = (Button) findViewById(R.id.loginButton);
@@ -158,7 +158,13 @@ public class LogIn extends AppCompatActivity {
                                     userLocalStore.setUserLoggedIn(true);
                                     userLocalStore.storeUserData(newUser);
                                     dialog.dismiss();
-                                    challengesBekijken();
+                                    if(newUser.getCurrentChallenge().length()>0)
+                                    {
+                                        goToViewChallenge(newUser.getCurrentChallenge());
+                                    }else{
+                                        challengesBekijken();
+                                    }
+
                                 }
                             } catch (Exception er) {
                                 dialog.dismiss();
@@ -273,7 +279,12 @@ public class LogIn extends AppCompatActivity {
                                 User newUser = repo.getUser(j);
                                 userLocalStore.setUserLoggedIn(true);
                                 userLocalStore.storeUserData(newUser);
-                                challengesBekijken();
+                                if(newUser.getCurrentChallenge().length()>0)
+                                {
+                                    goToViewChallenge(newUser.getCurrentChallenge());
+                                }else{
+                                    challengesBekijken();
+                                }
                             }
                         }//facebook user inloggen
                     }
@@ -289,8 +300,14 @@ public class LogIn extends AppCompatActivity {
         i.putExtra("id",id);
         i.putExtra("name",p.getName());
         i.putExtra("firstname",p.getFirstName());
-        i.putExtra("lastname",p.getLastName());
+        i.putExtra("lastname", p.getLastName());
         startActivity(i);
+    }
+    private void goToViewChallenge(String currentChallengeId)
+    {
+        Intent intent = new Intent(this, ViewChallenges.class);
+        intent.putExtra("CHALLENGE_ID", currentChallengeId);
+        startActivity(intent);
     }
     }
 

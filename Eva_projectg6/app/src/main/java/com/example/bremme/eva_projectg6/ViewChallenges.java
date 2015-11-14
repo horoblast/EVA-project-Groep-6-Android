@@ -1,5 +1,6 @@
 package com.example.bremme.eva_projectg6;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -134,16 +135,15 @@ public class ViewChallenges extends AppCompatActivity {
         for(Challenge challenge: challengesDone){
             challengesTitles.add(challenge.getName());
         }
-
-
-        mAdapter = new ChallengeAdapter(challengesDone);
+        mAdapter = new ChallengeAdapter(challengesDone,this);
     }
 
     private void setAdapterWithChallenges()
     {
         Bundle bundle = getIntent().getExtras();
-        final Set<String> idSet = userLocalStore.getLoggedInUser().getCompletedIds();
-        idSet.add(bundle.getString("CHALLENGE_ID"));
+        final Set<String> idSet = userLocalStore.getLoggedInUser().getCompletedIds(); //geef uitgevoerde challenges
+        idSet.add(bundle.getString("CHALLENGE_ID")); //set id van currentchallenge in alle challenges
+        final Context context = this;
         for(String id : idSet)
         {
             Ion.with(this)
@@ -158,11 +158,13 @@ public class ViewChallenges extends AppCompatActivity {
                             Challenge c = repo.getChallenge(result);
                             challengesDone.add(c);
                             if(count==idSet.size()){
-                                mAdapter = new ChallengeAdapter(challengesDone);
+
+                                mAdapter = new ChallengeAdapter(challengesDone,context);
                                 mRecyclerView.setAdapter(mAdapter);
                             }
                         }
                     });
         }
     }
+
 }

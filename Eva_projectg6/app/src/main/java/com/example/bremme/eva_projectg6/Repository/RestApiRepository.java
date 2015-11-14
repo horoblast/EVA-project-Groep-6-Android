@@ -27,8 +27,13 @@ public class RestApiRepository {
     private final String CURRENTCHALLENGE = "http://groep6api.herokuapp.com/setuserchallenge";
     private final String FACEBOOKLOGINCHECK ="http://groep6api.herokuapp.com/userfacebook";
     private final String FACEBOOKREGISTREER = "http://groep6api.herokuapp.com/registerfacebook";
+    private final String COMPLETECHALLENGE = "http://groep6api.herokuapp.com/completecurrentchallenge";
     private Challenge[] challengeList;
     public RestApiRepository() {
+    }
+
+    public String getCOMPLETECHALLENGE() {
+        return COMPLETECHALLENGE;
     }
 
     public String getFACEBOOKREGISTREER() {
@@ -92,8 +97,8 @@ public class RestApiRepository {
         User newUser = new User(username, lname, g, hasChilderen, isdoingChallenges, isStudent, dif, email, fname, birthDate);
         Set<String> stringSet = new TreeSet<>();
         Set<String> completedChallenge = new TreeSet<>();
-        if(isdoingChallenges)
-        {
+       // if(isdoingChallenges)
+       // {
             JsonArray challengeSuggestions = j.get("challengessuggestions").getAsJsonArray();
             if(challengeSuggestions.size()!=0)
             {
@@ -109,7 +114,9 @@ public class RestApiRepository {
                     completedChallenge.add(ccId.getAsString());
                 }
             }
-        }
+        //}
+        String currentChallenge = j.get("currentchallenge").getAsString();
+        newUser.setCurrentChallenge(currentChallenge);
         newUser.setSuggestionIds(stringSet);
         newUser.setCompletedIds(completedChallenge);
         return newUser;
