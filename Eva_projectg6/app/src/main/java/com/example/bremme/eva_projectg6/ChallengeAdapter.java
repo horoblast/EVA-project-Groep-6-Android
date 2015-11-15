@@ -1,6 +1,7 @@
 package com.example.bremme.eva_projectg6;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -22,8 +23,10 @@ import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.share.ShareApi;
+import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -80,9 +83,9 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.simplerow, parent ,false);
         ViewHolder vh = new ViewHolder(v);
-        //FacebookSdk.sdkInitialize(context.getApplicationContext());
-        //callbackManager = CallbackManager.Factory.create();
-       // shareDialog = new ShareDialog(context);
+        FacebookSdk.sdkInitialize(context.getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+       shareDialog = new ShareDialog((Activity) context);
         // this part is optional
         return vh;
     }
@@ -113,7 +116,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //shareOnFacebook(convertToBitmap(dImages[0],300,300)); //was om te testen
+                shareOnFacebook(convertToBitmap(dImages[0],300,300)); //was om te testen
             }
         });
     }
@@ -152,10 +155,14 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
 
     private void shareOnFacebook(Bitmap b)
     {
-        SharePhoto photo = new SharePhoto.Builder().setBitmap(b).build();
-        SharePhotoContent content = new SharePhotoContent.Builder()
-                .addPhoto(photo)
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("https://developers.facebook.com")).setContentTitle("Eva")
                 .build();
+        //SharePhoto photo = new SharePhoto.Builder().setBitmap(b).build();
+        //SharePhotoContent content = new SharePhotoContent.Builder()
+          //      .addPhoto(photo)
+            //    .build();
+        //todo betere content insteken
         ShareApi.share(content,null);
 
     }
