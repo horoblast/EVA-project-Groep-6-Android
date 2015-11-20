@@ -31,13 +31,28 @@
             android:background="#7F808080">
         </TextView>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/challengeImage"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:scaleType="centerCrop"/>
+            <ImageView
+                android:id="@+id/challengeImage"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"/>
+
+            <ImageView
+                android:id="@+id/CompletedImage"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_alignTop="@id/challengeImage"
+                android:layout_alignBottom="@id/challengeImage"
+                android:layout_alignLeft="@id/challengeImage"
+                android:layout_alignRight="@id/challengeImage" />
+
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/challengeDescription"

@@ -116,9 +116,13 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareOnFacebook(convertToBitmap(dImages[0],300,300)); //was om te testen
+                shareOnFacebook(convertToBitmap(dImages[0], 300, 300)); //was om te testen
             }
         });
+        ImageView completedImage = (ImageView) holder.view.findViewById(R.id.CompletedImage);
+        completedImage.setImageResource(R.drawable.completedstamp);
+        completedImage.setAlpha(155);
+
     }
     @Override
     public int getItemCount() {
