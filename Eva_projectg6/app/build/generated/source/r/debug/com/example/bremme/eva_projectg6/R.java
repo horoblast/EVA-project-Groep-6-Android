@@ -1852,26 +1852,29 @@ containing a value of this type.
         public static final int com_facebook_tooltip_blue_bottomnub=0x7f02004e;
         public static final int com_facebook_tooltip_blue_topnub=0x7f02004f;
         public static final int com_facebook_tooltip_blue_xout=0x7f020050;
-        public static final int done=0x7f020051;
-        public static final int ic_action=0x7f020052;
-        public static final int logo_eva1=0x7f020053;
-        public static final int logo_eva2=0x7f020054;
-        public static final int logo_eva_typo_nl=0x7f020055;
-        public static final int messenger_bubble_large_blue=0x7f020056;
-        public static final int messenger_bubble_large_white=0x7f020057;
-        public static final int messenger_bubble_small_blue=0x7f020058;
-        public static final int messenger_bubble_small_white=0x7f020059;
-        public static final int messenger_button_blue_bg_round=0x7f02005a;
-        public static final int messenger_button_blue_bg_selector=0x7f02005b;
-        public static final int messenger_button_send_round_shadow=0x7f02005c;
-        public static final int messenger_button_white_bg_round=0x7f02005d;
-        public static final int messenger_button_white_bg_selector=0x7f02005e;
-        public static final int notification_template_icon_bg=0x7f020062;
-        public static final int rightarrow=0x7f02005f;
-        public static final int rsz_1cow=0x7f020060;
-        public static final int rsz_2cow=0x7f020061;
+        public static final int completed=0x7f020051;
+        public static final int completedstamp=0x7f020052;
+        public static final int done=0x7f020053;
+        public static final int ic_action=0x7f020054;
+        public static final int logo_eva1=0x7f020055;
+        public static final int logo_eva2=0x7f020056;
+        public static final int logo_eva_typo_nl=0x7f020057;
+        public static final int messenger_bubble_large_blue=0x7f020058;
+        public static final int messenger_bubble_large_white=0x7f020059;
+        public static final int messenger_bubble_small_blue=0x7f02005a;
+        public static final int messenger_bubble_small_white=0x7f02005b;
+        public static final int messenger_button_blue_bg_round=0x7f02005c;
+        public static final int messenger_button_blue_bg_selector=0x7f02005d;
+        public static final int messenger_button_send_round_shadow=0x7f02005e;
+        public static final int messenger_button_white_bg_round=0x7f02005f;
+        public static final int messenger_button_white_bg_selector=0x7f020060;
+        public static final int notification_template_icon_bg=0x7f020064;
+        public static final int rightarrow=0x7f020061;
+        public static final int rsz_1cow=0x7f020062;
+        public static final int rsz_2cow=0x7f020063;
     }
     public static final class id {
+        public static final int CompletedImage=0x7f0c009f;
         public static final int action0=0x7f0c007f;
         public static final int action_bar=0x7f0c0050;
         public static final int action_bar_activity_content=0x7f0c0000;
@@ -1887,7 +1890,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0c004d;
         public static final int action_mode_bar_stub=0x7f0c004c;
         public static final int action_mode_close_button=0x7f0c0035;
-        public static final int action_settings=0x7f0c00a2;
+        public static final int action_settings=0x7f0c00a3;
         public static final int activity_chooser_view_content=0x7f0c0036;
         public static final int alertTitle=0x7f0c0040;
         public static final int always=0x7f0c001c;
@@ -1899,7 +1902,7 @@ containing a value of this type.
         public static final int btnChallenge2=0x7f0c0061;
         public static final int btnChallenge3=0x7f0c0062;
         public static final int button=0x7f0c0026;
-        public static final int buttonDone=0x7f0c00a0;
+        public static final int buttonDone=0x7f0c00a1;
         public static final int buttonFill=0x7f0c0090;
         public static final int buttonFill2=0x7f0c0097;
         public static final int buttonFill3=0x7f0c009b;
@@ -1910,7 +1913,7 @@ containing a value of this type.
         public static final int cancel_action=0x7f0c0080;
         public static final int card_view=0x7f0c009c;
         public static final int center=0x7f0c002b;
-        public static final int challengeDescription=0x7f0c009f;
+        public static final int challengeDescription=0x7f0c00a0;
         public static final int challengeImage=0x7f0c009e;
         public static final int challengeLayout=0x7f0c0076;
         public static final int challengeTitle=0x7f0c009d;
@@ -2032,7 +2035,7 @@ containing a value of this type.
         public static final int unknown=0x7f0c0024;
         public static final int up=0x7f0c0009;
         public static final int useLogo=0x7f0c0013;
-        public static final int userNameTool=0x7f0c00a1;
+        public static final int userNameTool=0x7f0c00a2;
         public static final int withText=0x7f0c0020;
         public static final int wrap_content=0x7f0c0021;
     }

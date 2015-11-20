@@ -116,9 +116,18 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareOnFacebook(convertToBitmap(dImages[0],300,300)); //was om te testen
+                shareOnFacebook(convertToBitmap(dImages[0], 300, 300)); //was om te testen
             }
         });
+        ImageView completedImage = (ImageView) holder.view.findViewById(R.id.CompletedImage);
+        if(challengeDataSet.size() - 1 > position){
+            completedImage.setImageResource(R.drawable.completedstamp);
+            completedImage.setAlpha(155);
+            button.setVisibility(View.GONE);
+        }else{
+        }
+
+
     }
     @Override
     public int getItemCount() {
@@ -171,7 +180,6 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         Canvas canvas = new Canvas(mutableBitmap);
         drawable.setBounds(0, 0, widthPixels, heightPixels);
         drawable.draw(canvas);
-
         return mutableBitmap;
     }
 }
