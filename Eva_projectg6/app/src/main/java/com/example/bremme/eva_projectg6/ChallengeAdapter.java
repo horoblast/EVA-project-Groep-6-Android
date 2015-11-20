@@ -120,8 +120,13 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             }
         });
         ImageView completedImage = (ImageView) holder.view.findViewById(R.id.CompletedImage);
-        completedImage.setImageResource(R.drawable.completedstamp);
-        completedImage.setAlpha(155);
+        if(challengeDataSet.size() - 1 > position){
+            completedImage.setImageResource(R.drawable.completedstamp);
+            completedImage.setAlpha(155);
+            button.setVisibility(View.GONE);
+        }else{
+        }
+
 
     }
     @Override
@@ -175,7 +180,6 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         Canvas canvas = new Canvas(mutableBitmap);
         drawable.setBounds(0, 0, widthPixels, heightPixels);
         drawable.draw(canvas);
-
         return mutableBitmap;
     }
 }
