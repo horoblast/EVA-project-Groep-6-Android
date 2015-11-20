@@ -27,8 +27,11 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class ViewChallenges extends AppCompatActivity {
     private RestApiRepository repo;
@@ -170,7 +173,10 @@ public class ViewChallenges extends AppCompatActivity {
     }
     private List<Challenge> sortChallenges()
     {
-        final Set<String> idSet = userLocalStore.getLoggedInUser().getCompletedIds();
+        Set<String> idSet = userLocalStore.getLoggedInUser().getCompletedIds();
+        List list = new ArrayList(idSet);
+        Collections.sort(list, Collections.reverseOrder());
+        idSet = new TreeSet(list);
         List<Challenge> challenges = new ArrayList<>();
         for(String id : idSet)
         {
