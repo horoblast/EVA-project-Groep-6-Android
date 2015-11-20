@@ -159,6 +159,7 @@ public class ChooseChallenge extends AppCompatActivity {
                                 Challenge c = repo.getChallenge(result);
                                 randomChallengeList.add(c);
                                 if(count==3){
+
                                     initDisplay();
                                     count =0;
                                 }

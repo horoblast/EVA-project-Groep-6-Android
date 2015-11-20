@@ -158,10 +158,9 @@ public class LogIn extends AppCompatActivity {
                                     userLocalStore.setUserLoggedIn(true);
                                     userLocalStore.storeUserData(newUser);
                                     dialog.dismiss();
-                                    if(newUser.getCurrentChallenge().length()>0)
-                                    {
+                                    if (newUser.getCurrentChallenge().length() > 0) {
                                         goToViewChallenge(newUser.getCurrentChallenge());
-                                    }else{
+                                    } else {
                                         challengesBekijken();
                                     }
 
@@ -258,35 +257,65 @@ public class LogIn extends AppCompatActivity {
     }
     private void facebookUserpersisteren(final String id, final String gender, final String birthday, final String email)
     {
-        String token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NjQyMTQ0Y2IxZmU5ZTFmMDBlMjMyZjgiLCJ1c2VybmFtZSI6ImFybmUgZGUgYnJlbW1lIiwiZXhwIjoxNDUyMzU1MTQ4LCJpYXQiOjE0NDcxNzExNDh9.JR8hlOdoiSxirNjkyCQOduHgoPDHshhs1LNX5TqivtI";
-        userLocalStore.setToken(token);
-        //todo token uithalen met facebookid
-        Ion.with(this).load(repo.getFACEBOOKLOGINCHECK())
-                .setBodyParameter("facebookid", id)
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
+        /*{
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0NTMxOTEwODYsImlhdCI6MTQ0ODAwNzA4Nn0.w2cWfZ1WMB6hR473KLH23fgGfC3_Fv07TlL1KWp-IIo",
+                "user": [
+        {
+            "_id": "56422127255def1f006de906",
+                "facebookid": "10205318282465745",
+                "isfacebooklogin": true,
+                "isdoingchallenges": true,
+                "birthdate": "Tue Jul 12 1994 08:00:00 GMT+0000 (UTC)",
+                "haschildren": false,
+                "isstudent": true,
+                "difficulty": "easy",
+                "email": "",
+                "gender": "male",
+                "lastname": "De Bremme",
+                "firstname": "Arne",
+                "username": "arne de bremme",
+                "__v": 23,
+                "currentchallenge": "563146978c5ba50300f2b4f9",
+                "hash": "",
+                "salt": "",
+                "challengessuggestions": [
+            "56313a951a99710300d9d13f",
+                    "563146978c5ba50300f2b4f9",
+                    "563141ab8c5ba50300f2b4f5"
+            ],
+            "challengescompleted": [
+            "56313fc28c5ba50300f2b4f2",
+                    "56313ee38c5ba50300f2b4f1",
+                    "563151f48c5ba50300f2b500",
+                    "563151058c5ba50300f2b4ff",
+                    "563142de8c5ba50300f2b4f7"
+            ]
+        }
+        ]
+    }*/
+        Ion.with(this)
+                .load(repo.getLOGINWITHFB())
+                .setBodyParameter("facebookid",id)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonArray result) {
-
-
-                        if (result.size() == 0) {
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Log.i("yolo", "swag");
+                        String token = result.get("token").getAsString();
+                        userLocalStore.setToken(token);
+                        if(result.get("user").getAsJsonArray().size()==0){
                             facebookUserRegistreren(gender, email, birthday, id);
-                        }else
-                        {
-                            if(result.get(0).isJsonObject())
-                            {
-                                JsonObject j = result.get(0).getAsJsonObject();
-                                User newUser = repo.getUser(j);
-                                userLocalStore.setUserLoggedIn(true);
-                                userLocalStore.storeUserData(newUser);
-                                if(newUser.getCurrentChallenge().length()>0)
-                                {
-                                    goToViewChallenge(newUser.getCurrentChallenge());
-                                }else{
-                                    challengesBekijken();
-                                }
+                        }else{
+                            JsonObject userJson = result.get("user").getAsJsonArray().get(0).getAsJsonObject();
+                            User newUser = repo.getUser(userJson);
+                            userLocalStore.setUserLoggedIn(true);
+                            userLocalStore.storeUserData(newUser);
+                            if (newUser.getCurrentChallenge().length() > 0) {
+                                goToViewChallenge(newUser.getCurrentChallenge());
+                            } else {
+                                challengesBekijken();
                             }
-                        }//facebook user inloggen
+                        }
                     }
                 });
     }

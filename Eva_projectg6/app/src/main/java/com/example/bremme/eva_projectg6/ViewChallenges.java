@@ -157,14 +157,36 @@ public class ViewChallenges extends AppCompatActivity {
                             count++;
                             Challenge c = repo.getChallenge(result);
                             challengesDone.add(c);
-                            if(count==idSet.size()){
+                            if (count == idSet.size()) {
 
-                                mAdapter = new ChallengeAdapter(challengesDone,context);
+                                challengesDone =sortChallenges();
+                                mAdapter = new ChallengeAdapter(challengesDone, context);
                                 mRecyclerView.setAdapter(mAdapter);
+
                             }
                         }
                     });
         }
+    }
+    private List<Challenge> sortChallenges()
+    {
+        final Set<String> idSet = userLocalStore.getLoggedInUser().getCompletedIds();
+        List<Challenge> challenges = new ArrayList<>();
+        for(String id : idSet)
+        {
+           for(Challenge c : challengesDone)
+           {
+               if(id.equals(c.getId())){
+                   challenges.add(c);
+                   break;
+               }
+           }
+        }
+        if(challenges.size()!=0){
+            Log.i("messa","sdd");
+        }
+        return challenges;
+
     }
 
 }

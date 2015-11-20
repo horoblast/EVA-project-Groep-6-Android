@@ -28,8 +28,13 @@ public class RestApiRepository {
     private final String FACEBOOKLOGINCHECK ="http://groep6api.herokuapp.com/userfacebook";
     private final String FACEBOOKREGISTREER = "http://groep6api.herokuapp.com/registerfacebook";
     private final String COMPLETECHALLENGE = "http://groep6api.herokuapp.com/completecurrentchallenge";
+    private final String LOGINWITHFB ="http://groep6api.herokuapp.com/loginFb";
     private Challenge[] challengeList;
     public RestApiRepository() {
+    }
+
+    public String getLOGINWITHFB() {
+        return LOGINWITHFB;
     }
 
     public String getCOMPLETECHALLENGE() {
