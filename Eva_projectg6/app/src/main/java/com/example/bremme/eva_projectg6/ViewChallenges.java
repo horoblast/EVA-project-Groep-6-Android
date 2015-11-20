@@ -22,12 +22,14 @@ import com.example.bremme.eva_projectg6.domein.Gender;
 import com.example.bremme.eva_projectg6.domein.User;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -146,8 +148,38 @@ public class ViewChallenges extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         final Set<String> idSet = userLocalStore.getLoggedInUser().getCompletedIds(); //geef uitgevoerde challenges
         idSet.add(bundle.getString("CHALLENGE_ID")); //set id van currentchallenge in alle challenges
+        Ion.with(this)
+                .load(repo.getUser()).setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                .setBodyParameter("username", userLocalStore.getUsername())
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+                        try {
+
+                            if (result.get(0).isJsonObject()) {
+                                JsonObject j = result.get(0).getAsJsonObject();
+                                List<String> idChallenges = new ArrayList<String>();
+                                JsonArray challengesCompleted = j.get("challengescompleted").getAsJsonArray();
+                                String idChallengeCurrent = j.get("currentchallenge").getAsString();
+                                idChallenges.add(idChallengeCurrent);
+                                for(int i =0;i<challengesCompleted.size();i++)
+                                {
+                                    idChallenges.add(challengesCompleted.get(i).getAsString());
+                                }
+                                getChallengeObjects(idChallenges);
+                            }
+                        } catch (Exception er) {
+                        }
+
+                    }
+                });
+
+    }
+    private void getChallengeObjects(final List<String> idChallenges)
+    {
         final Context context = this;
-        for(String id : idSet)
+        for(String id : idChallenges)
         {
             Ion.with(this)
                     .load(repo.getFINDCHALLENGEBYID())
@@ -160,9 +192,7 @@ public class ViewChallenges extends AppCompatActivity {
                             count++;
                             Challenge c = repo.getChallenge(result);
                             challengesDone.add(c);
-                            if (count == idSet.size()) {
-
-                                challengesDone =sortChallenges();
+                            if (count == idChallenges.size()) {
                                 mAdapter = new ChallengeAdapter(challengesDone, context);
                                 mRecyclerView.setAdapter(mAdapter);
 
@@ -171,28 +201,4 @@ public class ViewChallenges extends AppCompatActivity {
                     });
         }
     }
-    private List<Challenge> sortChallenges()
-    {
-        Set<String> idSet = userLocalStore.getLoggedInUser().getCompletedIds();
-        List list = new ArrayList(idSet);
-        Collections.sort(list, Collections.reverseOrder());
-        idSet = new TreeSet(list);
-        List<Challenge> challenges = new ArrayList<>();
-        for(String id : idSet)
-        {
-           for(Challenge c : challengesDone)
-           {
-               if(id.equals(c.getId())){
-                   challenges.add(c);
-                   break;
-               }
-           }
-        }
-        if(challenges.size()!=0){
-            Log.i("messa","sdd");
-        }
-        return challenges;
-
-    }
-
 }
