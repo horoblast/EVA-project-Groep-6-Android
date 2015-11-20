@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -124,6 +126,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             completedImage.setImageResource(R.drawable.completedstamp);
             completedImage.setAlpha(155);
             button.setVisibility(View.GONE);
+            //setLocked(image);
         }else{
         }
 
@@ -172,7 +175,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
           //      .addPhoto(photo)
             //    .build();
         //todo betere content insteken
-        ShareApi.share(content,null);
+        ShareApi.share(content, null);
 
     }
     public Bitmap convertToBitmap(Drawable drawable, int widthPixels, int heightPixels) {
@@ -181,5 +184,14 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         drawable.setBounds(0, 0, widthPixels, heightPixels);
         drawable.draw(canvas);
         return mutableBitmap;
+    }
+
+    public static void  setLocked(ImageView v)
+    {
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0);  //0 means grayscale
+        ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
+        v.setColorFilter(cf);
+        //v.setAlpha(128);   // 128 = 0.5
     }
 }
