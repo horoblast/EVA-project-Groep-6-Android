@@ -28,6 +28,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -157,16 +158,22 @@ public class ViewChallenges extends AppCompatActivity {
                     public void onCompleted(Exception e, JsonArray result) {
                         try {
 
+                            StringBuilder stringB = new StringBuilder("[");
                             if (result.get(0).isJsonObject()) {
                                 JsonObject j = result.get(0).getAsJsonObject();
                                 List<String> idChallenges = new ArrayList<String>();
                                 JsonArray challengesCompleted = j.get("challengescompleted").getAsJsonArray();
                                 String idChallengeCurrent = j.get("currentchallenge").getAsString();
+
                                 idChallenges.add(idChallengeCurrent);
                                 for(int i =0;i<challengesCompleted.size();i++)
                                 {
+                                    stringB.append("\"");
                                     idChallenges.add(challengesCompleted.get(i).getAsString());
+                                    stringB.append(challengesCompleted.get(i).getAsString()+"\", ");
                                 }
+                                stringB.append("\"");
+                                stringB.append(idChallengeCurrent+"\"]");
                                 getChallengeObjects(idChallenges);
                             }
                         } catch (Exception er) {
@@ -200,5 +207,25 @@ public class ViewChallenges extends AppCompatActivity {
                         }
                     });
         }
+    }
+    private void getChallengesByid(String ids)
+    {
+        final Context context = this;
+            Ion.with(this)
+                    .load(repo.getGETALLCHALLENGESBYLIST())
+                    .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                    .setBodyParameter("ids", ids)
+                    .asJsonArray()
+                    .setCallback(new FutureCallback<JsonArray>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonArray result) {
+                            challengesDone = Arrays.asList(repo.getAllChallenges(result));
+                            mAdapter = new ChallengeAdapter(challengesDone, context);
+                            mRecyclerView.setAdapter(mAdapter);
+
+
+                        }
+                    });
+
     }
 }

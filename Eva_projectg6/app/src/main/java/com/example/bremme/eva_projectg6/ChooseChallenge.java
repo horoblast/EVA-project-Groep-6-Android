@@ -100,9 +100,11 @@ public class ChooseChallenge extends AppCompatActivity {
     private List<Challenge> getRandomChallengesOnDifficulty(Difficulty difficulty){
         List<Challenge> challengeList = new ArrayList<>();
         List<Challenge> randomList = new ArrayList<>();
+        StringBuilder sBuilder = new StringBuilder("[");
             int length = challenges.length;
             Random random = new Random();
             for (int i = 0; i < length; i++) {
+                Log.i("DebugDiff",i+" ");
                 if (challenges[i].getDifficulty() == difficulty) {
                     challengeList.add(challenges[i]);
                 }
@@ -111,20 +113,26 @@ public class ChooseChallenge extends AppCompatActivity {
                 //suggestie gevonden op niveau en in db steken
                 int index = random.nextInt(challengeList.size());
                 randomList.add(challengeList.get(index));
-                putSuggestieInDb(challengeList.get(index).getId());
+                sBuilder.append("\"");
+                sBuilder.append(challengeList.get(index).getId());
+                sBuilder.append("\"");
+                if(i<2)
+                    sBuilder.append(", ");
                 Log.i("id toegevoegd: ",challengeList.get(index).getId());
                 challengeList.remove(index);
             }
+        sBuilder.append("]");
+        putSuggestiesInDb(sBuilder.toString());
             //todo suggestions in user steken
         return randomList;
         }
 
-    private void putSuggestieInDb(String id)
+    private void putSuggestiesInDb(String challenges)
     {
-        Ion.with(this)
-                .load(repo.getPUTSUGGESTEDCHALLENGE()).setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+        Ion.with(this).load(repo.getSETALLSUGGESTIONS())
+                .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
                 .setBodyParameter("username", userLocalStore.getLoggedInUser().getUsername())
-                .setBodyParameter("challengessuggestions", id)
+                .setBodyParameter("challengessuggestions", challenges)
                 .asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
@@ -133,8 +141,6 @@ public class ChooseChallenge extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     //haalt alle challenges op

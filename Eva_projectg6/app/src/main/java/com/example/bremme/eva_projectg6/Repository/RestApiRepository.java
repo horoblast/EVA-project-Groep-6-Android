@@ -1,5 +1,7 @@
 package com.example.bremme.eva_projectg6.Repository;
 
+import android.util.Log;
+
 import com.example.bremme.eva_projectg6.domein.Challenge;
 import com.example.bremme.eva_projectg6.domein.Difficulty;
 import com.example.bremme.eva_projectg6.domein.Gender;
@@ -29,10 +31,19 @@ public class RestApiRepository {
     private final String FACEBOOKREGISTREER = "http://groep6api.herokuapp.com/registerfacebook";
     private final String COMPLETECHALLENGE = "http://groep6api.herokuapp.com/completecurrentchallenge";
     private final String LOGINWITHFB ="http://groep6api.herokuapp.com/loginFb";
+    private final String SETALLSUGGESTIONS ="http://groep6api.herokuapp.com/setsuggestions";
+    private final String GETALLCHALLENGESBYLIST = "http://groep6api.herokuapp.com/sfindmanychallengesbyid";
     private Challenge[] challengeList;
     public RestApiRepository() {
     }
 
+    public String getGETALLCHALLENGESBYLIST() {
+        return GETALLCHALLENGESBYLIST;
+    }
+
+    public String getSETALLSUGGESTIONS() {
+        return SETALLSUGGESTIONS;
+    }
     public String getLOGINWITHFB() {
         return LOGINWITHFB;
     }
@@ -55,7 +66,6 @@ public class RestApiRepository {
     public String getPUTSUGGESTEDCHALLENGE() {
         return PUTSUGGESTEDCHALLENGE;
     }
-
     public String getUsernamecheck() {
         return USERNAMECHECK;
     }
@@ -102,26 +112,28 @@ public class RestApiRepository {
         User newUser = new User(username, lname, g, hasChilderen, isdoingChallenges, isStudent, dif, email, fname, birthDate);
         Set<String> stringSet = new TreeSet<>();
         Set<String> completedChallenge = new TreeSet<>();
-       // if(isdoingChallenges)
-       // {
-            JsonArray challengeSuggestions = j.get("challengessuggestions").getAsJsonArray();
-            if(challengeSuggestions.size()!=0)
-            {
-                for(JsonElement cId : challengeSuggestions) {
-                    stringSet.add(cId.getAsString());
+        newUser.setCurrentChallenge("");
+        if(isdoingChallenges) {
+            try {//blijkbaar kan currentchallenge null zijn in api
+                String currentChallenge = j.get("currentchallenge").getAsString();
+                newUser.setCurrentChallenge(currentChallenge);
+                JsonArray challengeSuggestions = j.get("challengessuggestions").getAsJsonArray();
+                if (challengeSuggestions.size() != 0) {
+                    for (JsonElement cId : challengeSuggestions) {
+                        stringSet.add(cId.getAsString());
+                    }
+                    //todo testen
                 }
-               //todo testen
-            }
-            JsonArray challengeCompleted = j.get("challengescompleted").getAsJsonArray();
-            if(challengeCompleted.size()!=0)
-            {
-                for(JsonElement ccId : challengeCompleted){
-                    completedChallenge.add(ccId.getAsString());
+                JsonArray challengeCompleted = j.get("challengescompleted").getAsJsonArray();
+                if (challengeCompleted.size() != 0) {
+                    for (JsonElement ccId : challengeCompleted) {
+                        completedChallenge.add(ccId.getAsString());
+                    }
                 }
+            } catch (Exception e) {
+                Log.i("currentchallenge", "currentchallenge is null");
             }
-        //}
-        String currentChallenge = j.get("currentchallenge").getAsString();
-        newUser.setCurrentChallenge(currentChallenge);
+        }
         newUser.setSuggestionIds(stringSet);
         newUser.setCompletedIds(completedChallenge);
         return newUser;
@@ -129,7 +141,6 @@ public class RestApiRepository {
 
     public Challenge[] getAllChallenges(JsonArray result)
     {
-
         challengeList = new Challenge[result.size()];
         for (int i = 0; i < result.size(); i++) {
             if (result.get(i).isJsonObject()) {
@@ -143,8 +154,13 @@ public class RestApiRepository {
     public Challenge getChallenge(JsonObject json)
     {
             String url="";
+        try{
             url = json.get("image").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
-            Challenge c = new Challenge(json.get("_id").getAsString(), json.get("nameEn").getAsString(), json.get("descriptionEn").getAsString(), Difficulty.valueOf(json.get("difficulty").getAsString()),url);
+        }catch(Exception e)
+        {
+            //if image  = null
+        }
+            Challenge c = new Challenge(json.get("_id").getAsString(), json.get("name").getAsString(), json.get("description").getAsString(), Difficulty.valueOf(json.get("difficulty").getAsString()),url);
             return c;
     }
     public String[] getSuggestedChallenges(JsonArray jsonArray)
