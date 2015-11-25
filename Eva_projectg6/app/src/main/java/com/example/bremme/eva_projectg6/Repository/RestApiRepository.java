@@ -144,7 +144,7 @@ public class RestApiRepository {
     {
             String url="";
             url = json.get("image").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
-            Challenge c = new Challenge(json.get("_id").getAsString(), json.get("name").getAsString(), json.get("description").getAsString(), Difficulty.valueOf(json.get("difficulty").getAsString()),url);
+            Challenge c = new Challenge(json.get("_id").getAsString(), json.get("nameEn").getAsString(), json.get("descriptionEn").getAsString(), Difficulty.valueOf(json.get("difficulty").getAsString()),url);
             return c;
     }
     public String[] getSuggestedChallenges(JsonArray jsonArray)
