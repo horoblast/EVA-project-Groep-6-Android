@@ -217,9 +217,7 @@ public class LogIn extends AppCompatActivity {
                                     String gender =  object.getString("gender");
                                     String birthDay = object.getString("birthday");
                                     String email = "";
-                                    //todo kijken of fbid al bestaat zoja naar alle challenges
                                     facebookUserpersisteren(id,gender,birthDay,email);
-                                    //todo zo niet toevoegen + vragen of student + dif lvl
                                 }catch (Exception e)
                                 {
                                     Log.i("MESAAGEEEE ERROR" ,"FACEBOOK LOGIN MISSLUKT");

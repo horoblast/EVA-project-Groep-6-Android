@@ -36,6 +36,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 
@@ -97,16 +98,32 @@ public class ChooseChallenge extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private List<Challenge> getRandomChallengesOnDifficulty(Difficulty difficulty){
+    private List<Challenge> getRandomChallengesOnDifficulty(User user){
         List<Challenge> challengeList = new ArrayList<>();
         List<Challenge> randomList = new ArrayList<>();
         StringBuilder sBuilder = new StringBuilder("[");
             int length = challenges.length;
             Random random = new Random();
             for (int i = 0; i < length; i++) {
-                Log.i("DebugDiff",i+" ");
-                if (challenges[i].getDifficulty() == difficulty) {
-                    challengeList.add(challenges[i]);
+                if(user.getDif() ==Difficulty.easy)
+                {
+                    if (challenges[i].getDifficulty() == user.getDif() && isStudentFriendly(challenges[i],user.isStudent())&&isChildFriendly(challenges[i], user.HasChilderen())) {
+                        challengeList.add(challenges[i]);
+                    }
+                }
+                if(user.getDif() == Difficulty.medium)
+                {
+                    if (challenges[i].getDifficulty() == Difficulty.easy || challenges[i].getDifficulty() == Difficulty.medium) {
+                        if(isStudentFriendly(challenges[i],user.isStudent())&&isChildFriendly(challenges[i],user.HasChilderen()))
+                        challengeList.add(challenges[i]);
+                    }
+                }
+                if(user.getDif() == Difficulty.hard)
+                {
+                    if (challenges[i].getDifficulty() == Difficulty.medium || challenges[i].getDifficulty() == Difficulty.hard ) {
+                        if(isStudentFriendly(challenges[i],user.isStudent())&&isChildFriendly(challenges[i],user.HasChilderen()))
+                        challengeList.add(challenges[i]);
+                    }
                 }
             }
             for (int i = 0; i < 3; i++) {
@@ -123,10 +140,29 @@ public class ChooseChallenge extends AppCompatActivity {
             }
         sBuilder.append("]");
         putSuggestiesInDb(sBuilder.toString());
-            //todo suggestions in user steken
         return randomList;
         }
 
+    private boolean isStudentFriendly(Challenge c,boolean student)
+    {
+        boolean status = true;
+        if(student == true)
+        {
+            if(c.isStudentFriendly()!= true)
+                status = false;
+        }
+        return status;
+    }
+    private boolean isChildFriendly(Challenge c , boolean child)
+    {
+        boolean status = true;
+        if(child == true)
+        {
+            if(c.isChildFriendly()!= true)
+                status = false;
+        }
+        return status;
+    }
     private void putSuggestiesInDb(String challenges)
     {
         Ion.with(this).load(repo.getSETALLSUGGESTIONS())
@@ -136,16 +172,14 @@ public class ChooseChallenge extends AppCompatActivity {
                 .asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
-                //todo testen of "gelukt"
-                Log.i("dsdsd", result + "");
-
+                //todo startuserseries
             }
         });
     }
 
     //haalt alle challenges op
     private void getChallenges()
-    {
+    {//todo challenge lijst api call
         //kijken of user al suggesties heeft
         User u = userLocalStore.getLoggedInUser();
         Log.i("SUGGESTIES ZIJN ER AL ?", userLocalStore.getLoggedInUser().getSuggestionIds().size() + "");
@@ -162,7 +196,8 @@ public class ChooseChallenge extends AppCompatActivity {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
                                 count++;
-                                Challenge c = repo.getChallenge(result);
+                                String language = getResources().getConfiguration().locale.getLanguage();
+                                Challenge c = repo.getChallenge(result,language);
                                 randomChallengeList.add(c);
                                 if(count==3){
 
@@ -179,8 +214,10 @@ public class ChooseChallenge extends AppCompatActivity {
                     .setCallback(new FutureCallback<JsonArray>() {
                         @Override
                         public void onCompleted(Exception e, JsonArray result) {
-                            challenges = repo.getAllChallenges(result);
-                            randomChallengeList = getRandomChallengesOnDifficulty(userLocalStore.getLoggedInUser().getDif());
+                            String language = getResources().getConfiguration().locale.getLanguage();
+                            Log.i("Locale",language);
+                            challenges = repo.getAllChallenges(result,language);
+                            randomChallengeList = getRandomChallengesOnDifficulty(userLocalStore.getLoggedInUser());
                             initDisplay();
                         }
                     });
@@ -251,7 +288,6 @@ public class ChooseChallenge extends AppCompatActivity {
                     .setPositiveButton("Kies challenge", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             setCurrentChallengeUser(randomChallengeList.get(index));
-                            //todo delete suggetedchallenges en put currentchallenge this
                         }
                     })
                     .setNegativeButton("Annuleer", new DialogInterface.OnClickListener() {

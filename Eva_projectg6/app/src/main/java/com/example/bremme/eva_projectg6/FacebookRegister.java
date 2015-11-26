@@ -75,7 +75,6 @@ public class FacebookRegister extends AppCompatActivity {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        //todo token ontvangen en userlocal store steken
                         String token = result.getAsJsonObject().get("token").getAsString();
                         userLocalStore.setToken(token);
                         userInloggen(bundle.getString("id"),dialog);

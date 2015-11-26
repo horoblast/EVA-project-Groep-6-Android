@@ -108,42 +108,12 @@ public class ViewChallenges extends AppCompatActivity {
         }
 
     }
-
-    private void getChoosenChallenge(){
-        intent = getIntent();
-        String challengeID =  intent.getStringExtra("CHALLENGE_ID");
-        int lenght = challenges.length;
-
-        Ion.with(this)
-                .load(repo.getChallenges())
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonArray result) {
-                        challenges = repo.getAllChallenges(result);
-                        Log.i("message", challenges[0].getName());
-                        init();
-                        getChoosenChallenge();
-
-                        setText();
-                    }
-                });
-        for(int i = 0; i < lenght ; i++){
-            if(challengeID.equals(challenges[i].getId())){
-                challengesDone.add(challenges[i]);
-            }
-        }
-
-
-    }
-
     private void setText(){
         for(Challenge challenge: challengesDone){
             challengesTitles.add(challenge.getName());
         }
         mAdapter = new ChallengeAdapter(challengesDone,this);
     }
-
     private void setAdapterWithChallenges()
     {
         Bundle bundle = getIntent().getExtras();
@@ -173,8 +143,11 @@ public class ViewChallenges extends AppCompatActivity {
                                     stringB.append(challengesCompleted.get(i).getAsString()+"\", ");
                                 }
                                 stringB.append("\"");
-                                stringB.append(idChallengeCurrent+"\"]");
-                                getChallengeObjects(idChallenges);
+                                stringB.append(idChallengeCurrent + "\"]");
+
+                                String language = getResources().getConfiguration().locale.getLanguage();
+                               getChallengesByid(stringB.toString(),language);
+                                //getChallengeObjects(idChallenges,language);
                             }
                         } catch (Exception er) {
                         }
@@ -183,7 +156,7 @@ public class ViewChallenges extends AppCompatActivity {
                 });
 
     }
-    private void getChallengeObjects(final List<String> idChallenges)
+    private void getChallengeObjects(final List<String> idChallenges, final String language)
     {
         final Context context = this;
         for(String id : idChallenges)
@@ -197,7 +170,7 @@ public class ViewChallenges extends AppCompatActivity {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
                             count++;
-                            Challenge c = repo.getChallenge(result);
+                            Challenge c = repo.getChallenge(result,language);
                             challengesDone.add(c);
                             if (count == idChallenges.size()) {
                                 mAdapter = new ChallengeAdapter(challengesDone, context);
@@ -208,7 +181,7 @@ public class ViewChallenges extends AppCompatActivity {
                     });
         }
     }
-    private void getChallengesByid(String ids)
+    private void getChallengesByid(String ids, final String language)
     {
         final Context context = this;
             Ion.with(this)
@@ -219,11 +192,9 @@ public class ViewChallenges extends AppCompatActivity {
                     .setCallback(new FutureCallback<JsonArray>() {
                         @Override
                         public void onCompleted(Exception e, JsonArray result) {
-                            challengesDone = Arrays.asList(repo.getAllChallenges(result));
+                            challengesDone = Arrays.asList(repo.getAllChallenges(result,language));
                             mAdapter = new ChallengeAdapter(challengesDone, context);
                             mRecyclerView.setAdapter(mAdapter);
-
-
                         }
                     });
 

@@ -12,6 +12,8 @@ public class Challenge {
     private String description;
     private Difficulty difficulty;
     private URL imageUrl;
+    private boolean childFriendly;
+    private boolean studentFriendly;
     public Challenge(String id, String name, URL url) {
        setId(id);
        setName(name);
@@ -31,6 +33,29 @@ public class Challenge {
         setImageUrlByString(url);
         setDifficulty(difficulty);
     }
+
+    public Challenge(String id,String name,String description, Difficulty difficulty, String imageUrl, boolean childFriendly, boolean studentFriendly) {
+        this(id,name,description,difficulty,imageUrl);
+        setChildFriendly(childFriendly);
+        setStudentFriendly(studentFriendly);
+    }
+
+    public boolean isChildFriendly() {
+        return childFriendly;
+    }
+
+    public void setChildFriendly(boolean childFriendly) {
+        this.childFriendly = childFriendly;
+    }
+
+    public boolean isStudentFriendly() {
+        return studentFriendly;
+    }
+
+    public void setStudentFriendly(boolean studentFriendly) {
+        this.studentFriendly = studentFriendly;
+    }
+
     public void setImageUrl(URL imageUrl) {
         this.imageUrl = imageUrl;
     }

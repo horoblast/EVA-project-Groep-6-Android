@@ -32,7 +32,7 @@ public class RestApiRepository {
     private final String COMPLETECHALLENGE = "http://groep6api.herokuapp.com/completecurrentchallenge";
     private final String LOGINWITHFB ="http://groep6api.herokuapp.com/loginFb";
     private final String SETALLSUGGESTIONS ="http://groep6api.herokuapp.com/setsuggestions";
-    private final String GETALLCHALLENGESBYLIST = "http://groep6api.herokuapp.com/sfindmanychallengesbyid";
+    private final String GETALLCHALLENGESBYLIST = "http://groep6api.herokuapp.com/findmanychallengesbyid";
     private Challenge[] challengeList;
     public RestApiRepository() {
     }
@@ -139,29 +139,38 @@ public class RestApiRepository {
         return newUser;
     }
 
-    public Challenge[] getAllChallenges(JsonArray result)
+    public Challenge[] getAllChallenges(JsonArray result,String language)
     {
         challengeList = new Challenge[result.size()];
         for (int i = 0; i < result.size(); i++) {
             if (result.get(i).isJsonObject()) {
                 JsonObject json = result.get(i).getAsJsonObject();
-                Challenge c = getChallenge(json);
+                Challenge c = getChallenge(json,language);
                 challengeList[i] = c;
             }
         }
         return challengeList;
     }
-    public Challenge getChallenge(JsonObject json)
+    public Challenge getChallenge(JsonObject json,String language)
     {
-            String url="";
+        String lang = Character.toUpperCase(language.charAt(0)) + language.substring(1);
+        String url ="";
+        Challenge c;
         try{
             url = json.get("image").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
         }catch(Exception e)
         {
             //if image  = null
         }
-            Challenge c = new Challenge(json.get("_id").getAsString(), json.get("name").getAsString(), json.get("description").getAsString(), Difficulty.valueOf(json.get("difficulty").getAsString()),url);
-            return c;
+       if(lang.equals("Nl"))
+       {
+           c = new Challenge(json.get("_id").getAsString(), json.get("name").getAsString(), json.get("description").getAsString(), Difficulty.valueOf(json.get("difficulty").getAsString()),url,json.get("childfriendly").getAsBoolean(),json.get("studentfriendly").getAsBoolean());
+       }
+        else
+       {
+           c = new Challenge(json.get("_id").getAsString(), json.get("name"+lang).getAsString(), json.get("description"+lang).getAsString(), Difficulty.valueOf(json.get("difficulty").getAsString()),url,json.get("childfriendly").getAsBoolean(),json.get("studentfriendly").getAsBoolean());
+       }
+             return c;
     }
     public String[] getSuggestedChallenges(JsonArray jsonArray)
     {
