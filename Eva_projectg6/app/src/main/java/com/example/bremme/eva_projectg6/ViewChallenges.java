@@ -94,7 +94,6 @@ public class ViewChallenges extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mlayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mlayoutManager);
-
         toolbar = (Toolbar) findViewById(R.id.tool_bar_Challenge);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -156,33 +155,9 @@ public class ViewChallenges extends AppCompatActivity {
                 });
 
     }
-    private void getChallengeObjects(final List<String> idChallenges, final String language)
-    {
-        final Context context = this;
-        for(String id : idChallenges)
-        {
-            Ion.with(this)
-                    .load(repo.getFINDCHALLENGEBYID())
-                    .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
-                    .setBodyParameter("_id", id)
-                    .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>() {
-                        @Override
-                        public void onCompleted(Exception e, JsonObject result) {
-                            count++;
-                            Challenge c = repo.getChallenge(result,language);
-                            challengesDone.add(c);
-                            if (count == idChallenges.size()) {
-                                mAdapter = new ChallengeAdapter(challengesDone, context);
-                                mRecyclerView.setAdapter(mAdapter);
-
-                            }
-                        }
-                    });
-        }
-    }
     private void getChallengesByid(String ids, final String language)
     {
+        //todo challenges zitten op 1 of andere manier nog niet in de juiste volgorde
         final Context context = this;
             Ion.with(this)
                     .load(repo.getGETALLCHALLENGESBYLIST())

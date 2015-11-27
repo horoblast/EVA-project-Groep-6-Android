@@ -255,6 +255,11 @@
     <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
     <eat-comment/>
     <item name="split_action_bar" type="id"/>
+    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="textChallenge" type="id">register</item>
+    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
+    <eat-comment/>
     <item name="up" type="id"/>
     <integer name="abc_config_activityDefaultDur">220</integer>
     <integer name="abc_config_activityShortDur">150</integer>

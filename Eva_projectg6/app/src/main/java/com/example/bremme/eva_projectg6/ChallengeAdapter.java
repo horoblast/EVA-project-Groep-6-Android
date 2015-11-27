@@ -2,11 +2,14 @@ package com.example.bremme.eva_projectg6;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
@@ -50,6 +55,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
     private UserLocalStore userLocalStore;
     private RestApiRepository repo;
     private Context context;
+    private LinearLayout linearLayout;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -114,11 +120,12 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         TextView title = (TextView) holder.view.findViewById(R.id.challengeTitle);
         title.setText(challengeDataSet.get(position).getName());
         Button button = (Button) holder.view.findViewById(R.id.buttonDone);
-        button.setText("Challenge voltooid");
+        button.setText("Voltooi challenge");
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareOnFacebook(convertToBitmap(dImages[0], 300, 300)); //was om te testen
+                showCompleteDialog(challengeDataSet.get(0));
+               // shareOnFacebook(convertToBitmap(dImages[0], 300, 300)); //was om te testen
             }
         });
         ImageView completedImage = (ImageView) holder.view.findViewById(R.id.CompletedImage);
@@ -148,32 +155,33 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
     }
     private void completeCurrentChallenge()
     {
+        //todo fixen
         Ion.with(context)
-                .load(repo.getCURRENTCHALLENGE()).setHeader("username",userLocalStore.getUsername())
+                .load(repo.getCOMPLETECHALLENGE()).setHeader("username",userLocalStore.getUsername())
                 .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
                 .asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
-                if(result.equals("is gelukt"))
-                {
+                if (result.equals("is gelukt")) {
                     //melding alst gelukt is
-                }else
-                {
+                    Log.i("Me","complete gelukt");
+                } else {
                     //code alst mislukt is
+                    Log.i("Me","complete mislukt");
                 }
             }
         });
     }
 
-    private void shareOnFacebook(Bitmap b)
+    private void shareOnFacebook(String url,String text)
     {
+        Log.i("Me","Sharing on facebook "+url);
         ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("https://developers.facebook.com")).setContentTitle("Eva")
+                .setContentUrl(Uri.parse("http://groep6webapp.herokuapp.com/#/home"))
+                .setContentTitle(text)
+                .setContentDescription("I just finished a challenge!")
+                .setImageUrl(Uri.parse(url))
                 .build();
-        //SharePhoto photo = new SharePhoto.Builder().setBitmap(b).build();
-        //SharePhotoContent content = new SharePhotoContent.Builder()
-          //      .addPhoto(photo)
-            //    .build();
         //todo betere content insteken
         ShareApi.share(content, null);
 
@@ -185,13 +193,62 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         drawable.draw(canvas);
         return mutableBitmap;
     }
-
-    public static void  setLocked(ImageView v)
+    public static void setLocked(ImageView v)
     {
         ColorMatrix matrix = new ColorMatrix();
         matrix.setSaturation(0);  //0 means grayscale
         ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
         v.setColorFilter(cf);
         //v.setAlpha(128);   // 128 = 0.5
+    }
+    private void showCompleteDialog(final Challenge challenge)
+    {
+        Log.i("selected Challenge", challenge.getName());
+        try {
+            AlertDialog.Builder builder =new AlertDialog.Builder(this.context)
+                    .setTitle(challenge.getName()).setIcon(dImages[0])
+                    .setPositiveButton("Voltooi en deel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            TextView textView = (TextView) linearLayout.findViewWithTag("challengetext");
+                            if(textView.getText().toString().length()==0)
+                            shareOnFacebook(challenge.getUrl().toString(),challenge.getName());
+                            else
+                                shareOnFacebook(challenge.getUrl().toString(),textView.getText().toString());
+                            completeCurrentChallenge();
+                        }
+                    })
+                    .setNegativeButton("Voltooi", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // FIRE ZE MISSILES!  lal
+                            completeCurrentChallenge();
+                        }
+                    });
+            final AlertDialog dialog = builder.create();
+            LayoutInflater inflater = LayoutInflater.from(this.context);
+            View dialogLayout = inflater.inflate(R.layout.challengedialog, null);
+            linearLayout = (LinearLayout) dialogLayout.findViewById(R.id.challengeLayout);
+            ImageView image = new ImageView(this.context);
+            image.setImageDrawable(scaleImage(dImages[0]));
+            EditText text = new EditText(this.context);
+            TextView textv = new TextView(this.context);
+            textv.setText("share text");
+            text.setTag("challengetext");
+            linearLayout.addView(textv);
+            linearLayout.addView(text);
+            linearLayout.addView(image);
+            dialog.setView(dialogLayout);
+            dialog.show();
+        } catch (Exception e) {
+        }
+    }
+    public Drawable scaleImage(Drawable image)
+    {
+        if ((image == null) || !(image instanceof BitmapDrawable)) {
+            return image;
+        }
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 600, 350, false);
+        image = new BitmapDrawable(context.getResources(), bitmapResized);
+        return image;
     }
 }
