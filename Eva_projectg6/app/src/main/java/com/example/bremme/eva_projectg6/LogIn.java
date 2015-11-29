@@ -142,7 +142,6 @@ public class LogIn extends AppCompatActivity {
     }
     private void findUserAndStore(final ProgressDialog dialog)
     {
-
             Ion.with(this)
                     .load(repo.getUser()).setHeader("Authorization", "Bearer " + userLocalStore.getToken())
                     .setBodyParameter("username", eUsername.getText().toString())

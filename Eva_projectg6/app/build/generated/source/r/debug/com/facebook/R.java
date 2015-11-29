@@ -8,18 +8,18 @@ package com.facebook;
 
 public final class R {
 	public static final class attr {
-		public static final int com_facebook_auxiliary_view_position = 0x7f0100da;
-		public static final int com_facebook_confirm_logout = 0x7f0100dc;
-		public static final int com_facebook_foreground_color = 0x7f0100d6;
-		public static final int com_facebook_horizontal_alignment = 0x7f0100db;
-		public static final int com_facebook_is_cropped = 0x7f0100e1;
-		public static final int com_facebook_login_text = 0x7f0100dd;
-		public static final int com_facebook_logout_text = 0x7f0100de;
-		public static final int com_facebook_object_id = 0x7f0100d7;
-		public static final int com_facebook_object_type = 0x7f0100d8;
-		public static final int com_facebook_preset_size = 0x7f0100e0;
-		public static final int com_facebook_style = 0x7f0100d9;
-		public static final int com_facebook_tooltip_mode = 0x7f0100df;
+		public static final int com_facebook_auxiliary_view_position = 0x7f010100;
+		public static final int com_facebook_confirm_logout = 0x7f010102;
+		public static final int com_facebook_foreground_color = 0x7f0100fc;
+		public static final int com_facebook_horizontal_alignment = 0x7f010101;
+		public static final int com_facebook_is_cropped = 0x7f010107;
+		public static final int com_facebook_login_text = 0x7f010103;
+		public static final int com_facebook_logout_text = 0x7f010104;
+		public static final int com_facebook_object_id = 0x7f0100fd;
+		public static final int com_facebook_object_type = 0x7f0100fe;
+		public static final int com_facebook_preset_size = 0x7f010106;
+		public static final int com_facebook_style = 0x7f0100ff;
+		public static final int com_facebook_tooltip_mode = 0x7f010105;
 	}
 	public static final class color {
 		public static final int com_facebook_blue = 0x7f0b0018;
@@ -76,15 +76,15 @@ public final class R {
 		public static final int com_facebook_tooltip_blue_bottomnub = 0x7f02004e;
 		public static final int com_facebook_tooltip_blue_topnub = 0x7f02004f;
 		public static final int com_facebook_tooltip_blue_xout = 0x7f020050;
-		public static final int messenger_bubble_large_blue = 0x7f020058;
-		public static final int messenger_bubble_large_white = 0x7f020059;
-		public static final int messenger_bubble_small_blue = 0x7f02005a;
-		public static final int messenger_bubble_small_white = 0x7f02005b;
-		public static final int messenger_button_blue_bg_round = 0x7f02005c;
-		public static final int messenger_button_blue_bg_selector = 0x7f02005d;
-		public static final int messenger_button_send_round_shadow = 0x7f02005e;
-		public static final int messenger_button_white_bg_round = 0x7f02005f;
-		public static final int messenger_button_white_bg_selector = 0x7f020060;
+		public static final int messenger_bubble_large_blue = 0x7f020059;
+		public static final int messenger_bubble_large_white = 0x7f02005a;
+		public static final int messenger_bubble_small_blue = 0x7f02005b;
+		public static final int messenger_bubble_small_white = 0x7f02005c;
+		public static final int messenger_button_blue_bg_round = 0x7f02005d;
+		public static final int messenger_button_blue_bg_selector = 0x7f02005e;
+		public static final int messenger_button_send_round_shadow = 0x7f02005f;
+		public static final int messenger_button_white_bg_round = 0x7f020060;
+		public static final int messenger_button_white_bg_selector = 0x7f020061;
 	}
 	public static final class id {
 		public static final int automatic = 0x7f0c002f;
@@ -92,18 +92,18 @@ public final class R {
 		public static final int box_count = 0x7f0c0026;
 		public static final int button = 0x7f0c0027;
 		public static final int center = 0x7f0c002c;
-		public static final int com_facebook_body_frame = 0x7f0c007a;
-		public static final int com_facebook_button_xout = 0x7f0c007c;
-		public static final int com_facebook_fragment_container = 0x7f0c0078;
-		public static final int com_facebook_login_activity_progress_bar = 0x7f0c0079;
-		public static final int com_facebook_tooltip_bubble_view_bottom_pointer = 0x7f0c007e;
-		public static final int com_facebook_tooltip_bubble_view_text_body = 0x7f0c007d;
-		public static final int com_facebook_tooltip_bubble_view_top_pointer = 0x7f0c007b;
+		public static final int com_facebook_body_frame = 0x7f0c007b;
+		public static final int com_facebook_button_xout = 0x7f0c007d;
+		public static final int com_facebook_fragment_container = 0x7f0c0079;
+		public static final int com_facebook_login_activity_progress_bar = 0x7f0c007a;
+		public static final int com_facebook_tooltip_bubble_view_bottom_pointer = 0x7f0c007f;
+		public static final int com_facebook_tooltip_bubble_view_text_body = 0x7f0c007e;
+		public static final int com_facebook_tooltip_bubble_view_top_pointer = 0x7f0c007c;
 		public static final int display_always = 0x7f0c0030;
 		public static final int inline = 0x7f0c002a;
 		public static final int large = 0x7f0c0032;
 		public static final int left = 0x7f0c002d;
-		public static final int messenger_send_button = 0x7f0c007f;
+		public static final int messenger_send_button = 0x7f0c0080;
 		public static final int never_display = 0x7f0c0031;
 		public static final int normal = 0x7f0c000c;
 		public static final int open_graph = 0x7f0c0023;
@@ -168,19 +168,19 @@ public final class R {
 		public static final int tooltip_bubble_text = 0x7f080146;
 	}
 	public static final class styleable {
-		public static final int[] com_facebook_like_view = { 0x7f0100d6, 0x7f0100d7, 0x7f0100d8, 0x7f0100d9, 0x7f0100da, 0x7f0100db };
+		public static final int[] com_facebook_like_view = { 0x7f0100fc, 0x7f0100fd, 0x7f0100fe, 0x7f0100ff, 0x7f010100, 0x7f010101 };
 		public static final int com_facebook_like_view_com_facebook_auxiliary_view_position = 4;
 		public static final int com_facebook_like_view_com_facebook_foreground_color = 0;
 		public static final int com_facebook_like_view_com_facebook_horizontal_alignment = 5;
 		public static final int com_facebook_like_view_com_facebook_object_id = 1;
 		public static final int com_facebook_like_view_com_facebook_object_type = 2;
 		public static final int com_facebook_like_view_com_facebook_style = 3;
-		public static final int[] com_facebook_login_view = { 0x7f0100dc, 0x7f0100dd, 0x7f0100de, 0x7f0100df };
+		public static final int[] com_facebook_login_view = { 0x7f010102, 0x7f010103, 0x7f010104, 0x7f010105 };
 		public static final int com_facebook_login_view_com_facebook_confirm_logout = 0;
 		public static final int com_facebook_login_view_com_facebook_login_text = 1;
 		public static final int com_facebook_login_view_com_facebook_logout_text = 2;
 		public static final int com_facebook_login_view_com_facebook_tooltip_mode = 3;
-		public static final int[] com_facebook_profile_picture_view = { 0x7f0100e0, 0x7f0100e1 };
+		public static final int[] com_facebook_profile_picture_view = { 0x7f010106, 0x7f010107 };
 		public static final int com_facebook_profile_picture_view_com_facebook_is_cropped = 1;
 		public static final int com_facebook_profile_picture_view_com_facebook_preset_size = 0;
 	}

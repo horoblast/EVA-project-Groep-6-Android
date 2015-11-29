@@ -33,6 +33,7 @@ public class RestApiRepository {
     private final String LOGINWITHFB ="http://groep6api.herokuapp.com/loginFb";
     private final String SETALLSUGGESTIONS ="http://groep6api.herokuapp.com/setsuggestions";
     private final String GETALLCHALLENGESBYLIST = "http://groep6api.herokuapp.com/findmanychallengesbyid";
+    private final String SETSCORERATING = "http://groep6api.herokuapp.com/setrating";
     private Challenge[] challengeList;
     public RestApiRepository() {
     }
@@ -40,61 +41,50 @@ public class RestApiRepository {
     public String getGETALLCHALLENGESBYLIST() {
         return GETALLCHALLENGESBYLIST;
     }
-
     public String getSETALLSUGGESTIONS() {
         return SETALLSUGGESTIONS;
     }
     public String getLOGINWITHFB() {
         return LOGINWITHFB;
     }
-
     public String getCOMPLETECHALLENGE() {
         return COMPLETECHALLENGE;
     }
-
     public String getFACEBOOKREGISTREER() {
         return FACEBOOKREGISTREER;
     }
-
     public String getCURRENTCHALLENGE() {
         return CURRENTCHALLENGE;
     }
     public String getSTARTUSERSERIES() {
         return STARTUSERSERIES;
     }
-
     public String getPUTSUGGESTEDCHALLENGE() {
         return PUTSUGGESTEDCHALLENGE;
     }
     public String getUsernamecheck() {
         return USERNAMECHECK;
     }
-
     public String getUser() {
         return USER;
     }
-
     public String getLOGIN() {
         return LOGIN;
     }
-
     public String getChallenges() {
         return CHALLENGES;
     }
-
     public String getRegister()
     {
         return REGISTER;
     }
-
     public String getFINDCHALLENGEBYID() {
         return FINDCHALLENGEBYID;
     }
-
     public String getFACEBOOKLOGINCHECK() {
         return FACEBOOKLOGINCHECK;
     }
-
+    public String getSETSCORERATING() {return SETSCORERATING;}
 
     public User getUser(JsonObject j)
     {
@@ -136,6 +126,7 @@ public class RestApiRepository {
         }
         newUser.setSuggestionIds(stringSet);
         newUser.setCompletedIds(completedChallenge);
+        newUser.setUserId(j.get("_id").getAsString());
         return newUser;
     }
 

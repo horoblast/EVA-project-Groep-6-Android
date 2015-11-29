@@ -69,7 +69,6 @@ public class ChooseChallenge extends AppCompatActivity {
         }else{
             text.setText("user onbekend");
         }
-
         repo = new RestApiRepository();
         dImages = new Drawable[3];
         getChallenges();
@@ -309,19 +308,6 @@ public class ChooseChallenge extends AppCompatActivity {
         }
     }
 
-    private Challenge[] getDummyData(){
-        return new Challenge[]{
-                new Challenge("1","Challenge 1" , "bsjbvbqbvjbjvbbvb" , Difficulty.easy, null),
-                new Challenge("2","Challenge 2" , "bsjbvbqbvjbjvbbvb" , Difficulty.hard, null),
-                new Challenge("3","Challenge 3" , "bsjbvbqbvjbjvbbvb" , Difficulty.hard, null),
-                new Challenge("4","Challenge 4" , "bsjbvbqbvjbjvbbvb" , Difficulty.easy, null),
-                new Challenge("5","Challenge 5" , "bsjbvbqbvjbjvbbvb" , Difficulty.medium, null),
-                new Challenge("6","Challenge 6" , "bsjbvbqbvjbjvbbvb" , Difficulty.hard, null),
-                new Challenge("7","Challenge 7" , "bsjbvbqbvjbjvbbvb" , Difficulty.easy, null),
-                new Challenge("8","Challenge 8" , "bsjbvbqbvjbjvbbvb" , Difficulty.medium, null),
-                new Challenge("9","Challenge 9" , "bsjbvbqbvjbjvbbvb" , Difficulty.medium, null)
-        };
-    }
     public static Drawable loadImageFromWebOperations(String url) {
         try {
             InputStream is = (InputStream) new URL(url).getContent();

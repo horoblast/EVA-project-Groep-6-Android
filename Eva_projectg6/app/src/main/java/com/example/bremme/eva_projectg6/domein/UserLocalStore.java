@@ -23,6 +23,10 @@ public class UserLocalStore {
     {
         return userLocalDatabase.getString("Username","");
     }
+    public String getUserId()
+    {
+        return userLocalDatabase.getString("Id","");
+    }
     public void storeUserData(User user)
     {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
@@ -34,6 +38,7 @@ public class UserLocalStore {
         spEditor.putString("GebDatum",user.getGebDatum());
         spEditor.putString("Gender", user.getGender().toString());
         spEditor.putString("Difficulty", user.getDif().toString());
+        spEditor.putString("Id",user.getUserId());
         spEditor.putBoolean("HasChildren", user.HasChilderen());
         spEditor.putBoolean("IsStudent",user.isStudent());
         spEditor.putBoolean("IsDoingChallenges", user.isDoingChallenges());
@@ -57,6 +62,7 @@ public class UserLocalStore {
         Set<String> stringSet = new TreeSet<>();
         user.setSuggestionIds(userLocalDatabase.getStringSet("SuggestionIds",stringSet));
         user.setCompletedIds(userLocalDatabase.getStringSet("CompletedIds",stringSet));
+        user.setUserId(userLocalDatabase.getString("Id",""));
         return user;
     }
     public void setUserLoggedIn(boolean loggedIn)

@@ -1,10 +1,12 @@
 package com.example.bremme.eva_projectg6;
 
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
@@ -22,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
@@ -56,6 +59,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
     private RestApiRepository repo;
     private Context context;
     private LinearLayout linearLayout;
+    private RatingBar rating;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -93,7 +97,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         ViewHolder vh = new ViewHolder(v);
         FacebookSdk.sdkInitialize(context.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-       shareDialog = new ShareDialog((Activity) context);
+        shareDialog = new ShareDialog((Activity) context);
         // this part is optional
         return vh;
     }
@@ -129,15 +133,14 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             }
         });
         ImageView completedImage = (ImageView) holder.view.findViewById(R.id.CompletedImage);
-        if(challengeDataSet.size() - 1 > position){
+        Log.i("THE POSITION",position+"");
+        if(position!=0){
+            Log.i("THE POSITION","set the stamp on"+ challengeDataSet.get(position).getName());
             completedImage.setImageResource(R.drawable.completedstamp);
             completedImage.setAlpha(155);
             button.setVisibility(View.GONE);
             //setLocked(image);
-        }else{
         }
-
-
     }
     @Override
     public int getItemCount() {
@@ -157,14 +160,18 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
     {
         //todo fixen
         Ion.with(context)
-                .load(repo.getCOMPLETECHALLENGE()).setHeader("username",userLocalStore.getUsername())
+                .load(repo.getCOMPLETECHALLENGE())
                 .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                .setBodyParameter("username",userLocalStore.getUsername())
                 .asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
-                if (result.equals("is gelukt")) {
+
+                Log.i("vergelijk", result.toString() + "  " + "gelukt");
+                if (result.toString().equals("\"gelukt\"")) {
                     //melding alst gelukt is
                     Log.i("Me","complete gelukt");
+                    goToChooseChallenge();
                 } else {
                     //code alst mislukt is
                     Log.i("Me","complete mislukt");
@@ -173,17 +180,16 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         });
     }
 
-    private void shareOnFacebook(String url,String text)
+    private void shareOnFacebook(String url)
     {
-        Log.i("Me","Sharing on facebook "+url);
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("http://groep6webapp.herokuapp.com/#/home"))
-                .setContentTitle(text)
-                .setContentDescription("I just finished a challenge!")
-                .setImageUrl(Uri.parse(url))
-                .build();
-        //todo betere content insteken
-        ShareApi.share(content, null);
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse("http://groep6webapp.herokuapp.com/#/home"))
+                    .setContentDescription("I just finished a challenge!")
+                    .build();
+            shareDialog.show(linkContent);
+        }
+        //ShareApi.share(content, null);
 
     }
     public Bitmap convertToBitmap(Drawable drawable, int widthPixels, int heightPixels) {
@@ -209,18 +215,14 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
                     .setTitle(challenge.getName()).setIcon(dImages[0])
                     .setPositiveButton("Voltooi en deel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            TextView textView = (TextView) linearLayout.findViewWithTag("challengetext");
-                            if(textView.getText().toString().length()==0)
-                            shareOnFacebook(challenge.getUrl().toString(),challenge.getName());
-                            else
-                                shareOnFacebook(challenge.getUrl().toString(),textView.getText().toString());
+                            shareOnFacebook(challenge.getUrl().toString());
                             completeCurrentChallenge();
                         }
                     })
                     .setNegativeButton("Voltooi", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!  lal
                             completeCurrentChallenge();
+                            setRating();
                         }
                     });
             final AlertDialog dialog = builder.create();
@@ -229,13 +231,17 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             linearLayout = (LinearLayout) dialogLayout.findViewById(R.id.challengeLayout);
             ImageView image = new ImageView(this.context);
             image.setImageDrawable(scaleImage(dImages[0]));
-            EditText text = new EditText(this.context);
-            TextView textv = new TextView(this.context);
-            textv.setText("share text");
-            text.setTag("challengetext");
-            linearLayout.addView(textv);
-            linearLayout.addView(text);
             linearLayout.addView(image);
+             rating  = new RatingBar(context);
+            rating.setTag("ratingbar");
+            rating.setRating(5);
+            rating.setNumStars(5);
+            LinearLayout.LayoutParams param= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            rating.setLayoutParams(param);
+            TextView text = new TextView(context);
+            text.setText(R.string.rate);
+            linearLayout.addView(text);
+            linearLayout.addView(rating);
             dialog.setView(dialogLayout);
             dialog.show();
         } catch (Exception e) {
@@ -250,5 +256,29 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 600, 350, false);
         image = new BitmapDrawable(context.getResources(), bitmapResized);
         return image;
+    }
+    private void goToChooseChallenge()
+    {
+        Intent i = new Intent(context,ChooseChallenge.class);
+        context.startActivity(i);
+    }
+    private int getStarScore()
+    {
+        return rating.getNumStars();
+    }
+    private void setRating()
+    {
+        Log.i("userId",userLocalStore.getUserId());
+        Ion.with(context)
+                .load(repo.getSETSCORERATING())
+                .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                .setBodyParameter("user",userLocalStore.getUserId())
+                .setBodyParameter("challenge",challengeDataSet.get(0).getId())
+                .setBodyParameter("score",getStarScore()+"")
+                .asString().setCallback(new FutureCallback<String>() {
+            @Override
+            public void onCompleted(Exception e, String result) {
+            }
+        });
     }
 }

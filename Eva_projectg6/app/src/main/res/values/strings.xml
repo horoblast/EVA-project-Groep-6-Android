@@ -54,4 +54,6 @@
     <string name="birthDate">vul uw geboortedatum in (dd-mm-yyyy)</string>
     <string name="title_activity_facebook_register">FacebookRegister</string>
     <string name="registerFacebook">Om de werking van de app te garanderen hebben we nog enkele gegevens nodig:</string>
+    <string name="rate">Rate deze challenge!</string>
+    <string name="title_activity_toolbar">Toolbar</string>
 </resources>

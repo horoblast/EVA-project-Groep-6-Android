@@ -21,6 +21,8 @@ import com.example.bremme.eva_projectg6.domein.Difficulty;
 import com.example.bremme.eva_projectg6.domein.Gender;
 import com.example.bremme.eva_projectg6.domein.User;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
+import com.github.lzyzsd.circleprogress.ArcProgress;
+import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -36,22 +38,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static com.example.bremme.eva_projectg6.R.id.donut_progress;
+
 public class ViewChallenges extends AppCompatActivity {
     private RestApiRepository repo;
-    private ArrayAdapter<String> listAdapter;
-    private List challengesTitles;
-    private Intent intent;
-    private Challenge[] challenges;
     private List<Challenge> challengesDone;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mlayoutManager;
     private UserLocalStore userLocalStore;
     private Toolbar toolbar;
-    private Challenge challengeSelected;
-    private static int count =0;
-
-
+    private DonutProgress donutProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,9 +84,10 @@ public class ViewChallenges extends AppCompatActivity {
 
     private void init(){
 
+        donutProgress= (DonutProgress) findViewById(donut_progress);
+        donutProgress.setProgress(0);
         userLocalStore = new UserLocalStore(this);
         repo = new RestApiRepository();
-        challengesTitles = new ArrayList<>();
         challengesDone = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mlayoutManager = new LinearLayoutManager(this);
@@ -106,12 +104,6 @@ public class ViewChallenges extends AppCompatActivity {
             text.setText("user onbekend");
         }
 
-    }
-    private void setText(){
-        for(Challenge challenge: challengesDone){
-            challengesTitles.add(challenge.getName());
-        }
-        mAdapter = new ChallengeAdapter(challengesDone,this);
     }
     private void setAdapterWithChallenges()
     {
@@ -142,10 +134,11 @@ public class ViewChallenges extends AppCompatActivity {
                                     stringB.append(challengesCompleted.get(i).getAsString()+"\", ");
                                 }
                                 stringB.append("\"");
-                                stringB.append(idChallengeCurrent + "\"]");
+                                stringB.append(idChallengeCurrent);
+                                stringB.append("\"]");
 
                                 String language = getResources().getConfiguration().locale.getLanguage();
-                               getChallengesByid(stringB.toString(),language);
+                               getChallengesByid(stringB.toString(),language,idChallenges);
                                 //getChallengeObjects(idChallenges,language);
                             }
                         } catch (Exception er) {
@@ -155,9 +148,8 @@ public class ViewChallenges extends AppCompatActivity {
                 });
 
     }
-    private void getChallengesByid(String ids, final String language)
+    private void getChallengesByid(String ids, final String language, final List<String>idSorts)
     {
-        //todo challenges zitten op 1 of andere manier nog niet in de juiste volgorde
         final Context context = this;
             Ion.with(this)
                     .load(repo.getGETALLCHALLENGESBYLIST())
@@ -167,11 +159,36 @@ public class ViewChallenges extends AppCompatActivity {
                     .setCallback(new FutureCallback<JsonArray>() {
                         @Override
                         public void onCompleted(Exception e, JsonArray result) {
-                            challengesDone = Arrays.asList(repo.getAllChallenges(result,language));
+                            challengesDone = Arrays.asList(repo.getAllChallenges(result, language));
+                            Log.i("percent",(challengesDone.size()/21)*100+"");
+                            donutProgress.setProgress((int)calculatePercent(challengesDone.size()));
+                            sortChallengesDone(idSorts);
                             mAdapter = new ChallengeAdapter(challengesDone, context);
                             mRecyclerView.setAdapter(mAdapter);
                         }
                     });
 
+    }
+    private void sortChallengesDone(List<String>ids)
+    {
+        List<Challenge> sortedChallenges = new ArrayList<>();
+        for(String id : ids)
+        {
+            for(Challenge c : challengesDone)
+            {
+                if(c.getId().equals(id))
+                {
+                    sortedChallenges.add(c);
+                    break;
+                }
+            }
+        }
+        challengesDone = sortedChallenges;
+    }
+    private double calculatePercent(int i)
+    {
+        double v = i;
+        double x = (v/21) * 100;
+        return x;
     }
 }
