@@ -16,7 +16,6 @@
 -->
 
 <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
                  android:id="@android:id/text1"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
@@ -32,18 +31,4 @@
                  android:drawableStart="?android:attr/listChoiceIndicatorSingle"
                  android:drawablePadding="20dp"
                  android:ellipsize="marquee" />
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v7/appcompat/res/layout/select_dialog_singlechoice_material.xml --><!-- From: file:/Users/BREMME/Desktop/backup/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/layout/select_dialog_singlechoice_material.xml -->
-=======
-    android:id="@android:id/text1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?attr/listPreferredItemHeightSmall"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:textColor="?attr/textColorAlertDialogListItem"
-    android:gravity="center_vertical"
-    android:paddingLeft="?attr/dialogPreferredPadding"
-    android:paddingRight="?attr/dialogPreferredPadding"
-    android:checkMark="?android:attr/listChoiceIndicatorSingle"
-    android:ellipsize="marquee" />
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-sdk-release/frameworks/support/v7/appcompat/res/layout/select_dialog_singlechoice_material.xml --><!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/layout/select_dialog_singlechoice_material.xml -->
->>>>>>> a8e41fa2ad68f399ce09d1a5bfabfff8d82f5e05
+<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v7/appcompat/res/layout/select_dialog_singlechoice_material.xml --><!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/layout/select_dialog_singlechoice_material.xml -->

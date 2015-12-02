@@ -27,6 +27,10 @@ public class UserLocalStore {
     {
         return userLocalDatabase.getString("Id","");
     }
+    public String getEmail(){return userLocalDatabase.getString("Email","");}
+    public String getDifficulty(){return userLocalDatabase.getString("Difficulty","");}
+    public Boolean getStudent(){return userLocalDatabase.getBoolean("IsStudent", false);}
+    public Boolean getHasChildren(){return userLocalDatabase.getBoolean("HasChildren", false);}
     public void storeUserData(User user)
     {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< HEAD
-    <!-- From: file:/Users/BREMME/Desktop/backup/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values-zh-rTW/values-zh-rTW.xml -->
-=======
-    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-zh-rTW/values-zh-rTW.xml -->
->>>>>>> a8e41fa2ad68f399ce09d1a5bfabfff8d82f5e05
+    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values-zh-rTW/values-zh-rTW.xml -->
     <eat-comment/>
     <string msgid="4600421777120114993" name="abc_action_bar_home_description">"瀏覽首頁"</string>
     <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s：%2$s"</string>
@@ -25,11 +21,7 @@
     <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"選擇分享對象"</string>
     <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"與「%s」分享"</string>
     <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"收合"</string>
-<<<<<<< HEAD
-    <!-- From: file:/Users/BREMME/Desktop/backup/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/values-zh-rTW/values-zh-rTW.xml -->
-=======
-    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/values-zh-rTW/values-zh-rTW.xml -->
->>>>>>> a8e41fa2ad68f399ce09d1a5bfabfff8d82f5e05
+    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/values-zh-rTW/values-zh-rTW.xml -->
     <eat-comment/>
     <string name="com_facebook_image_download_unknown_error">下載圖像時發生非預期的錯誤。</string>
     <string name="com_facebook_internet_permission_error_message">WebView 登入需要「網際網路」授權</string>
@@ -48,11 +40,7 @@
     <string name="com_facebook_share_button_text">分享</string>
     <string name="com_facebook_tooltip_default">新消息！您已成功登入，請選擇要與應用程式分享的資訊。</string>
     <string name="messenger_send_button_text">傳送</string>
-<<<<<<< HEAD
-    <!-- From: file:/Users/BREMME/Desktop/backup/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values-zh-rTW/values-zh-rTW.xml -->
-=======
-    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-zh-rTW/values-zh-rTW.xml -->
->>>>>>> a8e41fa2ad68f399ce09d1a5bfabfff8d82f5e05
+    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values-zh-rTW/values-zh-rTW.xml -->
     <eat-comment/>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
 </resources>

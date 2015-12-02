@@ -34,8 +34,13 @@ public class RestApiRepository {
     private final String SETALLSUGGESTIONS ="http://groep6api.herokuapp.com/setsuggestions";
     private final String GETALLCHALLENGESBYLIST = "http://groep6api.herokuapp.com/findmanychallengesbyid";
     private final String SETSCORERATING = "http://groep6api.herokuapp.com/setrating";
+    private final String SUBMITUSERCHANGES = "http://groep6api.herokuapp.com/submitChanges";
     private Challenge[] challengeList;
     public RestApiRepository() {
+    }
+
+    public String getSUBMITUSERCHANGES() {
+        return SUBMITUSERCHANGES;
     }
 
     public String getGETALLCHALLENGESBYLIST() {

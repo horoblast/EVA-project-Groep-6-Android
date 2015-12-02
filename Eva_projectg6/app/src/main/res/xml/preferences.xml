@@ -4,17 +4,17 @@
         android:key="Username"
         android:summary="@string/usernameSummary"></EditTextPreference>
     <EditTextPreference android:title="@string/userEmail"
-        android:key="email"
+        android:key="Email"
         android:summary="@string/userEmailSum"></EditTextPreference>
     <CheckBoxPreference android:title="@string/userHasChildren"
         android:summary="@string/userHasChildrenSum"
-        android:key="haschildren" />
+        android:key="Haschildren" />
     <CheckBoxPreference android:title="@string/userIsStudent"
         android:summary="@string/userIsStudentSum"
-        android:key="haschildren" />
-    <ListPreference     android:title="Download Details"
+        android:key="IsStudent" />
+    <ListPreference     android:title="@string/difficultLabel"
         android:summary="@string/difficultLabel"
-        android:key="difficulty"
+        android:key="Difficulty"
         android:entries="@array/listArray"
         android:entryValues="@array/listValues" />
 </PreferenceScreen>

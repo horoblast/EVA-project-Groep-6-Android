@@ -63,7 +63,8 @@
     <string name="userHasChildren">Heeft u kinderen?</string>
     <string name="userHasChildrenSum">Verander hier of je kinderen hebt of niet. word gebruikt om challenges aan te maken</string>
     <string name="userIsStudent">Bent u student</string>
-    <string name="userIsStudentSum">verander hier of je al dan niet student bent. word gebruikt om challenges aan te maken</string>
+    <string name="userIsStudentSum">Verander hier of je al dan niet student bent. Word gebruikt om challenges aan te maken</string>
+    <string name="Diffic"></string>
     <string-array name="listArray">
         <item>0-1 dag</item>
         <item>2-5 dagen</item>
@@ -71,8 +72,8 @@
     </string-array>
 
     <string-array name="listValues">
-        <item>Difficulty.easy</item>
-        <item>Difficulty.medium</item>
-        <item>Difficulty.hard</item>
+        <item>easy</item>
+        <item>medium</item>
+        <item>hard</item>
     </string-array>
 </resources>

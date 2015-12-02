@@ -29,8 +29,4 @@
     style="@style/MessengerButtonText.White.Small"
     />
 </FrameLayout>
-<<<<<<< HEAD
-<!-- From: file:/Users/swiese/fbandroid-sdk/facebook/res/layout/messenger_button_send_white_small.xml --><!-- From: file:/Users/BREMME/Desktop/backup/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/layout/messenger_button_send_white_small.xml -->
-=======
-<!-- From: file:/Users/swiese/fbandroid-sdk/facebook/res/layout/messenger_button_send_white_small.xml --><!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/layout/messenger_button_send_white_small.xml -->
->>>>>>> a8e41fa2ad68f399ce09d1a5bfabfff8d82f5e05
+<!-- From: file:/Users/swiese/fbandroid-sdk/facebook/res/layout/messenger_button_send_white_small.xml --><!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/layout/messenger_button_send_white_small.xml -->

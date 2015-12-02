@@ -1,50 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  <component name="ProjectDictionaryState">
-    <dictionary name="brechttanghe" />
-  </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State>
-            <id />
-          </State>
-        </expanded-state>
-        <selected-state>
-          <State>
-            <id>Android</id>
-          </State>
-        </selected-state>
-      </profile-state>
-    </entry>
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <component name="ProjectDictionaryState">
-    <dictionary name="brechttanghe" />
-  </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State>
-            <id />
-          </State>
-        </expanded-state>
-        <selected-state>
-          <State>
-            <id>Android</id>
-          </State>
-        </selected-state>
-      </profile-state>
-    </entry>
-=======
-=======
->>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
@@ -71,13 +26,7 @@
         </list>
       </value>
     </option>
->>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
-<<<<<<< HEAD
->>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
-=======
->>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
   </component>
->>>>>>> a8e41fa2ad68f399ce09d1a5bfabfff8d82f5e05
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
@@ -88,57 +37,10 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-=======
-<<<<<<< HEAD
-=======
->>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" default="true" assert-keyword="true" jdk-15="true">
-=======
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
->>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
-<<<<<<< HEAD
->>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
-=======
->>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
-=======
->>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
-  <component name="masterDetails">
-    <states>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
-  </component>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
->>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
-=======
-=======
->>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
->>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
 </project>

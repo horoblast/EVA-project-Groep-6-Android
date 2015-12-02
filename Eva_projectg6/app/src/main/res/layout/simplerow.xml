@@ -67,7 +67,8 @@
             android:id="@+id/buttonDone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#FF9A47"/>
+            android:background="#FF9A47"
+            android:visibility="gone"/>
     </LinearLayout>
 
 

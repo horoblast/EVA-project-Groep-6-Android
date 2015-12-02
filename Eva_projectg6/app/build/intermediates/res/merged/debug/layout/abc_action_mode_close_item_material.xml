@@ -14,7 +14,6 @@
      limitations under the License.
 -->
 
-<<<<<<< HEAD
 <ImageView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/action_mode_close_button"
@@ -24,16 +23,4 @@
         android:src="?attr/actionModeCloseDrawable"
         style="?attr/actionModeCloseButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"/><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v7/appcompat/res/layout/abc_action_mode_close_item_material.xml --><!-- From: file:/Users/BREMME/Desktop/backup/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/layout/abc_action_mode_close_item_material.xml -->
-=======
-<android.support.v7.internal.widget.TintImageView
-             xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/action_mode_close_button"
-             android:contentDescription="@string/abc_action_mode_done"
-             android:focusable="true"
-             android:clickable="true"
-             android:src="?attr/actionModeCloseDrawable"
-             style="?attr/actionModeCloseButtonStyle"
-             android:layout_width="wrap_content"
-             android:layout_height="match_parent" /><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-sdk-release/frameworks/support/v7/appcompat/res/layout/abc_action_mode_close_item_material.xml --><!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/layout/abc_action_mode_close_item_material.xml -->
->>>>>>> a8e41fa2ad68f399ce09d1a5bfabfff8d82f5e05
+        android:layout_height="match_parent"/><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v7/appcompat/res/layout/abc_action_mode_close_item_material.xml --><!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/layout/abc_action_mode_close_item_material.xml -->
