@@ -1,4 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+<<<<<<< HEAD
+=======
 
 buildscript {
     repositories {
@@ -17,3 +19,4 @@ allprojects {
         jcenter()
     }
 }
+>>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
