@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< HEAD
     <!-- From: file:/Users/BREMME/Desktop/backup/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values-el/values-el.xml -->
+=======
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-el/values-el.xml -->
+>>>>>>> a8e41fa2ad68f399ce09d1a5bfabfff8d82f5e05
     <eat-comment/>
     <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Πλοήγηση στην αρχική σελίδα"</string>
     <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
@@ -21,7 +25,11 @@
     <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Κοινή χρήση με"</string>
     <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Κοινή χρήση με %s"</string>
     <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Σύμπτυξη"</string>
+<<<<<<< HEAD
     <!-- From: file:/Users/BREMME/Desktop/backup/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/values-el/values-el.xml -->
+=======
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/values-el/values-el.xml -->
+>>>>>>> a8e41fa2ad68f399ce09d1a5bfabfff8d82f5e05
     <eat-comment/>
     <string name="com_facebook_image_download_unknown_error">Προέκυψε μη αναμενόμενο σφάλμα κατά τη λήψη μιας εικόνας.</string>
     <string name="com_facebook_internet_permission_error_message">Για τη σύνδεση στο WebView απαιτείται σύνδεση INTERNET</string>
@@ -40,7 +48,11 @@
     <string name="com_facebook_share_button_text">Κοινοποίηση</string>
     <string name="com_facebook_tooltip_default">Νέο! Έχετε τον έλεγχο - επιλέξτε ποιες πληροφορίες θέλετε να κοινοποιούνται στις εφαρμογές.</string>
     <string name="messenger_send_button_text">Αποστολή</string>
+<<<<<<< HEAD
     <!-- From: file:/Users/BREMME/Desktop/backup/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values-el/values-el.xml -->
+=======
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-el/values-el.xml -->
+>>>>>>> a8e41fa2ad68f399ce09d1a5bfabfff8d82f5e05
     <eat-comment/>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
 </resources>

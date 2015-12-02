@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< HEAD
     <!-- From: file:/Users/BREMME/Desktop/backup/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values-v14/values-v14.xml -->
+=======
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-v14/values-v14.xml -->
+>>>>>>> a8e41fa2ad68f399ce09d1a5bfabfff8d82f5e05
     <eat-comment/>
     <style name="Base.TextAppearance.AppCompat.Button">
         <item name="android:textSize">@dimen/abc_text_size_button_material</item>
