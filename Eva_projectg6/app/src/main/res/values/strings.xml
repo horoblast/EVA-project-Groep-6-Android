@@ -56,4 +56,23 @@
     <string name="registerFacebook">Om de werking van de app te garanderen hebben we nog enkele gegevens nodig:</string>
     <string name="rate">Rate deze challenge!</string>
     <string name="title_activity_toolbar">Toolbar</string>
+    <string name="usernameTitle">Uw Username</string>
+    <string name="usernameSummary">Verander hier jouw username</string>
+    <string name="userEmail">Uw email</string>
+    <string name="userEmailSum">Verander hier jouw email</string>
+    <string name="userHasChildren">Heeft u kinderen?</string>
+    <string name="userHasChildrenSum">Verander hier of je kinderen hebt of niet. word gebruikt om challenges aan te maken</string>
+    <string name="userIsStudent">Bent u student</string>
+    <string name="userIsStudentSum">verander hier of je al dan niet student bent. word gebruikt om challenges aan te maken</string>
+    <string-array name="listArray">
+        <item>0-1 dag</item>
+        <item>2-5 dagen</item>
+        <item>5 of meer</item>
+    </string-array>
+
+    <string-array name="listValues">
+        <item>Difficulty.easy</item>
+        <item>Difficulty.medium</item>
+        <item>Difficulty.hard</item>
+    </string-array>
 </resources>

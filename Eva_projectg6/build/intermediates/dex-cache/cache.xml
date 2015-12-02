@@ -2,11 +2,46 @@
 <items version="2" >
 
     <item
-        jar="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.github.lzyzsd/circleprogress/1.1.0/jars/classes.jar"
+        jar="/Users/BREMME/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.0/support-annotations-23.1.0.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="e6f9fb0d2ea982d656d6dca785a9097659395874">
-        <dex dex="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/pre-dexed/debug/classes-b14713ce1935864cecf9a69b1d882b2c05549905.jar" />
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.0-8575026f0b69abab7717f4f1824a558dccbdb99d.jar" />
+    </item>
+    <item
+        jar="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/libs/internal_impl-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.0-6e2807b80b2b2306d56f364774e92d924df1c8c0.jar" />
+    </item>
+    <item
+        jar="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/pre-dexed/debug/classes-56cf37faf2c41e2069bec7c14c0b5740f9e496f4.jar" />
+    </item>
+    <item
+        jar="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d96886efea7cc74fbb3abd0e3b51d5638fc57be0">
+        <dex dex="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/pre-dexed/debug/classes-573826f34aab95af78c1bdf80d9991ce767bc005.jar" />
+    </item>
+    <item
+        jar="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/pre-dexed/debug/classes-f4636ae112d533eab819f19d12b8606dd4d08759.jar" />
+    </item>
+    <item
+        jar="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3f151e49c316a5ab2c065969a3b3b55ef9b393fc">
+        <dex dex="/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/pre-dexed/debug/classes-ea2e5fcb7a1307d6a7aafc83aac6aaf48e56a5ae.jar" />
     </item>
 
 </items>

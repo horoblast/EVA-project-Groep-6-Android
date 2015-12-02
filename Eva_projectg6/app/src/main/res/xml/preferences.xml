@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference android:title="@string/usernameTitle"
+        android:key="Username"
+        android:summary="@string/usernameSummary"></EditTextPreference>
+    <EditTextPreference android:title="@string/userEmail"
+        android:key="email"
+        android:summary="@string/userEmailSum"></EditTextPreference>
+    <CheckBoxPreference android:title="@string/userHasChildren"
+        android:summary="@string/userHasChildrenSum"
+        android:key="haschildren" />
+    <CheckBoxPreference android:title="@string/userIsStudent"
+        android:summary="@string/userIsStudentSum"
+        android:key="haschildren" />
+    <ListPreference     android:title="Download Details"
+        android:summary="@string/difficultLabel"
+        android:key="difficulty"
+        android:entries="@array/listArray"
+        android:entryValues="@array/listValues" />
+</PreferenceScreen>

@@ -88,9 +88,11 @@ public class ChooseChallenge extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this, Settings.class);
+            startActivity(i);
+            //todo settings page
             return true;
         }
 

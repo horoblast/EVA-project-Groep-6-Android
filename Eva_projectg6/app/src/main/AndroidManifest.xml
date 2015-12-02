@@ -52,6 +52,10 @@
             android:name=".Toolbar"
             android:label="@string/title_activity_toolbar" >
         </activity>
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>
