@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
@@ -8,6 +9,9 @@
     <list default="true" id="fadff9bc-e1af-41ae-ac33-a0b599d6ab5d" name="Default" comment="" />
 =======
   <component name="ChangeListManager">
+=======
+  <component name="ChangeListManager">
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
 <<<<<<< HEAD
     <list default="true" id="2c0779f0-4c98-4497-bc87-69984aee4ee0" name="Default" comment="" />
     <ignored path="Eva_projectg6.iws" />
@@ -37,7 +41,10 @@
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
   <component name="FileEditorManager">
     <leaf>
 <<<<<<< HEAD
@@ -178,6 +185,9 @@
     </leaf>
   </component>
 >>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
+<<<<<<< HEAD
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
+=======
 >>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
   <component name="GradleLocalSettings">
     <option name="availableProjects">
@@ -1135,13 +1145,19 @@
     <option name="modificationStamps">
       <map>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <entry key="$PROJECT_DIR$" value="4347193132000" />
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
         <entry key="$PROJECT_DIR$" value="1449060827000" />
 =======
         <entry key="$PROJECT_DIR$" value="4339123037000" />
 >>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
+<<<<<<< HEAD
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
+=======
 >>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
       </map>
     </option>
@@ -1397,7 +1413,10 @@
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -1419,14 +1438,23 @@
     </option>
   </component>
 >>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
+<<<<<<< HEAD
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
+=======
 >>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
   <component name="NamedScopeManager">
     <order />
   </component>
   <component name="ProjectFrameBounds">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <option name="width" value="1280" />
     <option name="height" value="800" />
+=======
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
+    <option name="height" value="717" />
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
 =======
     <option name="y" value="23" />
     <option name="width" value="1280" />
@@ -1457,6 +1485,20 @@
     </navigator>
     <panes>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="AndroidView">
+        <subPane />
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+=======
+<<<<<<< HEAD
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
 =======
 <<<<<<< HEAD
       <pane id="Scope" />
@@ -1537,6 +1579,9 @@
 =======
 >>>>>>> 3af22424f2397b0b43b47b2431a0df1f9564ad61
 >>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
+<<<<<<< HEAD
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
+=======
 >>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
     </panes>
   </component>
@@ -1658,6 +1703,7 @@
       <method />
     </configuration>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <configuration default="false" name="app" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="app" />
       <option name="ACTIVITY_CLASS" value="" />
@@ -1694,6 +1740,8 @@
     </list>
 =======
 >>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
+=======
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
     <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="HTML_FILE_NAME" />
@@ -1711,12 +1759,15 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <changelist id="fadff9bc-e1af-41ae-ac33-a0b599d6ab5d" name="Default" comment="" />
       <created>1449064702937</created>
       <option name="number" value="Default" />
       <updated>1449064702937</updated>
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
       <changelist id="2c0779f0-4c98-4497-bc87-69984aee4ee0" name="Default" comment="" />
       <created>1449060874301</created>
       <option name="number" value="Default" />
@@ -1727,16 +1778,51 @@
       <option name="number" value="Default" />
       <updated>1446821381354</updated>
 >>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
+<<<<<<< HEAD
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
+=======
 >>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
 =======
 <<<<<<< HEAD
     <frame x="0" y="23" width="1280" height="717" extended-state="0" />
+=======
+    <frame x="0" y="23" width="1280" height="717" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24959612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+=======
+    <frame x="0" y="22" width="1440" height="823" extended-state="6" />
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1819,10 +1905,13 @@
   </component>
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
     <breakpoint-manager />
     <watches-manager />
   </component>
 =======
+=======
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
     <breakpoint-manager>
       <option name="time" value="14" />
     </breakpoint-manager>
@@ -2057,5 +2146,8 @@
 >>>>>>> 3af22424f2397b0b43b47b2431a0df1f9564ad61
   </component>
 >>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
+<<<<<<< HEAD
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
+=======
 >>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
 </project>

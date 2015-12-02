@@ -21,6 +21,7 @@
     </entry>
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="ProjectDictionaryState">
     <dictionary name="brechttanghe" />
   </component>
@@ -40,6 +41,8 @@
       </profile-state>
     </entry>
 =======
+=======
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
@@ -67,6 +70,9 @@
       </value>
     </option>
 >>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
+<<<<<<< HEAD
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
+=======
 >>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -80,13 +86,19 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" default="true" assert-keyword="true" jdk-15="true">
 =======
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
 >>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
+<<<<<<< HEAD
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
+=======
 >>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
@@ -94,8 +106,11 @@
     <option name="id" value="Android" />
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
+=======
 >>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
   <component name="masterDetails">
     <states>
@@ -114,6 +129,11 @@
     </states>
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
+>>>>>>> ec7dcc12392368a75cc43aa14875148f175d228a
 =======
 =======
 >>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
