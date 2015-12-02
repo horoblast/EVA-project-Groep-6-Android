@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Eva_projectg6.iml" filepath="$PROJECT_DIR$/Eva_projectg6.iml" />
+<<<<<<< HEAD
+=======
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+>>>>>>> 839cdfe7c0ac7918fc51d541e31a83aa4b309ff8
     </modules>
   </component>
 </project>

@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LogIn"
+    android:background="#7AB85C">
+    <include
+        android:id="@+id/tool_bar_Challenge"
+        layout="@layout/tool_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/eUsername"
+        android:ems="10"
+        android:id="@+id/eUsername"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/ePassword"
+        android:layout_alignTop="@+id/eUsername"
+        android:layout_alignLeft="@+id/eUsername"
+        android:layout_alignStart="@+id/eUsername"
+        android:layout_marginTop="52dp"
+        android:hint="Password"
+        android:password="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loginButtonText"
+        android:id="@+id/loginButton"
+        android:layout_below="@+id/ePassword"
+        android:layout_alignLeft="@+id/ePassword"
+        android:layout_alignStart="@+id/ePassword"
+        android:layout_alignRight="@+id/ePassword"
+        android:layout_alignEnd="@+id/ePassword"
+        android:onClick="getToken"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/registreerLink"
+        android:id="@+id/registreerLink"
+        android:clickable="true"
+        android:onClick="register"
+        android:layout_below="@+id/login_button"
+        android:layout_alignLeft="@+id/login_button"
+        android:layout_alignStart="@+id/login_button" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:background="@drawable/logo_eva_typo_nl"
+        android:layout_above="@+id/eUsername"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="34dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/buttonFill4"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginButton"
+        android:layout_alignRight="@+id/loginButton"
+        android:layout_alignEnd="@+id/loginButton"
+        android:layout_toRightOf="@+id/buttonFill4"
+        android:layout_toEndOf="@+id/buttonFill4" />
+
+</RelativeLayout>

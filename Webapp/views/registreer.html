@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>EVA - eet plantaardig!</title>
+	<link rel="shortcut icon" type="image/x-icon" href="../styles/favicon.ico">
+
+	<link rel="stylesheet" type="text/css" href="../styles/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../styles/public/js/lib/bootstrap-social/bootstrap-social.css">
+	<link rel="stylesheet" type="text/css" href="../styles/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../styles/style.css">
+
+</head>
+<body class="container" ng-app="evaApp" ng-controller="MainCtrl">
+<header>
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					<span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
+					EVA vzw
+				</a>
+			</div>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a data-toggle="modal" href='#modal-id'>Log in</a>
+					<div class="modal fade" id="modal-id">
+						<div class="modal-dialog">
+							<form class="form-signin mg-btm">
+								<h3 class="heading-desc">
+									<button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">&times;</button>
+									Log in
+								</h3>
+
+								<div class="social-box">
+									<div class="row mg-btm">
+										<div class="col-md-12">
+											<a href="#" class="btn btn-primary btn-block">
+												<i class="fa fa-facebook"></i>    Log in met Facebook
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<div class="main">
+
+									<input type="text" class="form-control" placeholder="Email" autofocus>
+									<input type="password" class="form-control" placeholder="Password">
+
+									<button type="submit" class="btn btn-primary pull-right">Login</button>
+
+									<span class="clearfix"></span>
+
+								</div>
+
+								<div class="login-footer">
+									<div class="row">
+										<div class="col-xs-6 col-md-6">
+											<div class="left-section">
+												<a href="">Paswoord vergeten?</a>
+												<a href="registreer.html">Registreer</a>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</li>
+
+			</ul>
+
+		</div>
+	</nav>
+
+</header>
+
+<main>
+	<div class="jumbotron">
+		<div class="">
+			<form method="post" class="form-horizontal">
+				<h1 class="heading-desc ">Registreer je hier</h1>
+
+				<div class="main">
+
+					<div class="form-group">
+						<div class="col-sm-6">
+							<input type="text" class="form-control" placeholder="Email" id="username" autofocus>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-6">
+							<input type="password" class="form-control" placeholder="Password" id="password">
+						</div>
+						
+					</div>
+
+					<button type="submit" class="btn btn-primary">Registreer</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</main>
+
+
+<footer>
+	<p class="text-center text-muted">© Copyright 2015 - Groep 6</p>
+</footer>
+
+
+</body>
+
+<script type="text/javascript" src="styles/angular/angular.min.js"></script>
+<script type="text/javascript" src="../styles/public/js/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="../javascript/app.js"></script>
+<script type="text/javascript" src="../styles/bootstrap/js/bootstrap.min.js"></script>
+</html>

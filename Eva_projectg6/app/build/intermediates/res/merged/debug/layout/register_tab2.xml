@@ -7,8 +7,11 @@
     android:id="@+id/rLayout"
     android:gravity="center_horizontal"
     android:paddingTop="100dip"
-    >
-
+    android:background="#7AB85C">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/birthDate"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,18 +97,15 @@
             android:id="@+id/cChildren"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"><ImageView
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rsz_2cow"
-        android:layout_marginTop="50dp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rsz_1cow"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="50dp"/></LinearLayout>
+        android:text="New Button"
+        android:id="@+id/buttonFill2"
+        android:layout_gravity="center_horizontal"
+        android:visibility="visible"
+        android:onClick="fill"
+        android:background="@android:color/transparent" />
 
-</LinearLayout><!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android/Eva_projectg6/app/src/main/res/layout/register_tab2.xml -->
+</LinearLayout><!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/layout/register_tab2.xml -->
