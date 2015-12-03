@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.example.bremme.eva_projectg6.Repository.DatabaseHelper;
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
 import com.example.bremme.eva_projectg6.domein.Challenge;
 import com.example.bremme.eva_projectg6.domein.Difficulty;
@@ -54,12 +55,16 @@ public class LogIn extends AppCompatActivity {
     private Button b;
     private CallbackManager mCallbackManager;
     private FacebookCallback<LoginResult> mCallBack;
+    private DatabaseHelper localDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_log_in);
         mCallbackManager = CallbackManager.Factory.create();
+        localDb = new DatabaseHelper(this);
+
         AccessTokenTracker tracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
@@ -150,7 +155,7 @@ public class LogIn extends AppCompatActivity {
                         @Override
                         public void onCompleted(Exception e, JsonArray result) {
                             try {
-
+                                putAllChallengesInLocalDb();
                                 if (result.get(0).isJsonObject()) {
                                     JsonObject j = result.get(0).getAsJsonObject();
                                     User newUser = repo.getUser(j);
@@ -334,6 +339,19 @@ public class LogIn extends AppCompatActivity {
         Intent intent = new Intent(this, ViewChallenges.class);
         intent.putExtra("CHALLENGE_ID", currentChallengeId);
         startActivity(intent);
+    }
+
+    private void putAllChallengesInLocalDb(){
+        Ion.with(this)
+                .load(repo.getChallenges())
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+                        String language = getResources().getConfiguration().locale.getLanguage();
+                        localDb.putAllDataInDb(repo.getAllChallenges(result,language));
+                    }
+                });
     }
     }
 

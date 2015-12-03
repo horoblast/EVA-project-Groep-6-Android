@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values-nl/values-nl.xml -->
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values-nl/values-nl.xml -->
     <eat-comment/>
     <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Navigeren naar startpositie"</string>
     <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
@@ -21,11 +21,11 @@
     <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Delen met"</string>
     <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Delen met %s"</string>
     <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Samenvouwen"</string>
-    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/values-nl/strings.xml -->
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/src/main/res/values-nl/strings.xml -->
     <eat-comment/>
     <string name="action_settings">Settings</string>
     <string name="app_name">Eva_projectg6</string>
-    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/values-nl/values-nl.xml -->
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/values-nl/values-nl.xml -->
     <eat-comment/>
     <string name="com_facebook_image_download_unknown_error">Onverwachte fout tijdens het downloaden van een afbeelding.</string>
     <string name="com_facebook_internet_permission_error_message">Voor aanmelding via webweergave is de toestemming INTERNET vereist</string>
@@ -43,7 +43,7 @@
     <string name="com_facebook_send_button_text">Verzenden</string>
     <string name="com_facebook_share_button_text">Delen</string>
     <string name="com_facebook_tooltip_default">Nieuw! Jij hebt de controle. Kies welke informatie je met apps wilt delen.</string>
-    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/values-nl/strings.xml -->
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/src/main/res/values-nl/strings.xml -->
     <eat-comment/>
     <string name="dateOfBirth">Geboortedatum</string>
     <string name="day">Dag</string>
@@ -56,10 +56,10 @@
     <string name="lastname">Familienaam</string>
     <string name="loginButtonText">Login</string>
     <string name="male">man</string>
-    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/values-nl/values-nl.xml -->
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/res/values-nl/values-nl.xml -->
     <eat-comment/>
     <string name="messenger_send_button_text">Verzenden</string>
-    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/values-nl/strings.xml -->
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/src/main/res/values-nl/strings.xml -->
     <eat-comment/>
     <string name="month">Maand</string>
     <string name="parseException">Alleen cijfers in dit vak</string>
@@ -76,10 +76,10 @@
     <string name="register">Registreer</string>
     <string name="registreerLink">nog geen account Registreer!</string>
     <string name="single"><single>single</single></string>
-    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values-nl/values-nl.xml -->
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values-nl/values-nl.xml -->
     <eat-comment/>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
-    <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/values-nl/strings.xml -->
+    <!-- From: file:/Users/brechttanghe/EVA-project-Groep-6-Android/Eva_projectg6/app/src/main/res/values-nl/strings.xml -->
     <eat-comment/>
     <string name="student">getrouwd</string>
     <string name="title_activity_register">Register</string>
