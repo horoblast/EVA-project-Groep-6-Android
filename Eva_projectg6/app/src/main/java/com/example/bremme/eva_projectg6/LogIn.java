@@ -259,42 +259,6 @@ public class LogIn extends AppCompatActivity {
     }
     private void facebookUserpersisteren(final String id, final String gender, final String birthday, final String email)
     {
-        /*{
-        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0NTMxOTEwODYsImlhdCI6MTQ0ODAwNzA4Nn0.w2cWfZ1WMB6hR473KLH23fgGfC3_Fv07TlL1KWp-IIo",
-                "user": [
-        {
-            "_id": "56422127255def1f006de906",
-                "facebookid": "10205318282465745",
-                "isfacebooklogin": true,
-                "isdoingchallenges": true,
-                "birthdate": "Tue Jul 12 1994 08:00:00 GMT+0000 (UTC)",
-                "haschildren": false,
-                "isstudent": true,
-                "difficulty": "easy",
-                "email": "",
-                "gender": "male",
-                "lastname": "De Bremme",
-                "firstname": "Arne",
-                "username": "arne de bremme",
-                "__v": 23,
-                "currentchallenge": "563146978c5ba50300f2b4f9",
-                "hash": "",
-                "salt": "",
-                "challengessuggestions": [
-            "56313a951a99710300d9d13f",
-                    "563146978c5ba50300f2b4f9",
-                    "563141ab8c5ba50300f2b4f5"
-            ],
-            "challengescompleted": [
-            "56313fc28c5ba50300f2b4f2",
-                    "56313ee38c5ba50300f2b4f1",
-                    "563151f48c5ba50300f2b500",
-                    "563151058c5ba50300f2b4ff",
-                    "563142de8c5ba50300f2b4f7"
-            ]
-        }
-        ]
-    }*/
         Ion.with(this)
                 .load(repo.getLOGINWITHFB())
                 .setBodyParameter("facebookid",id)

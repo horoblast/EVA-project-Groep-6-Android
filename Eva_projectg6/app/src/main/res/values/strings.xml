@@ -76,4 +76,10 @@
         <item>medium</item>
         <item>hard</item>
     </string-array>
+    <string name="challengeDone">Ik heb zojuist een challenge voltooid! </string>
+    <string name="challengeSetDone">Ik heb zojuist mijn 21-dagen challenge voltooid!
+        Een goede start naar een gezondere levenstijl!</string>
+    <string name="challengeSetDialogTitle">Gefeliciteerd met het voltooien van je 21-dagen challenge!</string>
+    <string name="posButtonDialog">Voltooi en deel</string>
+    <string name="negButtonDialog">Voltooi </string>
 </resources>

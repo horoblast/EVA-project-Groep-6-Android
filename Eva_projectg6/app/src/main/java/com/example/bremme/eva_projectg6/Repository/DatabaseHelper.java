@@ -66,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(COL_2 , challenge.getName());
             contentValues.put(COL_3 , challenge.getDescription());
             contentValues.put(COL_4 , challenge.getDifficulty().toString());
-            contentValues.put(COL_5 , challenge.getUrl().toString());
+            contentValues.put(COL_5 , challenge.getUrlImage());
         }catch (Exception ex){
             Log.i("Wegschrijven naar db", "niet alle gegevens zijn weggeschreven");
         }

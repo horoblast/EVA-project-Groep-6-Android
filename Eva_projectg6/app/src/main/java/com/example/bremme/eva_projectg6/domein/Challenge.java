@@ -11,27 +11,26 @@ public class Challenge {
     private String name;
     private String description;
     private Difficulty difficulty;
-    private URL imageUrl;
+    private String urlImage;
     private boolean childFriendly;
     private boolean studentFriendly;
     public Challenge(String id, String name, URL url) {
        setId(id);
        setName(name);
        // setCategory(category);
-        setImageUrl(url);
     }
     public Challenge(String id, String name, String description ,String url) {
         setId(id);
         setName(name);
-        setImageUrlByString(url);
+        setUrlImage(url);
     }
 
-    public Challenge(String id, String name, String description ,Difficulty difficulty ,String url){
+    public Challenge(String id, String name, String description ,Difficulty difficulty ,String url) {
         setId(id);
         setName(name);
         setDescription(description);
-        setImageUrlByString(url);
         setDifficulty(difficulty);
+        setUrlImage(url);
     }
 
     public Challenge(String id,String name,String description, Difficulty difficulty, String imageUrl, boolean childFriendly, boolean studentFriendly) {
@@ -56,20 +55,13 @@ public class Challenge {
         this.studentFriendly = studentFriendly;
     }
 
-    public void setImageUrl(URL imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-    public void setImageUrlByString(String url)
-    {
-        try {
-            imageUrl = new URL(url);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+
+    public String getUrlImage() {
+        return urlImage;
     }
 
-    public URL getUrl(){
-        return imageUrl;
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
     public String getId() {
         return id;

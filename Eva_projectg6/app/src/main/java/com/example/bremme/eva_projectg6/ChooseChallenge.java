@@ -236,7 +236,7 @@ public class ChooseChallenge extends AppCompatActivity {
             public void run() {
                 try {
                     for (int i = 0; i < 3; i++) {
-                        dImages[i] = loadImageFromWebOperations(randomChallengeList.get(i).getUrl().toString());
+                        dImages[i] = loadImageFromWebOperations(randomChallengeList.get(i).getUrlImage());
                     }
                     //Your code goes here
                 } catch (Exception e) {

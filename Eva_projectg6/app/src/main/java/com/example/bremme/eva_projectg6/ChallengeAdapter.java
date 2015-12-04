@@ -14,6 +14,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,21 +32,28 @@ import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
 import com.example.bremme.eva_projectg6.domein.Challenge;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.share.ShareApi;
+import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
+import com.google.gson.JsonArray;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Picasso;
 
+import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.URIUtil;
 
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -60,8 +68,9 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
     private Context context;
     private LinearLayout linearLayout;
     private RatingBar rating;
-    CallbackManager callbackManager;
-    ShareDialog shareDialog;
+    private ImageView image;
+    private CallbackManager callbackManager;
+    private ShareDialog shareDialog;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;
@@ -70,25 +79,13 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             view = v;
         }
     }
-    public ChallengeAdapter(final List<Challenge> challengeDataSet,Context context){
+    public ChallengeAdapter(final List<Challenge> challengeDataSet,Context context,CallbackManager cb, ShareDialog s){
+        callbackManager = cb;
+        shareDialog = s;
         this.context = context;
         userLocalStore = new UserLocalStore(context);
         repo = new RestApiRepository();
         this.challengeDataSet = challengeDataSet;
-        dImages = new Drawable[challengeDataSet.size()];
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    for (int i = 0; i < challengeDataSet.size(); i++) {
-                        dImages[i] = ChooseChallenge.loadImageFromWebOperations(challengeDataSet.get(i).getUrl().toString());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -96,29 +93,14 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.simplerow, parent ,false);
         ViewHolder vh = new ViewHolder(v);
         FacebookSdk.sdkInitialize(context.getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-        shareDialog = new ShareDialog((Activity) context);
+        parent.findViewById(R.id.challengeImage);
         // this part is optional
         return vh;
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-
         final ImageView image = (ImageView) holder.view.findViewById(R.id.challengeImage);
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                        image.setImageDrawable(loadImageFromWebOperations(challengeDataSet.get(position).getUrl().toString()));
-
-                } catch (Exception e) {
-                    Log.i("challengeadapptr", "loaden image mislukt");
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
-       // image.setImageResource(R.drawable.test);
+        Picasso.with(context).load(challengeDataSet.get(position).getUrlImage()).into(image);
         TextView description = (TextView) holder.view.findViewById(R.id.challengeDescription);
         description.setText(challengeDataSet.get(position).getDescription());
         TextView title = (TextView) holder.view.findViewById(R.id.challengeTitle);
@@ -128,7 +110,12 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCompleteDialog(challengeDataSet.get(0));
+                if (challengeDataSet.size() < 21) {
+                    showCompleteDialog(challengeDataSet.get(0));
+                } else {
+                    showCompleteChallengeSetDialog();
+                }
+
             }
         });
 
@@ -145,16 +132,6 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
     public int getItemCount() {
         return challengeDataSet.size();
     }
-
-    public static Drawable loadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
-    }
     private void completeCurrentChallenge()
     {
         //todo fixen
@@ -165,30 +142,32 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
                 .asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
-
-                Log.i("vergelijk", result.toString() + "  " + "gelukt");
-                if (result.toString().equals("\"gelukt\"")) {
-                    //melding alst gelukt is
-                    Log.i("Me","complete gelukt");
-                    goToChooseChallenge();
-                } else {
-                    //code alst mislukt is
-                    Log.i("Me","complete mislukt");
-                }
+                Log.i("ResutlMessage",result.toString());
             }
         });
     }
 
-    private void shareOnFacebook(String url)
+    private void shareChallengeOnFacebook()
     {
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
                     .setContentUrl(Uri.parse("http://groep6webapp.herokuapp.com/#/home"))
-                    .setContentDescription("I just finished a challenge!")
+                    .setContentDescription(context.getResources().getString(R.string.challengeDone))
+                    .build();
+            shareDialog.show(linkContent);
+
+        }
+
+    }
+    private void shareChallengeSetFacebook()
+    {
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse("http://groep6webapp.herokuapp.com/#/home"))
+                    .setContentDescription(context.getResources().getString(R.string.challengeSetDone))
                     .build();
             shareDialog.show(linkContent);
         }
-        //ShareApi.share(content, null);
 
     }
     public Bitmap convertToBitmap(Drawable drawable, int widthPixels, int heightPixels) {
@@ -206,22 +185,22 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         v.setColorFilter(cf);
         //v.setAlpha(128);   // 128 = 0.5
     }
-    private void showCompleteDialog(final Challenge challenge)
-    {
+    private void showCompleteDialog(final Challenge challenge) {
         Log.i("selected Challenge", challenge.getName());
         try {
-            AlertDialog.Builder builder =new AlertDialog.Builder(this.context)
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.context)
                     .setTitle(challenge.getName()).setIcon(dImages[0])
-                    .setPositiveButton("Voltooi en deel", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(context.getResources().getString(R.string.posButtonDialog), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            shareOnFacebook(challenge.getUrl().toString());
                             completeCurrentChallenge();
+                            shareChallengeOnFacebook();//also redirects to choosechallenge
                         }
                     })
-                    .setNegativeButton("Voltooi", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(context.getResources().getString(R.string.negButtonDialog), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             completeCurrentChallenge();
                             setRating();
+                            goToChooseChallenge();
                         }
                     });
             final AlertDialog dialog = builder.create();
@@ -231,7 +210,49 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             ImageView image = new ImageView(this.context);
             image.setImageDrawable(scaleImage(dImages[0]));
             linearLayout.addView(image);
-             rating  = new RatingBar(context);
+            rating = new RatingBar(context);
+            rating.setTag("ratingbar");
+            rating.setRating(5);
+            rating.setNumStars(5);
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            rating.setLayoutParams(param);
+            TextView text = new TextView(context);
+            text.setText(R.string.rate);
+            linearLayout.addView(text);
+            linearLayout.addView(rating);
+            dialog.setView(dialogLayout);
+            dialog.show();
+        } catch (Exception e) {
+        }
+    }
+    private void showCompleteChallengeSetDialog()
+    {
+        try {
+            AlertDialog.Builder builder =new AlertDialog.Builder(this.context)
+                    .setTitle(context.getResources().getString((R.string.challengeSetDialogTitle)))
+                    .setPositiveButton(context.getResources().getString(R.string.posButtonDialog), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            shareChallengeSetFacebook();
+                            completeChallengeSeries();
+                            setRating();
+
+                        }
+                    })
+                            .setNegativeButton(context.getResources().getString(R.string.negButtonDialog), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    completeChallengeSeries();
+                                    setRating();
+                                    goToChooseChallenge();
+                                }
+                            });
+            final AlertDialog dialog = builder.create();
+            LayoutInflater inflater = LayoutInflater.from(this.context);
+            View dialogLayout = inflater.inflate(R.layout.challengedialog, null);
+            linearLayout = (LinearLayout) dialogLayout.findViewById(R.id.challengeLayout);
+            ImageView image = new ImageView(this.context);
+            image.setImageDrawable(scaleImage(dImages[0]));
+            linearLayout.addView(image);
+            rating  = new RatingBar(context);
             rating.setTag("ratingbar");
             rating.setRating(5);
             rating.setNumStars(5);
@@ -273,11 +294,57 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
                 .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
                 .setBodyParameter("user",userLocalStore.getUserId())
                 .setBodyParameter("challenge",challengeDataSet.get(0).getId())
-                .setBodyParameter("score",getStarScore()+"")
+                .setBodyParameter("score", getStarScore() + "")
                 .asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
+
             }
         });
     }
+    private void completeChallengeSeries()
+    {
+        Ion.with(context)
+                .load(repo.getCOMPLETECHALLENGESERIES())
+                .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                .setBodyParameter("username", userLocalStore.getUsername())
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                    }
+                });
+    }
+    public static Drawable loadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            Log.i("loading image ","is mislukt ");
+            e.printStackTrace();
+            return null;
+        }
+    }
+    /*
+    public class DownloadImagesTask extends AsyncTask<ImageView, Void, Bitmap> {
+
+        ImageView imageView = null;
+
+        @Override
+        protected Bitmap doInBackground(ImageView... imageViews) {
+            this.imageView = imageViews[0];
+            return download_Image((String)imageView.getTag());
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
+        }
+
+
+        private Bitmap download_Image(String url) {
+            ...
+        }
+*/
 }
