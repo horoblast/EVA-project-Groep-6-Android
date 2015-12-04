@@ -21,6 +21,12 @@ import com.example.bremme.eva_projectg6.domein.Difficulty;
 import com.example.bremme.eva_projectg6.domein.Gender;
 import com.example.bremme.eva_projectg6.domein.User;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.share.Sharer;
+import com.facebook.share.widget.ShareDialog;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.google.gson.JsonArray;
@@ -49,10 +55,33 @@ public class ViewChallenges extends AppCompatActivity {
     private UserLocalStore userLocalStore;
     private Toolbar toolbar;
     private DonutProgress donutProgress;
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_challenges);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+        // this part is optional
+        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                goToChooseChallenge();
+            }
+
+            @Override
+            public void onCancel() {
+                Log.i("SHAREDIALOG","Oncan");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.i("SHAREDIALOG","Onerr");
+            }
+        });
         init();
         setAdapterWithChallenges();
 
@@ -82,7 +111,12 @@ public class ViewChallenges extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("Look here","On activity result");
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 
     private void init(){
 
@@ -162,10 +196,10 @@ public class ViewChallenges extends AppCompatActivity {
                         @Override
                         public void onCompleted(Exception e, JsonArray result) {
                             challengesDone = Arrays.asList(repo.getAllChallenges(result, language));
-                            Log.i("percent",(challengesDone.size()/21)*100+"");
-                            donutProgress.setProgress((int)calculatePercent(challengesDone.size()));
+                            Log.i("percent", (challengesDone.size() / 21) * 100 + "");
+                            donutProgress.setProgress((int) calculatePercent(challengesDone.size()));
                             sortChallengesDone(idSorts);
-                            mAdapter = new ChallengeAdapter(challengesDone, context);
+                            mAdapter = new ChallengeAdapter(challengesDone, context, callbackManager, shareDialog);
                             mRecyclerView.setAdapter(mAdapter);
                         }
                     });
@@ -192,5 +226,10 @@ public class ViewChallenges extends AppCompatActivity {
         double v = i;
         double x = (v/21) * 100;
         return x;
+    }
+    private void goToChooseChallenge()
+    {
+        Intent i = new Intent(this,ChooseChallenge.class);
+        this.startActivity(i);
     }
 }

@@ -74,6 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         try{
+<<<<<<< HEAD
             contentValues.put(ID, challenge.getId());
             contentValues.put(NAME, challenge.getName());
             contentValues.put(DESCRIPTION, challenge.getDescription());
@@ -82,6 +83,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(ISSTUDENTFRIENDLY, challenge.isStudentFriendly());
             contentValues.put(ISCHILDFRIENDLY, challenge.isChildFriendly());
 
+=======
+            contentValues.put(COL_1 , challenge.getId());
+            contentValues.put(COL_2 , challenge.getName());
+            contentValues.put(COL_3 , challenge.getDescription());
+            contentValues.put(COL_4 , challenge.getDifficulty().toString());
+            contentValues.put(COL_5 , challenge.getUrlImage());
+>>>>>>> 638818e213a3b1eaf992a73222d5144bbb27bfc4
         }catch (Exception ex){
             Log.i("Wegschrijven naar db", "niet alle gegevens zijn weggeschreven");
         }
