@@ -10,7 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -139,6 +141,14 @@ public class ViewChallenges extends AppCompatActivity {
         }else{
             text.setText("user onbekend");
         }
+        Button but = (Button)findViewById(R.id.logout);
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLocalStore.clearUserData();
+                goToLogin();
+            }
+        });
 
     }
     private void setAdapterWithChallenges()
@@ -231,5 +241,11 @@ public class ViewChallenges extends AppCompatActivity {
     {
         Intent i = new Intent(this,ChooseChallenge.class);
         this.startActivity(i);
+    }
+    private void goToLogin()
+    {
+        Intent i = new Intent(this,LogIn.class);
+        startActivity(i);
+
     }
 }

@@ -62,7 +62,6 @@ import java.util.List;
 public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ViewHolder>{
 
     private List<Challenge> challengeDataSet;
-    private Drawable dImages[];
     private UserLocalStore userLocalStore;
     private RestApiRepository repo;
     private Context context;
@@ -110,6 +109,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("button","click");
                 if (challengeDataSet.size() < 21) {
                     showCompleteDialog(challengeDataSet.get(0));
                 } else {
@@ -188,8 +188,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
     private void showCompleteDialog(final Challenge challenge) {
         Log.i("selected Challenge", challenge.getName());
         try {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.context)
-                    .setTitle(challenge.getName()).setIcon(dImages[0])
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.context).setTitle(challenge.getName())
                     .setPositiveButton(context.getResources().getString(R.string.posButtonDialog), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             completeCurrentChallenge();
@@ -208,21 +207,25 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             View dialogLayout = inflater.inflate(R.layout.challengedialog, null);
             linearLayout = (LinearLayout) dialogLayout.findViewById(R.id.challengeLayout);
             ImageView image = new ImageView(this.context);
-            image.setImageDrawable(scaleImage(dImages[0]));
+            Picasso.with(context).load(challengeDataSet.get(0).getUrlImage()).into(image);
             linearLayout.addView(image);
             rating = new RatingBar(context);
             rating.setTag("ratingbar");
             rating.setRating(5);
             rating.setNumStars(5);
+            rating.setPadding(60,0,0,0);
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             rating.setLayoutParams(param);
             TextView text = new TextView(context);
             text.setText(R.string.rate);
+            text.setPadding(60, 0, 0, 0);
             linearLayout.addView(text);
             linearLayout.addView(rating);
             dialog.setView(dialogLayout);
             dialog.show();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
+            Log.i("Messaerror","an error occured");
         }
     }
     private void showCompleteChallengeSetDialog()
@@ -238,19 +241,19 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
 
                         }
                     })
-                            .setNegativeButton(context.getResources().getString(R.string.negButtonDialog), new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    completeChallengeSeries();
-                                    setRating();
-                                    goToChooseChallenge();
-                                }
-                            });
+                    .setNegativeButton(context.getResources().getString(R.string.negButtonDialog), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            completeChallengeSeries();
+                            setRating();
+                            goToChooseChallenge();
+                        }
+                    });
             final AlertDialog dialog = builder.create();
             LayoutInflater inflater = LayoutInflater.from(this.context);
             View dialogLayout = inflater.inflate(R.layout.challengedialog, null);
             linearLayout = (LinearLayout) dialogLayout.findViewById(R.id.challengeLayout);
             ImageView image = new ImageView(this.context);
-            image.setImageDrawable(scaleImage(dImages[0]));
+            Picasso.with(context).load(challengeDataSet.get(0).getUrlImage()).into(image);
             linearLayout.addView(image);
             rating  = new RatingBar(context);
             rating.setTag("ratingbar");
@@ -258,8 +261,10 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             rating.setNumStars(5);
             LinearLayout.LayoutParams param= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             rating.setLayoutParams(param);
+            rating.setPadding(60,0,0,0);
             TextView text = new TextView(context);
             text.setText(R.string.rate);
+            text.setPadding(60,0,0,0);
             linearLayout.addView(text);
             linearLayout.addView(rating);
             dialog.setView(dialogLayout);

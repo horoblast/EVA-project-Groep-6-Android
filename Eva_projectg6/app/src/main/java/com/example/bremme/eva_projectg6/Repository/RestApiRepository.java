@@ -39,7 +39,6 @@ public class RestApiRepository {
     private Challenge[] challengeList;
     public RestApiRepository() {
     }
-
     public String getSUBMITUSERCHANGES() {
         return SUBMITUSERCHANGES;
     }
@@ -94,7 +93,6 @@ public class RestApiRepository {
 
     public User getUser(JsonObject j)
     {
-
         String fname = j.get("firstname").getAsString();
         String lname = j.get("lastname").getAsString();
         String email = j.get("email").getAsString();

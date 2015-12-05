@@ -451,7 +451,7 @@
     <eat-comment/>
     <string name="student">student</string>
     <string name="thirdTab">derde stap</string>
-    <string name="titelChallengeDag">Challenge Dag 1</string>
+    <string name="titelChallengeDag">Challenge Dag </string>
     <string name="titelKiesChallenges">Maak een keuze uit volgende challenges ! </string>
     <string name="title_activity_choose_challenge">ChooseChallenge</string>
     <string name="title_activity_facebook_register">FacebookRegister</string>

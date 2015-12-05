@@ -60,6 +60,7 @@ public class LogIn extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userLocalStore = new UserLocalStore(this);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_log_in);
         mCallbackManager = CallbackManager.Factory.create();
@@ -102,13 +103,6 @@ public class LogIn extends AppCompatActivity {
             }
         });
 
-    }
-    //Naam wordt opgehaald van profile en wordt weergegeven
-    private void displayWelcomeMessage(Profile profile){
-        if(profile != null){
-            Log.i("PROFIEL FACEBOOK",profile.getFirstName());
-
-        }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

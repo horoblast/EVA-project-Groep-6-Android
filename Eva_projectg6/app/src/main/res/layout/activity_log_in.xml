@@ -59,8 +59,8 @@
         android:clickable="true"
         android:onClick="register"
         android:layout_below="@+id/login_button"
-        android:layout_alignLeft="@+id/login_button"
-        android:layout_alignStart="@+id/login_button" />
+        android:layout_toRightOf="@+id/buttonFill4"
+        android:layout_toEndOf="@+id/buttonFill4" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -85,9 +85,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/loginButton"
-        android:layout_alignRight="@+id/loginButton"
-        android:layout_alignEnd="@+id/loginButton"
-        android:layout_toRightOf="@+id/buttonFill4"
-        android:layout_toEndOf="@+id/buttonFill4" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

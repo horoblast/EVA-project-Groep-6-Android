@@ -2251,19 +2251,22 @@ containing a value of this type.
         public static final int logo_eva1=0x7f02005d;
         public static final int logo_eva2=0x7f02005e;
         public static final int logo_eva_typo_nl=0x7f02005f;
-        public static final int messenger_bubble_large_blue=0x7f020060;
-        public static final int messenger_bubble_large_white=0x7f020061;
-        public static final int messenger_bubble_small_blue=0x7f020062;
-        public static final int messenger_bubble_small_white=0x7f020063;
-        public static final int messenger_button_blue_bg_round=0x7f020064;
-        public static final int messenger_button_blue_bg_selector=0x7f020065;
-        public static final int messenger_button_send_round_shadow=0x7f020066;
-        public static final int messenger_button_white_bg_round=0x7f020067;
-        public static final int messenger_button_white_bg_selector=0x7f020068;
-        public static final int notification_template_icon_bg=0x7f02006c;
-        public static final int rightarrow=0x7f020069;
-        public static final int rsz_1cow=0x7f02006a;
-        public static final int rsz_2cow=0x7f02006b;
+        public static final int logout=0x7f020060;
+        public static final int messenger_bubble_large_blue=0x7f020061;
+        public static final int messenger_bubble_large_white=0x7f020062;
+        public static final int messenger_bubble_small_blue=0x7f020063;
+        public static final int messenger_bubble_small_white=0x7f020064;
+        public static final int messenger_button_blue_bg_round=0x7f020065;
+        public static final int messenger_button_blue_bg_selector=0x7f020066;
+        public static final int messenger_button_send_round_shadow=0x7f020067;
+        public static final int messenger_button_white_bg_round=0x7f020068;
+        public static final int messenger_button_white_bg_selector=0x7f020069;
+        public static final int notification_template_icon_bg=0x7f02006f;
+        public static final int out=0x7f02006a;
+        public static final int power=0x7f02006b;
+        public static final int rightarrow=0x7f02006c;
+        public static final int rsz_1cow=0x7f02006d;
+        public static final int rsz_2cow=0x7f02006e;
     }
     public static final class id {
         public static final int CompletedImage=0x7f0e00a5;
@@ -2282,7 +2285,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0e0052;
         public static final int action_mode_bar_stub=0x7f0e0051;
         public static final int action_mode_close_button=0x7f0e0037;
-        public static final int action_settings=0x7f0e00a9;
+        public static final int action_settings=0x7f0e00aa;
         public static final int activity_chooser_view_content=0x7f0e0038;
         public static final int alertTitle=0x7f0e0044;
         public static final int always=0x7f0e001e;
@@ -2298,7 +2301,7 @@ containing a value of this type.
         public static final int buttonFill=0x7f0e0096;
         public static final int buttonFill2=0x7f0e009d;
         public static final int buttonFill3=0x7f0e00a1;
-        public static final int buttonFill4=0x7f0e0077;
+        public static final int buttonFill4=0x7f0e0076;
         public static final int buttonPanel=0x7f0e003f;
         public static final int cChildren=0x7f0e006f;
         public static final int cStudent=0x7f0e006e;
@@ -2339,7 +2342,7 @@ containing a value of this type.
         public static final int icon=0x7f0e003d;
         public static final int ifRoom=0x7f0e0020;
         public static final int image=0x7f0e003a;
-        public static final int imageView=0x7f0e0076;
+        public static final int imageView=0x7f0e0077;
         public static final int imageView2=0x7f0e0070;
         public static final int imageView3=0x7f0e0095;
         public static final int info=0x7f0e0090;
@@ -2353,6 +2356,7 @@ containing a value of this type.
         public static final int list_item=0x7f0e003c;
         public static final int loginButton=0x7f0e0073;
         public static final int login_button=0x7f0e0075;
+        public static final int logout=0x7f0e00a8;
         public static final int media_actions=0x7f0e0088;
         public static final int messenger_send_button=0x7f0e0084;
         public static final int middle=0x7f0e001d;
@@ -2433,7 +2437,7 @@ containing a value of this type.
         public static final int unknown=0x7f0e0026;
         public static final int up=0x7f0e000b;
         public static final int useLogo=0x7f0e0015;
-        public static final int userNameTool=0x7f0e00a8;
+        public static final int userNameTool=0x7f0e00a9;
         public static final int withText=0x7f0e0022;
         public static final int wrap_content=0x7f0e0023;
     }

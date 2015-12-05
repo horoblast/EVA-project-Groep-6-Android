@@ -61,6 +61,7 @@ public class ChooseChallenge extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         userLocalStore = new UserLocalStore(this);
+        User u = userLocalStore.getLoggedInUser();
         randomChallengeList = new ArrayList<>();
         TextView text = (TextView) findViewById(R.id.userNameTool);
         if(userLocalStore.isUserLoggedIn())
@@ -69,9 +70,20 @@ public class ChooseChallenge extends AppCompatActivity {
         }else{
             text.setText("user onbekend");
         }
+
         repo = new RestApiRepository();
         dImages = new Drawable[3];
         getChallenges();
+        if(userLocalStore.getIsDoingChallenges()==false)
+            startUserSeries();
+        Button but = (Button)findViewById(R.id.logout);
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               userLocalStore.clearUserData();
+                goToLogin();
+            }
+        });
         //challenges = getDummyData();
         //setTextChallenges();
     }
@@ -173,14 +185,14 @@ public class ChooseChallenge extends AppCompatActivity {
                 .asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
-                //todo startuserseries
+
             }
         });
     }
 
     //haalt alle challenges op
     private void getChallenges()
-    {//todo challenge lijst api call
+    {
         //kijken of user al suggesties heeft
         User u = userLocalStore.getLoggedInUser();
         Log.i("SUGGESTIES ZIJN ER AL ?", userLocalStore.getLoggedInUser().getSuggestionIds().size() + "");
@@ -224,8 +236,6 @@ public class ChooseChallenge extends AppCompatActivity {
                     });
         }
     }
-
-
     private void initDisplay()
     {
         init();
@@ -315,7 +325,7 @@ public class ChooseChallenge extends AppCompatActivity {
             InputStream is = (InputStream) new URL(url).getContent();
             Drawable d = Drawable.createFromStream(is, "src name");
             Drawable drawable = new ScaleDrawable(d, 0,400, 400).getDrawable();
-            drawable.setBounds(0,0,400,400);
+            drawable.setBounds(0, 0, 400, 400);
             return drawable;
         } catch (Exception e) {
             return null;
@@ -350,5 +360,26 @@ public class ChooseChallenge extends AppCompatActivity {
         Intent intent = new Intent(ChooseChallenge.this, ViewChallenges.class);
         intent.putExtra("CHALLENGE_ID", challenge.getId());
         startActivity(intent);
+    }
+
+    private void startUserSeries()
+    {
+        Ion.with(this)
+                .load(repo.getSTARTUSERSERIES())
+                .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                .setBodyParameter("username",userLocalStore.getLoggedInUser().getUsername())
+                .asString().setCallback(new FutureCallback<String>() {
+            @Override
+            public void onCompleted(Exception e, String result) {
+
+                Log.i("StatusCode", result);
+            }
+        });
+    }
+    private void goToLogin()
+    {
+        Intent i = new Intent(this,LogIn.class);
+        startActivity(i);
+
     }
 }

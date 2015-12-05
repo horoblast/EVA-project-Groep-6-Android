@@ -18,6 +18,11 @@
             android:maxHeight="42dp"
             android:scaleType="fitCenter"
             />
+    <Button android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:id="@+id/logout"
+    android:layout_gravity="right"
+    android:background="@drawable/out"></Button>
     <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -31,7 +36,6 @@
         android:layout_gravity="right"
         android:id="@+id/userNameTool"
         />
-
 
 </android.support.v7.widget.Toolbar>
 <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/layout/tool_bar.xml -->
