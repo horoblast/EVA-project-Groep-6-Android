@@ -1,25 +1,17 @@
 package com.example.bremme.eva_projectg6;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageInstaller;
-import android.media.tv.TvInputService;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.example.bremme.eva_projectg6.Repository.DatabaseHelper;
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
-import com.example.bremme.eva_projectg6.domein.Challenge;
-import com.example.bremme.eva_projectg6.domein.Difficulty;
-import com.example.bremme.eva_projectg6.domein.Gender;
 import com.example.bremme.eva_projectg6.domein.User;
 import com.example.bremme.eva_projectg6.domein.UserLocalStore;
 import com.facebook.AccessToken;
@@ -39,12 +31,10 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Random;
 
 public class LogIn extends AppCompatActivity {
 
@@ -209,6 +199,7 @@ public class LogIn extends AppCompatActivity {
                             public void onCompleted(
                                     JSONObject object,
                                     GraphResponse response) {
+                                putAllChallengesInLocalDb();
                                 try{
                                     String id =object.getString("id");
                                     String name = object.getString("name");
@@ -263,6 +254,7 @@ public class LogIn extends AppCompatActivity {
                         Log.i("yolo", "swag");
                         String token = result.get("token").getAsString();
                         userLocalStore.setToken(token);
+                        putAllChallengesInLocalDb();
                         if(result.get("user").getAsJsonArray().size()==0){
                             facebookUserRegistreren(gender, email, birthday, id);
                         }else{
@@ -307,7 +299,7 @@ public class LogIn extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonArray result) {
                         String language = getResources().getConfiguration().locale.getLanguage();
-                        localDb.putAllDataInDb(repo.getAllChallenges(result,language));
+                        localDb.putAllChallengesInDb(repo.getAllChallenges(result, language));
                     }
                 });
     }

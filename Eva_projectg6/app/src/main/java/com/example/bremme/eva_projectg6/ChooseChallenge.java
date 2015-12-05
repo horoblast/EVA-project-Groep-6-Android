@@ -3,6 +3,7 @@ package com.example.bremme.eva_projectg6;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -19,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+
+import com.example.bremme.eva_projectg6.Repository.DatabaseHelper;
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
 import com.example.bremme.eva_projectg6.domein.Challenge;
 import com.example.bremme.eva_projectg6.domein.Difficulty;
@@ -50,8 +53,11 @@ public class ChooseChallenge extends AppCompatActivity {
     private Button challenge3;
     private UserLocalStore userLocalStore;
     private Drawable dImages[];
+    private DatabaseHelper localDb;
     private static int count=0;
     public static  String  CHALLENGE_ID = null;
+
+
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,6 +227,23 @@ public class ChooseChallenge extends AppCompatActivity {
                 });
             }//user heeft geen suggesties -> nieuwe suggesties ophalen
         }else {
+            /*Cursor cursor = localDb.getAllData();
+            cursor.moveToFirst();
+            ArrayList<Challenge> challengesList = new ArrayList<>();
+            while(!cursor.isAfterLast()){
+                Challenge c = new Challenge(cursor.getString(cursor.getColumnIndex("ID")),
+                        cursor.getString(cursor.getColumnIndex("NAME")),
+                        cursor.getString(cursor.getColumnIndex("Description")),
+                        Difficulty.valueOf(cursor.getString(cursor.getColumnIndex("DIFFICULTY"))),
+                        cursor.getString(cursor.getColumnIndex("URL")),
+                        cursor.getInt(cursor.getColumnIndex("ISSTUDENTFRIENDLY"))>0,
+                        cursor.getInt(cursor.getColumnIndex("ISCHILDFRIENDLY"))>0);
+
+                challengesList.add(c);
+                cursor.moveToNext();
+            }
+            cursor.close();
+            challenges = challengesList.toArray(new Challenge[challengesList.size()]);*/
             Ion.with(this)
                     .load(repo.getChallenges())
                     .asJsonArray()
@@ -362,6 +385,7 @@ public class ChooseChallenge extends AppCompatActivity {
         startActivity(intent);
     }
 
+<<<<<<< HEAD
     private void startUserSeries()
     {
         Ion.with(this)
@@ -382,4 +406,7 @@ public class ChooseChallenge extends AppCompatActivity {
         startActivity(i);
 
     }
+=======
+
+>>>>>>> 7345fb0ddb7abf607f4e23d35d292f2a4b7c80e1
 }
