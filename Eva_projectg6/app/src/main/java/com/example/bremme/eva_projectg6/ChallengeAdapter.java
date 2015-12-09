@@ -85,6 +85,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         userLocalStore = new UserLocalStore(context);
         repo = new RestApiRepository();
         this.challengeDataSet = challengeDataSet;
+        Log.i("DAtaset init" , challengeDataSet.size()+" ic " + this.challengeDataSet.size() );
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -109,7 +110,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("button","click");
+                Log.i("button", "THE FACKING SIZE OF THE DATASET " + challengeDataSet.size());
                 if (challengeDataSet.size() < 21) {
                     showCompleteDialog(challengeDataSet.get(0));
                 } else {
@@ -118,7 +119,6 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
 
             }
         });
-
         if(position!=0){
             ImageView completedImage = (ImageView) holder.view.findViewById(R.id.CompletedImage);
             completedImage.setImageResource(R.drawable.completedstamp);
@@ -142,7 +142,8 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
                 .asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
-                Log.i("ResutlMessage",result.toString());
+
+
             }
         });
     }
@@ -159,8 +160,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         }
 
     }
-    private void shareChallengeSetFacebook()
-    {
+    private void shareChallengeSetFacebook() {
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
                     .setContentUrl(Uri.parse("http://groep6webapp.herokuapp.com/#/home"))
@@ -213,7 +213,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             rating.setTag("ratingbar");
             rating.setRating(5);
             rating.setNumStars(5);
-            rating.setPadding(60,0,0,0);
+            rating.setPadding(0,0,0,0);
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             rating.setLayoutParams(param);
             TextView text = new TextView(context);
@@ -245,7 +245,8 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
                         public void onClick(DialogInterface dialog, int id) {
                             completeChallengeSeries();
                             setRating();
-                            goToChooseChallenge();
+                            goToStartSeries();
+
                         }
                     });
             final AlertDialog dialog = builder.create();
@@ -261,7 +262,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             rating.setNumStars(5);
             LinearLayout.LayoutParams param= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             rating.setLayoutParams(param);
-            rating.setPadding(60,0,0,0);
+            rating.setPadding(0, 0, 0, 0);
             TextView text = new TextView(context);
             text.setText(R.string.rate);
             text.setPadding(60,0,0,0);
@@ -272,6 +273,11 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         } catch (Exception e) {
         }
     }
+
+    private void goToStartSeries() {
+        context.startActivity(new Intent(context,StartChallengeSet.class));
+    }
+
     public Drawable scaleImage(Drawable image)
     {
         if ((image == null) || !(image instanceof BitmapDrawable)) {
@@ -331,25 +337,5 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
             return null;
         }
     }
-    /*
-    public class DownloadImagesTask extends AsyncTask<ImageView, Void, Bitmap> {
 
-        ImageView imageView = null;
-
-        @Override
-        protected Bitmap doInBackground(ImageView... imageViews) {
-            this.imageView = imageViews[0];
-            return download_Image((String)imageView.getTag());
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
-        }
-
-
-        private Bitmap download_Image(String url) {
-            ...
-        }
-*/
 }

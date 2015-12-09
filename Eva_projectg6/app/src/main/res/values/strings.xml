@@ -82,4 +82,7 @@
     <string name="challengeSetDialogTitle">Gefeliciteerd met het voltooien van je 21-dagen challenge!</string>
     <string name="posButtonDialog">Voltooi en deel</string>
     <string name="negButtonDialog">Voltooi </string>
+    <string name="title_activity_start_challenge_set">StartChallengeSet</string>
+    <string name="startChallengeReeks">Neem deel aan de 21-dagen challenge!</string>
+    <string name="challengeBut">BEGIN</string>
 </resources>

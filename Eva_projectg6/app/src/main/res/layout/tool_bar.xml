@@ -18,18 +18,18 @@
             android:maxHeight="42dp"
             android:scaleType="fitCenter"
             />
-    <Button android:layout_height="wrap_content"
+    <ImageView android:layout_height="wrap_content"
     android:layout_width="wrap_content"
     android:id="@+id/logout"
     android:layout_gravity="right"
-    android:background="@drawable/out"></Button>
+    android:background="@drawable/out"></ImageView>
     <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/ic_action"
     android:layout_gravity="right"
 
-    />
+        android:clickable="false" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

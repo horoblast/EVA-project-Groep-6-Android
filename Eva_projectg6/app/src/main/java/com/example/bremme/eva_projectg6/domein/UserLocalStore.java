@@ -70,6 +70,13 @@ public class UserLocalStore {
         user.setUserId(userLocalDatabase.getString("Id",""));
         return user;
     }
+    public void clearSuggestions()
+    {
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        Set<String> stringSet = new TreeSet<>();
+        spEditor.putStringSet("SuggestionIds", stringSet);
+        spEditor.commit();
+    }
     public void setUserLoggedIn(boolean loggedIn)
     {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();

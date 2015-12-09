@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7AB85C"
+    tools:context="com.example.bremme.eva_projectg6.StartChallengeSet">
+    <include
+        android:id="@+id/tool_bar_Challenge"
+        layout="@layout/tool_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/startChallengeReeks"/>
+
+        <Button android:id="@+id/btnChal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/challengeBut"
+            android:onClick="startSeries" />
+    </LinearLayout>
+
+</RelativeLayout>

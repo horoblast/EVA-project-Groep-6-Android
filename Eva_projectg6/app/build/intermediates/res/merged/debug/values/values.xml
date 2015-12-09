@@ -356,6 +356,7 @@
     <string name="app_id">208067942857620</string>
     <string name="app_name">Eva_projectg6</string>
     <string name="birthDate">vul uw geboortedatum in (dd-mm-yyyy)</string>
+    <string name="challengeBut">BEGIN</string>
     <string name="challengeDone">Ik heb zojuist een challenge voltooid! </string>
     <string name="challengeSetDialogTitle">Gefeliciteerd met het voltooien van je 21-dagen challenge!</string>
     <string name="challengeSetDone">Ik heb zojuist mijn 21-dagen challenge voltooid!
@@ -444,6 +445,7 @@
     <string name="registreerLink">nog geen account Registreer!</string>
     <string name="secondTab">tweede stap</string>
     <string name="single"><single>single</single></string>
+    <string name="startChallengeReeks">Neem deel aan de 21-dagen challenge!</string>
     <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values/values.xml -->
     <eat-comment/>
     <string name="status_bar_notification_info_overflow">999+</string>
@@ -463,6 +465,7 @@
     <string name="title_activity_settings">Settings</string>
     <!-- From: file:/Users/BREMME/EVA-project-Groep-6-Android2/Eva_projectg6/app/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="title_activity_start_challenge_set">StartChallengeSet</string>
     <string name="title_activity_toolbar">Toolbar</string>
     <string name="title_activity_view_challenges">ViewChallenges</string>
     <string name="userEmail">Uw email</string>

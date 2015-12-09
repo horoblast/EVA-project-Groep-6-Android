@@ -80,13 +80,11 @@ public class ChooseChallenge extends AppCompatActivity {
         repo = new RestApiRepository();
         dImages = new Drawable[3];
         getChallenges();
-        if(userLocalStore.getIsDoingChallenges()==false)
-            startUserSeries();
-        Button but = (Button)findViewById(R.id.logout);
+        ImageView but = (ImageView)findViewById(R.id.logout);
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               userLocalStore.clearUserData();
+                userLocalStore.clearUserData();
                 goToLogin();
             }
         });
@@ -374,7 +372,11 @@ public class ChooseChallenge extends AppCompatActivity {
                 .setBodyParameter("_id",c.getId()).asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
+                User u = userLocalStore.getLoggedInUser();
+                userLocalStore.clearSuggestions();
+                User u2 = userLocalStore.getLoggedInUser();
                 goToViewChallenge(c);
+
             }
         });
     }
@@ -385,7 +387,7 @@ public class ChooseChallenge extends AppCompatActivity {
         startActivity(intent);
     }
 
-<<<<<<< HEAD
+
     private void startUserSeries()
     {
         Ion.with(this)
@@ -406,7 +408,4 @@ public class ChooseChallenge extends AppCompatActivity {
         startActivity(i);
 
     }
-=======
-
->>>>>>> 7345fb0ddb7abf607f4e23d35d292f2a4b7c80e1
 }

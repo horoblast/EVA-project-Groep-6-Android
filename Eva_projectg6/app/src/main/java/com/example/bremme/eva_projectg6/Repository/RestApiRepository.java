@@ -111,6 +111,10 @@ public class RestApiRepository {
             try {//blijkbaar kan currentchallenge null zijn in api
                 String currentChallenge = j.get("currentchallenge").getAsString();
                 newUser.setCurrentChallenge(currentChallenge);
+            }catch(Exception e) {
+                Log.i("currentchallenge", "currentchallenge is null");
+            }
+            try{
                 JsonArray challengeSuggestions = j.get("challengessuggestions").getAsJsonArray();
                 if (challengeSuggestions.size() != 0) {
                     for (JsonElement cId : challengeSuggestions) {

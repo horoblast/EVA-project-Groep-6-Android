@@ -146,11 +146,17 @@ public class LogIn extends AppCompatActivity {
                                     userLocalStore.setUserLoggedIn(true);
                                     userLocalStore.storeUserData(newUser);
                                     dialog.dismiss();
-                                    if (newUser.getCurrentChallenge().length() > 0) {
-                                        goToViewChallenge(newUser.getCurrentChallenge());
-                                    } else {
-                                        challengesBekijken();
+                                    if(!newUser.isDoingChallenges())
+                                    {
+                                        startChallengeSet();
+                                    }else{
+                                        if (newUser.getCurrentChallenge().length() > 0) {
+                                            goToViewChallenge(newUser.getCurrentChallenge());
+                                        } else {
+                                            challengesBekijken();
+                                        }
                                     }
+
 
                                 }
                             } catch (Exception er) {
@@ -167,6 +173,10 @@ public class LogIn extends AppCompatActivity {
     private void challengesBekijken()
     {
         startActivity(new Intent(this, ChooseChallenge.class));
+    }
+    private void startChallengeSet()
+    {
+        startActivity(new Intent(this,StartChallengeSet.class));
     }
     public void register(View view)
     {

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -95,7 +96,6 @@ public class ViewChallenges extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_view_challenges, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -141,7 +141,7 @@ public class ViewChallenges extends AppCompatActivity {
         }else{
             text.setText("user onbekend");
         }
-        Button but = (Button)findViewById(R.id.logout);
+        ImageView but = (ImageView)findViewById(R.id.logout);
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,9 +206,10 @@ public class ViewChallenges extends AppCompatActivity {
                         @Override
                         public void onCompleted(Exception e, JsonArray result) {
                             challengesDone = Arrays.asList(repo.getAllChallenges(result, language));
-                            Log.i("percent", (challengesDone.size() / 21) * 100 + "");
-                            donutProgress.setProgress((int) calculatePercent(challengesDone.size()));
+                            Log.i("SIZE OF DONE VC.JA", challengesDone.size()+" <-- le size");
                             sortChallengesDone(idSorts);
+                            donutProgress.setProgress((int) calculatePercent(challengesDone.size()));
+                            Log.i("SIZE OF DONE VC.JA 2", challengesDone.size() + " <-- le size");
                             mAdapter = new ChallengeAdapter(challengesDone, context, callbackManager, shareDialog);
                             mRecyclerView.setAdapter(mAdapter);
                         }
@@ -248,4 +249,5 @@ public class ViewChallenges extends AppCompatActivity {
         startActivity(i);
 
     }
+
 }
