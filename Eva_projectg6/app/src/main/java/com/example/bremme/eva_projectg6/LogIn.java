@@ -55,7 +55,6 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
         mCallbackManager = CallbackManager.Factory.create();
         localDb = new DatabaseHelper(this);
-
         AccessTokenTracker tracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
@@ -66,7 +65,6 @@ public class LogIn extends AppCompatActivity {
         ProfileTracker pTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-
                 this.stopTracking();
                 Profile.setCurrentProfile(currentProfile);
             }
@@ -92,7 +90,7 @@ public class LogIn extends AppCompatActivity {
                 ePassword.setText("testimpl2");
             }
         });
-
+        CompareLocalDbWithLive();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -139,25 +137,21 @@ public class LogIn extends AppCompatActivity {
                         @Override
                         public void onCompleted(Exception e, JsonArray result) {
                             try {
-                                putAllChallengesInLocalDb();
                                 if (result.get(0).isJsonObject()) {
                                     JsonObject j = result.get(0).getAsJsonObject();
                                     User newUser = repo.getUser(j);
                                     userLocalStore.setUserLoggedIn(true);
                                     userLocalStore.storeUserData(newUser);
                                     dialog.dismiss();
-                                    if(!newUser.isDoingChallenges())
-                                    {
+                                    if (!newUser.isDoingChallenges()) {
                                         startChallengeSet();
-                                    }else{
+                                    } else {
                                         if (newUser.getCurrentChallenge().length() > 0) {
                                             goToViewChallenge(newUser.getCurrentChallenge());
                                         } else {
                                             challengesBekijken();
                                         }
                                     }
-
-
                                 }
                             } catch (Exception er) {
                                 dialog.dismiss();
@@ -209,7 +203,6 @@ public class LogIn extends AppCompatActivity {
                             public void onCompleted(
                                     JSONObject object,
                                     GraphResponse response) {
-                                putAllChallengesInLocalDb();
                                 try{
                                     String id =object.getString("id");
                                     String name = object.getString("name");
@@ -264,7 +257,6 @@ public class LogIn extends AppCompatActivity {
                         Log.i("yolo", "swag");
                         String token = result.get("token").getAsString();
                         userLocalStore.setToken(token);
-                        putAllChallengesInLocalDb();
                         if(result.get("user").getAsJsonArray().size()==0){
                             facebookUserRegistreren(gender, email, birthday, id);
                         }else{
@@ -302,6 +294,7 @@ public class LogIn extends AppCompatActivity {
     }
 
     private void putAllChallengesInLocalDb(){
+        Log.i("Localdb", "Putting all challenges in cptn");
         Ion.with(this)
                 .load(repo.getChallenges())
                 .asJsonArray()
@@ -312,6 +305,26 @@ public class LogIn extends AppCompatActivity {
                         localDb.putAllChallengesInDb(repo.getAllChallenges(result, language));
                     }
                 });
+    }
+    //will compare count of localdb with live db when live has more challenges than repopulate
+    private void CompareLocalDbWithLive()
+    {
+        Ion.with(this).load(repo.getLENGTHCHALLENGES()).asString().setCallback(new FutureCallback<String>() {
+            @Override
+            public void onCompleted(Exception e, String result) {
+                try{
+                    if(Integer.parseInt(result)>localDb.getCountData())
+                    {
+                        Log.i("addLocalCHallenges" , " Challenges worden ingeladen in local");
+                        putAllChallengesInLocalDb();//todo async
+                    }
+                }catch(Exception error)
+                {
+                    Log.i("DbCompare","comparen is mislukt ");
+                }
+
+            }
+        });
     }
     }
 

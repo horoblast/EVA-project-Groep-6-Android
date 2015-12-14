@@ -3,7 +3,7 @@
     package="com.example.bremme.eva_projectg6" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,20 +13,21 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
 
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider208067942857620"
             android:exported="true" />
 
         <activity
-            android:name=".LogIn"
+            android:name=".LoginRedirect"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -34,32 +35,29 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".RegisterMain"
-            android:label="@string/title_activity_register_main" >
-        </activity>
+            android:label="@string/title_activity_register_main" />
         <activity
             android:name=".ChooseChallenge"
-            android:label="@string/title_activity_choose_challenge" >
-        </activity>
+            android:label="@string/title_activity_choose_challenge" />
         <activity
             android:name=".ViewChallenges"
-            android:label="@string/title_activity_view_challenges" >
-        </activity>
+            android:label="@string/title_activity_view_challenges" />
         <activity
             android:name=".FacebookRegister"
-            android:label="@string/title_activity_facebook_register" >
-        </activity>
+            android:label="@string/title_activity_facebook_register" />
         <activity
             android:name=".Toolbar"
-            android:label="@string/title_activity_toolbar" >
-        </activity>
+            android:label="@string/title_activity_toolbar" />
         <activity
             android:name=".Settings"
-            android:label="@string/title_activity_settings" >
-        </activity>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".StartChallengeSet"
-            android:label="@string/title_activity_start_challenge_set" >
-        </activity>
+            android:label="@string/title_activity_start_challenge_set" />
+        <activity
+            android:name=".LogIn"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

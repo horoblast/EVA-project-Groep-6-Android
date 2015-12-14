@@ -67,6 +67,7 @@ public class ChooseChallenge extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         userLocalStore = new UserLocalStore(this);
+        localDb = new DatabaseHelper(this);
         User u = userLocalStore.getLoggedInUser();
         randomChallengeList = new ArrayList<>();
         TextView text = (TextView) findViewById(R.id.userNameTool);
@@ -189,7 +190,6 @@ public class ChooseChallenge extends AppCompatActivity {
                 .asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
-
             }
         });
     }
@@ -225,36 +225,44 @@ public class ChooseChallenge extends AppCompatActivity {
                 });
             }//user heeft geen suggesties -> nieuwe suggesties ophalen
         }else {
-            /*Cursor cursor = localDb.getAllData();
-            cursor.moveToFirst();
+            Cursor cursor = localDb.getAllData();
             ArrayList<Challenge> challengesList = new ArrayList<>();
-            while(!cursor.isAfterLast()){
-                Challenge c = new Challenge(cursor.getString(cursor.getColumnIndex("ID")),
-                        cursor.getString(cursor.getColumnIndex("NAME")),
-                        cursor.getString(cursor.getColumnIndex("Description")),
-                        Difficulty.valueOf(cursor.getString(cursor.getColumnIndex("DIFFICULTY"))),
-                        cursor.getString(cursor.getColumnIndex("URL")),
-                        cursor.getInt(cursor.getColumnIndex("ISSTUDENTFRIENDLY"))>0,
-                        cursor.getInt(cursor.getColumnIndex("ISCHILDFRIENDLY"))>0);
-
-                challengesList.add(c);
-                cursor.moveToNext();
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    do {
+                        Challenge c = new Challenge(cursor.getString(cursor.getColumnIndex("ID")),
+                                cursor.getString(cursor.getColumnIndex("NAME")),
+                                cursor.getString(cursor.getColumnIndex("DESCRIPTION")),
+                                Difficulty.valueOf(cursor.getString(cursor.getColumnIndex("DIFFICULTY"))),
+                                cursor.getString(cursor.getColumnIndex("URL")),
+                                cursor.getInt(cursor.getColumnIndex("ISSTUDENTFRIENDLY"))>0,
+                                cursor.getInt(cursor.getColumnIndex("ISCHILDFRIENDLY"))>0);
+                        challengesList.add(c);
+                    } while (cursor.moveToNext());
+                }
             }
             cursor.close();
-            challenges = challengesList.toArray(new Challenge[challengesList.size()]);*/
-            Ion.with(this)
-                    .load(repo.getChallenges())
-                    .asJsonArray()
-                    .setCallback(new FutureCallback<JsonArray>() {
-                        @Override
-                        public void onCompleted(Exception e, JsonArray result) {
-                            String language = getResources().getConfiguration().locale.getLanguage();
-                            Log.i("Locale",language);
-                            challenges = repo.getAllChallenges(result,language);
-                            randomChallengeList = getRandomChallengesOnDifficulty(userLocalStore.getLoggedInUser());
-                            initDisplay();
-                        }
-                    });
+            if(challengesList.size()==0)
+            {
+                Ion.with(this)
+                        .load(repo.getChallenges())
+                        .asJsonArray()
+                        .setCallback(new FutureCallback<JsonArray>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonArray result) {
+                                String language = getResources().getConfiguration().locale.getLanguage();
+                                Log.i("Locale", language);
+                                challenges = repo.getAllChallenges(result, language);
+                                randomChallengeList = getRandomChallengesOnDifficulty(userLocalStore.getLoggedInUser());
+                                initDisplay();
+                            }
+                        });
+            }else{
+                Log.i("Take it from locale","localChallenges");
+                challenges = challengesList.toArray(new Challenge[challengesList.size()]);
+                randomChallengeList = getRandomChallengesOnDifficulty(userLocalStore.getLoggedInUser());
+                initDisplay();
+            }
         }
     }
     private void initDisplay()
@@ -312,7 +320,6 @@ public class ChooseChallenge extends AppCompatActivity {
     }
     //methode voor het kiezen van een challenge
     private void showChallengeDialog(final int index) {
-
         try {
             AlertDialog.Builder builder =new AlertDialog.Builder(ChooseChallenge.this)
                     .setTitle(randomChallengeList.get(index).getName()).setIcon(dImages[index])
@@ -327,7 +334,6 @@ public class ChooseChallenge extends AppCompatActivity {
                             // FIRE ZE MISSILES!  lal
                         }
                     });
-
            final AlertDialog dialog = builder.create();
             LayoutInflater inflater = getLayoutInflater();
             View dialogLayout = inflater.inflate(R.layout.challengedialog, null);
@@ -374,6 +380,7 @@ public class ChooseChallenge extends AppCompatActivity {
             public void onCompleted(Exception e, String result) {
                 User u = userLocalStore.getLoggedInUser();
                 userLocalStore.clearSuggestions();
+                userLocalStore.setCurrentChallenge(c.getId());
                 User u2 = userLocalStore.getLoggedInUser();
                 goToViewChallenge(c);
 
@@ -385,22 +392,6 @@ public class ChooseChallenge extends AppCompatActivity {
         Intent intent = new Intent(ChooseChallenge.this, ViewChallenges.class);
         intent.putExtra("CHALLENGE_ID", challenge.getId());
         startActivity(intent);
-    }
-
-
-    private void startUserSeries()
-    {
-        Ion.with(this)
-                .load(repo.getSTARTUSERSERIES())
-                .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
-                .setBodyParameter("username",userLocalStore.getLoggedInUser().getUsername())
-                .asString().setCallback(new FutureCallback<String>() {
-            @Override
-            public void onCompleted(Exception e, String result) {
-
-                Log.i("StatusCode", result);
-            }
-        });
     }
     private void goToLogin()
     {

@@ -9,6 +9,7 @@
         android:targetSdkVersion="23" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -25,7 +26,7 @@
             android:exported="true" />
 
         <activity
-            android:name="com.example.bremme.eva_projectg6.LogIn"
+            android:name="com.example.bremme.eva_projectg6.LoginRedirect"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,32 +41,29 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="com.example.bremme.eva_projectg6.RegisterMain"
-            android:label="@string/title_activity_register_main" >
-        </activity>
+            android:label="@string/title_activity_register_main" />
         <activity
             android:name="com.example.bremme.eva_projectg6.ChooseChallenge"
-            android:label="@string/title_activity_choose_challenge" >
-        </activity>
+            android:label="@string/title_activity_choose_challenge" />
         <activity
             android:name="com.example.bremme.eva_projectg6.ViewChallenges"
-            android:label="@string/title_activity_view_challenges" >
-        </activity>
+            android:label="@string/title_activity_view_challenges" />
         <activity
             android:name="com.example.bremme.eva_projectg6.FacebookRegister"
-            android:label="@string/title_activity_facebook_register" >
-        </activity>
+            android:label="@string/title_activity_facebook_register" />
         <activity
             android:name="com.example.bremme.eva_projectg6.Toolbar"
-            android:label="@string/title_activity_toolbar" >
-        </activity>
+            android:label="@string/title_activity_toolbar" />
         <activity
             android:name="com.example.bremme.eva_projectg6.Settings"
-            android:label="@string/title_activity_settings" >
-        </activity>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name="com.example.bremme.eva_projectg6.StartChallengeSet"
-            android:label="@string/title_activity_start_challenge_set" >
-        </activity>
+            android:label="@string/title_activity_start_challenge_set" />
+        <activity
+            android:name="com.example.bremme.eva_projectg6.LogIn"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

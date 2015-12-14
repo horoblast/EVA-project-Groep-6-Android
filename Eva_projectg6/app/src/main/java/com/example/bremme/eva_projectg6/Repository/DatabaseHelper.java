@@ -9,6 +9,9 @@ import android.util.Log;
 
 import com.example.bremme.eva_projectg6.domein.Challenge;
 
+import java.io.Console;
+import java.util.List;
+
 
 /**
  * Created by brechttanghe on 2/12/15.
@@ -38,10 +41,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_ALL_CHALLENGES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_COMPLETED_CHALLENGES);
-        db.execSQL("create table " + TABLE_NAME_ALL_CHALLENGES + " (ID TEXT ,NAME TEXT,DESCRIPTION TEXT, DIFFICULTY TEXT, URL STRING, ISSTUDENTFRIENDLY INT, ISCHILDFRIENDLY INT)");
-        db.execSQL("create table " + TABLE_NAME_COMPLETED_CHALLENGES + " (ID TEXT ,NAME TEXT,DESCRIPTION TEXT, DIFFICULTY TEXT, URL STRING)");
+        Log.i("Database me", "Dropping all tables");
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_ALL_CHALLENGES);
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_COMPLETED_CHALLENGES);
+        db.execSQL("create table if not exists " + TABLE_NAME_ALL_CHALLENGES + " (ID TEXT ,NAME TEXT,DESCRIPTION TEXT, DIFFICULTY TEXT, URL STRING, ISSTUDENTFRIENDLY INT, ISCHILDFRIENDLY INT)");
+        db.execSQL("create table if not exists " + TABLE_NAME_COMPLETED_CHALLENGES + " (ID TEXT ,NAME TEXT,DESCRIPTION TEXT, DIFFICULTY TEXT, URL STRING, ISSTUDENTFRIENDLY INT, ISCHILDFRIENDLY INT)");
     }
 
     @Override
@@ -49,10 +53,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_ALL_CHALLENGES);
         onCreate(db);
     }
-
-    public void putCompletedChallengesInDB(Challenge[] challenges){
-        for(int i = 0; i < challenges.length; i++){
-            insertCompletedChallenges(challenges[i]);
+    public void clearCompletedTable()
+    {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_COMPLETED_CHALLENGES);
+        db.execSQL("create table if not exists " + TABLE_NAME_COMPLETED_CHALLENGES + " (ID TEXT ,NAME TEXT,DESCRIPTION TEXT, DIFFICULTY TEXT, URL STRING, ISSTUDENTFRIENDLY INT, ISCHILDFRIENDLY INT)");;
+    }
+    public void putCompletedChallengesInDB(List<Challenge> challenges){
+        for(Challenge c : challenges){
+            insertCompletedChallenges(c);
         }
     }
 
@@ -60,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         for(int i = 0; i < challenges.length; i++){
             inserAllChallenges(challenges[i]);
         }
+
     }
 
     private void inserAllChallenges(Challenge challenge){
@@ -94,11 +103,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getAllData(){
+        Log.i("Get", "AllData getting");
         db = this.getWritableDatabase();
-        Cursor res = getReadableDatabase().rawQuery("select * from " + TABLE_NAME_ALL_CHALLENGES,null);
+       // Cursor cursor = db.rawQuery("select * from " + TABLE_NAME_ALL_CHALLENGES, null);
+       Cursor res = db.rawQuery("select * from " + TABLE_NAME_ALL_CHALLENGES ,null);
         return res;
     }
-
+    public Cursor getCompletedChallenges()
+    {
+        db = this.getWritableDatabase();
+        // Cursor cursor = db.rawQuery("select * from " + TABLE_NAME_ALL_CHALLENGES, null);
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME_COMPLETED_CHALLENGES ,null);
+        return res;
+    }
+    public int getCountData()
+    {
+        return getReadableDatabase().rawQuery("select * from " + TABLE_NAME_ALL_CHALLENGES ,null).getCount();
+    }
 
 
 }

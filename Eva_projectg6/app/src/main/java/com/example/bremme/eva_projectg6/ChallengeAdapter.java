@@ -119,7 +119,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
 
             }
         });
-        if(position!=0){
+        if(!challengeDataSet.get(position).isCurrentChallenge()){
             ImageView completedImage = (ImageView) holder.view.findViewById(R.id.CompletedImage);
             completedImage.setImageResource(R.drawable.completedstamp);
             completedImage.setAlpha(155);
@@ -142,8 +142,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
                 .asString().setCallback(new FutureCallback<String>() {
             @Override
             public void onCompleted(Exception e, String result) {
-
-
+                userLocalStore.clearCurrentChallenge();
             }
         });
     }

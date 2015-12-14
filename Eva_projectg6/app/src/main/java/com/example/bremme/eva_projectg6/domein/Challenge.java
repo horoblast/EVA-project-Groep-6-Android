@@ -14,6 +14,7 @@ public class Challenge {
     private String urlImage;
     private boolean childFriendly;
     private boolean studentFriendly;
+    private boolean isCurrentChallenge = false;
     public Challenge(String id, String name, URL url) {
        setId(id);
        setName(name);
@@ -83,7 +84,10 @@ public class Challenge {
 
     public Difficulty getDifficulty(){return difficulty;}
     public void setDifficulty(Difficulty difficulty){this.difficulty = difficulty;}
-
-
-
+    public boolean isCurrentChallenge() {
+        return isCurrentChallenge;
+    }
+    public void setIsCurrentChallenge(boolean isCurrentChallenge) {
+        this.isCurrentChallenge = isCurrentChallenge;
+    }
 }

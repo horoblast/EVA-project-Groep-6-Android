@@ -65,10 +65,26 @@ public class UserLocalStore {
                 userLocalDatabase.getBoolean("IsStudent",false),
                 userLocalDatabase.getBoolean("HasChildren",false));
         Set<String> stringSet = new TreeSet<>();
-        user.setSuggestionIds(userLocalDatabase.getStringSet("SuggestionIds",stringSet));
-        user.setCompletedIds(userLocalDatabase.getStringSet("CompletedIds",stringSet));
-        user.setUserId(userLocalDatabase.getString("Id",""));
+        user.setSuggestionIds(userLocalDatabase.getStringSet("SuggestionIds", stringSet));
+        user.setCompletedIds(userLocalDatabase.getStringSet("CompletedIds", stringSet));
+        user.setUserId(userLocalDatabase.getString("Id", ""));
         return user;
+    }
+    public void setCurrentChallenge(String id)
+    {
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("CurrentChallenge", id);
+        spEditor.commit();
+    }
+    public void clearCurrentChallenge()
+    {
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("CurrentChallenge","");
+        spEditor.commit();
+    }
+    public String getCurrentChallenge()
+    {
+        return userLocalDatabase.getString("CurrentChallenge","");
     }
     public void clearSuggestions()
     {

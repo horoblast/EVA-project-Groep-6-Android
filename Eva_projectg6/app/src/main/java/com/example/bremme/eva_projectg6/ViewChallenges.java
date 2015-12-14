@@ -2,6 +2,9 @@ package com.example.bremme.eva_projectg6;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +21,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
+import com.example.bremme.eva_projectg6.Repository.DatabaseHelper;
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
+import com.example.bremme.eva_projectg6.domein.AppStatus;
 import com.example.bremme.eva_projectg6.domein.Challenge;
 import com.example.bremme.eva_projectg6.domein.Difficulty;
 import com.example.bremme.eva_projectg6.domein.Gender;
@@ -44,6 +49,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -58,6 +64,7 @@ public class ViewChallenges extends AppCompatActivity {
     private UserLocalStore userLocalStore;
     private Toolbar toolbar;
     private DonutProgress donutProgress;
+    private DatabaseHelper localDb;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
     @Override
@@ -66,10 +73,10 @@ public class ViewChallenges extends AppCompatActivity {
         setContentView(R.layout.activity_view_challenges);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+        localDb = new DatabaseHelper(this);
         shareDialog = new ShareDialog(this);
         // this part is optional
         shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-
             @Override
             public void onSuccess(Sharer.Result result) {
                 goToChooseChallenge();
@@ -87,9 +94,7 @@ public class ViewChallenges extends AppCompatActivity {
         });
         init();
         setAdapterWithChallenges();
-
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -127,6 +132,7 @@ public class ViewChallenges extends AppCompatActivity {
         userLocalStore = new UserLocalStore(this);
         repo = new RestApiRepository();
         challengesDone = new ArrayList<>();
+        Log.i("is login",isNetworkAvailable()+"");
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mlayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mlayoutManager);
@@ -156,66 +162,83 @@ public class ViewChallenges extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         final Set<String> idSet = userLocalStore.getLoggedInUser().getCompletedIds(); //geef uitgevoerde challenges
         idSet.add(bundle.getString("CHALLENGE_ID")); //set id van currentchallenge in alle challenges
+        if(AppStatus.getInstance(this).isOnline())
+        {
+            Ion.with(this)
+                    .load(repo.getUser()).setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                    .setBodyParameter("username", userLocalStore.getUsername())
+                    .asJsonArray()
+                    .setCallback(new FutureCallback<JsonArray>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonArray result) {
+                            try {
+                                StringBuilder stringB = new StringBuilder("[");
+                                if (result.get(0).isJsonObject()) {
+                                    JsonObject j = result.get(0).getAsJsonObject();
+                                    List<String> idChallenges = new ArrayList<String>();
+                                    JsonArray challengesCompleted = j.get("challengescompleted").getAsJsonArray();
+
+                                    String idChallengeCurrent = j.get("currentchallenge").getAsString();
+                                    idChallenges.add(idChallengeCurrent);
+                                    for (int i = 0; i < challengesCompleted.size(); i++) {
+                                        stringB.append("\"");
+                                        idChallenges.add(challengesCompleted.get(i).getAsString());
+                                        stringB.append(challengesCompleted.get(i).getAsString() + "\", ");
+                                    }
+                                    stringB.append("\"");
+                                    stringB.append(idChallengeCurrent);
+                                    stringB.append("\"]");
+                                    String language = getResources().getConfiguration().locale.getLanguage();
+                                    getChallengesByid(stringB.toString(), language, idChallenges);
+                                }
+                            }
+                            catch (Exception er) {
+                                Log.i("no connec","no connection 192/vc");
+                                goToChooseChallenge();
+                            }
+
+                        }
+                    });
+        }else{
+            challengesDone = getLocalChallenges();
+            challengesDone.get(0).setIsCurrentChallenge(true);
+            donutProgress.setProgress((int) calculatePercent(challengesDone.size()));
+            mAdapter = new ChallengeAdapter(challengesDone, this, callbackManager, shareDialog);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+
+
+    }
+
+    private void getChallengesByid(String ids, final String language, final List<String> idSorts) {
+        final Context context = this;
         Ion.with(this)
-                .load(repo.getUser()).setHeader("Authorization", "Bearer " + userLocalStore.getToken())
-                .setBodyParameter("username", userLocalStore.getUsername())
+                    .load(repo.getGETALLCHALLENGESBYLIST())
+                .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
+                .setBodyParameter("ids", ids)
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
                     public void onCompleted(Exception e, JsonArray result) {
                         try {
-
-                            StringBuilder stringB = new StringBuilder("[");
-                            if (result.get(0).isJsonObject()) {
-                                JsonObject j = result.get(0).getAsJsonObject();
-                                List<String> idChallenges = new ArrayList<String>();
-                                JsonArray challengesCompleted = j.get("challengescompleted").getAsJsonArray();
-                                String idChallengeCurrent = j.get("currentchallenge").getAsString();
-
-                                idChallenges.add(idChallengeCurrent);
-                                for(int i =0;i<challengesCompleted.size();i++)
-                                {
-                                    stringB.append("\"");
-                                    idChallenges.add(challengesCompleted.get(i).getAsString());
-                                    stringB.append(challengesCompleted.get(i).getAsString()+"\", ");
-                                }
-                                stringB.append("\"");
-                                stringB.append(idChallengeCurrent);
-                                stringB.append("\"]");
-
-                                String language = getResources().getConfiguration().locale.getLanguage();
-                               getChallengesByid(stringB.toString(),language,idChallenges);
-                                //getChallengeObjects(idChallenges,language);
-                            }
-                        } catch (Exception er) {
-                        }
-
-                    }
-                });
-
-    }
-    private void getChallengesByid(String ids, final String language, final List<String>idSorts)
-    {
-        final Context context = this;
-            Ion.with(this)
-                    .load(repo.getGETALLCHALLENGESBYLIST())
-                    .setHeader("Authorization", "Bearer " + userLocalStore.getToken())
-                    .setBodyParameter("ids", ids)
-                    .asJsonArray()
-                    .setCallback(new FutureCallback<JsonArray>() {
-                        @Override
-                        public void onCompleted(Exception e, JsonArray result) {
                             challengesDone = Arrays.asList(repo.getAllChallenges(result, language));
-                            Log.i("SIZE OF DONE VC.JA", challengesDone.size()+" <-- le size");
+                            Log.i("SIZE OF DONE VC.JA", challengesDone.size() + " <-- le size");
                             sortChallengesDone(idSorts);
+                            challengesDone.get(0).setIsCurrentChallenge(true);
                             donutProgress.setProgress((int) calculatePercent(challengesDone.size()));
                             Log.i("SIZE OF DONE VC.JA 2", challengesDone.size() + " <-- le size");
                             mAdapter = new ChallengeAdapter(challengesDone, context, callbackManager, shareDialog);
                             mRecyclerView.setAdapter(mAdapter);
+                        } catch (Exception err) {
+                            challengesDone = getLocalChallenges();
+                            challengesDone.get(0).setIsCurrentChallenge(true);
+                            mAdapter = new ChallengeAdapter(challengesDone, context, callbackManager, shareDialog);
+                                mRecyclerView.setAdapter(mAdapter);
+                            }
                         }
                     });
-
     }
+
     private void sortChallengesDone(List<String>ids)
     {
         List<Challenge> sortedChallenges = new ArrayList<>();
@@ -230,6 +253,8 @@ public class ViewChallenges extends AppCompatActivity {
                 }
             }
         }
+        localDb.clearCompletedTable();
+        localDb.putCompletedChallengesInDB(sortedChallenges);
         challengesDone = sortedChallenges;
     }
     private double calculatePercent(int i)
@@ -238,8 +263,7 @@ public class ViewChallenges extends AppCompatActivity {
         double x = (v/21) * 100;
         return x;
     }
-    private void goToChooseChallenge()
-    {
+    private void goToChooseChallenge() {
         Intent i = new Intent(this,ChooseChallenge.class);
         this.startActivity(i);
     }
@@ -248,6 +272,49 @@ public class ViewChallenges extends AppCompatActivity {
         Intent i = new Intent(this,LogIn.class);
         startActivity(i);
 
+    }
+    private List<Challenge> getLocalChallenges()
+    {
+        Cursor cursor = localDb.getCompletedChallenges();
+        ArrayList<Challenge> challengesList = new ArrayList<>();
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    Challenge c = new Challenge(cursor.getString(cursor.getColumnIndex("ID")),
+                            cursor.getString(cursor.getColumnIndex("NAME")),
+                            cursor.getString(cursor.getColumnIndex("DESCRIPTION")),
+                            Difficulty.valueOf(cursor.getString(cursor.getColumnIndex("DIFFICULTY"))),
+                            cursor.getString(cursor.getColumnIndex("URL")),
+                            cursor.getInt(cursor.getColumnIndex("ISSTUDENTFRIENDLY"))>0,
+                            cursor.getInt(cursor.getColumnIndex("ISCHILDFRIENDLY"))>0);
+                    challengesList.add(c);
+                } while (cursor.moveToNext());
+            }
+        }
+        cursor.close();
+        return challengesList;
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
 
 }

@@ -85,4 +85,5 @@
     <string name="title_activity_start_challenge_set">StartChallengeSet</string>
     <string name="startChallengeReeks">Neem deel aan de 21-dagen challenge!</string>
     <string name="challengeBut">BEGIN</string>
+    <string name="title_activity_login_redirect">LoginRedirect</string>
 </resources>
