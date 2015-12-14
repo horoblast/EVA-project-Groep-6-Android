@@ -110,7 +110,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.View
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("button", "THE FACKING SIZE OF THE DATASET " + challengeDataSet.size());
+
                 if (challengeDataSet.size() < 21) {
                     showCompleteDialog(challengeDataSet.get(0));
                 } else {
