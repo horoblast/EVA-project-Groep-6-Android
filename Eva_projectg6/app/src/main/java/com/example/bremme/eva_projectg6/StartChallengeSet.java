@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bremme.eva_projectg6.Repository.RestApiRepository;
@@ -37,9 +38,16 @@ public class StartChallengeSet extends AppCompatActivity {
         }else{
             text.setText("user onbekend");
         }
-
-        Button but =(Button) findViewById(R.id.btnChal);
+        ImageView but = (ImageView)findViewById(R.id.logout);
         but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLocalStore.clearUserData();
+                goToLogin();
+            }
+        });
+        Button bute =(Button) findViewById(R.id.btnChal);
+        bute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startUserSeries();
@@ -53,7 +61,12 @@ public class StartChallengeSet extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_start_challenge_set, menu);
         return true;
     }
+    private void goToLogin()
+    {
+        Intent i = new Intent(this,LogIn.class);
+        startActivity(i);
 
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

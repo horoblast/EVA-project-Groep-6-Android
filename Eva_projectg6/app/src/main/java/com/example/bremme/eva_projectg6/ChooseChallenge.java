@@ -389,6 +389,7 @@ public class ChooseChallenge extends AppCompatActivity {
     }
     private void goToViewChallenge(Challenge challenge)
     {
+        Log.i("go to","VIewChallenge");
         Intent intent = new Intent(ChooseChallenge.this, ViewChallenges.class);
         intent.putExtra("CHALLENGE_ID", challenge.getId());
         startActivity(intent);

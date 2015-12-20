@@ -177,13 +177,17 @@ public class ViewChallenges extends AppCompatActivity {
                                     JsonObject j = result.get(0).getAsJsonObject();
                                     List<String> idChallenges = new ArrayList<String>();
                                     JsonArray challengesCompleted = j.get("challengescompleted").getAsJsonArray();
-
                                     String idChallengeCurrent = j.get("currentchallenge").getAsString();
                                     idChallenges.add(idChallengeCurrent);
                                     for (int i = 0; i < challengesCompleted.size(); i++) {
                                         stringB.append("\"");
-                                        idChallenges.add(challengesCompleted.get(i).getAsString());
-                                        stringB.append(challengesCompleted.get(i).getAsString() + "\", ");
+                                        try{
+                                            idChallenges.add(challengesCompleted.get(i).getAsString());
+                                            stringB.append(challengesCompleted.get(i).getAsString() + "\", ");
+                                        }catch(Exception nullException)
+                                        {
+
+                                        }
                                     }
                                     stringB.append("\"");
                                     stringB.append(idChallengeCurrent);
@@ -192,7 +196,7 @@ public class ViewChallenges extends AppCompatActivity {
                                     getChallengesByid(stringB.toString(), language, idChallenges);
                                 }
                             }
-                            catch (Exception er) {
+                           catch (Exception er) {
                                 Log.i("no connec","no connection 192/vc");
                                 goToChooseChallenge();
                             }
